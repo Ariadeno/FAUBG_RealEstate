@@ -4,19 +4,29 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "user", catalog = "aubg")
 public class User {
-
+	
+	@NotNull
 	private String username;
+	@NotNull
 	private String password;
+	@NotNull
 	private String email;
+	@NotNull
 	private String firstName;
+	@NotNull
 	private String lastName;
+	@NotNull
 	private String phone;
+	@NotNull
 	private String address;
+	@NotNull
 	private String city;
+	@NotNull
 	private String zip;
 
 	public User() {

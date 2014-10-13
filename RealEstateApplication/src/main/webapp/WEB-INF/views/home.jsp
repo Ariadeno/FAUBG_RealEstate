@@ -39,8 +39,8 @@
     </div>
   </section>
 <footer>
- <b>Don't have an account?&nbsp;&nbsp;<b>
-<a href="register.jsp"><button type="button">Sign Up</button></a>
+ <b>Don't have an account?&nbsp;&nbsp;</b>
+<a href="register"><button type="button">Sign Up</button></a>
 </footer>
 
 </body>
