@@ -5,28 +5,40 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "user", catalog = "aubg")
 public class User {
 	
 	@NotNull
+	@NotEmpty
 	private String username;
 	@NotNull
+	@NotEmpty
 	private String password;
 	@NotNull
+	@NotEmpty
 	private String email;
 	@NotNull
+	@NotEmpty
 	private String firstName;
 	@NotNull
+	@NotEmpty
 	private String lastName;
 	@NotNull
+	@NotEmpty
 	private String phone;
 	@NotNull
+	@NotEmpty
 	private String address;
 	@NotNull
+	@NotEmpty
 	private String city;
 	@NotNull
+	@NotEmpty
 	private String zip;
 
 	public User() {

@@ -33,6 +33,13 @@ public class UserDaoImpl implements UserDao {
 			return null;
 		}
 	}
+	
+	@Transactional
+	@Override
+	public void addUser(User user) {
+		sessionFactory.getCurrentSession().persist(user);
+	}
+	
 
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;

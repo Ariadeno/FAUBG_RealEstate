@@ -26,9 +26,10 @@ public class RegisterController {
 	public String registerRequest(Model model, @Valid @ModelAttribute("user") User user, BindingResult result){
 		String registrationSuccess = "Registration unsuccesful";
 		
-		if(!result.hasErrors()){
+		if(!result.hasFieldErrors()){
 			registrationSuccess = "Registration successful";
-			registrationSuccess += user.getEmail();
+			registrationSuccess += " " + user.getEmail();
+			userDao.addUser(user);
 		}
 		
 		model.addAttribute("registrationSuccess", registrationSuccess);

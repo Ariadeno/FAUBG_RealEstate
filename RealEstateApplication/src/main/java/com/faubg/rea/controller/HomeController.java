@@ -69,6 +69,7 @@ public class HomeController {
 				model.addAttribute("vUsername", foundUser.getUsername());
 				model.addAttribute("vPassword", foundUser.getPassword());
 				model.addAttribute("vEmail", foundUser.getEmail());
+				model.addAttribute("vAddress", foundUser.getAddress());
 				model.addAttribute("vFirstName", foundUser.getFirstName());
 				model.addAttribute("vLastName", foundUser.getLastName());
 				model.addAttribute("vPhone", foundUser.getPhone());
