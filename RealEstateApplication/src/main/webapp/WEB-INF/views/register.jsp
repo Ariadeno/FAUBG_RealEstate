@@ -55,7 +55,7 @@
 
 				<p>
 					<input type="checkbox" name="terms" id="terms">I agree to
-					the <a class="terms" href=#><u>Terms of Usage</u></a>
+					the terms and conditions. <a class="terms" href=#></a>
 				</p>
 
 
