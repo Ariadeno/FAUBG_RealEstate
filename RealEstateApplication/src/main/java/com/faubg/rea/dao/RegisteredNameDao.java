@@ -12,7 +12,7 @@ import com.faubg.rea.model.RegisteredName;
 import com.faubg.rea.model.User;
 
 @Repository
-public class UserDaoImpl implements UserDao {
+public class RegisteredNameDao {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -20,27 +20,24 @@ public class UserDaoImpl implements UserDao {
 	
 	@SuppressWarnings("unchecked")
 	@Transactional
-	@Override
-	public User findByUsername(String username) {
-		List<User> users = new ArrayList<User>();
+	public RegisteredName findByUsername(String username) {
+		List<RegisteredName> registeredNames = new ArrayList<RegisteredName>();
 
-		users = sessionFactory.getCurrentSession()
-				.createQuery("from User where username=?")
+		registeredNames = sessionFactory.getCurrentSession()
+				.createQuery("from RegisteredName where rn_username=?")
 				.setParameter(0, username).list();
 
-		if (users.size() > 0) {
-			return users.get(0);
+		if (registeredNames.size() > 0) {
+			return registeredNames.get(0);
 		} else {
 			return null;
 		}
 	}
 	
 	@Transactional
-	@Override
-	public void addUser(User user) {
-		sessionFactory.getCurrentSession().persist(user);
+	public void addRegisteredName(RegisteredName registeredName) {
+		sessionFactory.getCurrentSession().persist(registeredName);
 	}
-	
 
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;

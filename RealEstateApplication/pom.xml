@@ -185,4 +185,9 @@
 			</plugin>
 		</plugins>
 	</build>
+	<organization>
+		<name>AUBG</name>
+		<url>http://aubg.moridrin.com/</url>
+	</organization>
+	<url>http://aubg.moridrin.com/</url>
 </project>

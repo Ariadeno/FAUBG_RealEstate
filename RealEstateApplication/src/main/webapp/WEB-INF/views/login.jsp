@@ -20,7 +20,7 @@
     <div class="login">
       <h1>Member Login</h1>
       <form action="loginRequest" method="post" >
-        <p><input type="text" name="username" value="" placeholder="Username or Email"></p>
+        <p><input type="text" name="username" value="" placeholder="Username"></p>
         <p><input type="password" name="password" value="" placeholder="Password"></p>
         <p class="remember_me">
           <label class="first">

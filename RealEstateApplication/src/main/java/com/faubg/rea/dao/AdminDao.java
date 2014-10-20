@@ -8,11 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.faubg.rea.model.Admin;
 import com.faubg.rea.model.RegisteredName;
 import com.faubg.rea.model.User;
 
 @Repository
-public class UserDaoImpl implements UserDao {
+public class AdminDao {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -20,27 +21,24 @@ public class UserDaoImpl implements UserDao {
 	
 	@SuppressWarnings("unchecked")
 	@Transactional
-	@Override
-	public User findByUsername(String username) {
-		List<User> users = new ArrayList<User>();
+	public Admin findByUsername(String username) {
+		List<Admin> admins = new ArrayList<Admin>();
 
-		users = sessionFactory.getCurrentSession()
-				.createQuery("from User where username=?")
+		admins = sessionFactory.getCurrentSession()
+				.createQuery("from Admin where username=?")
 				.setParameter(0, username).list();
 
-		if (users.size() > 0) {
-			return users.get(0);
+		if (admins.size() > 0) {
+			return admins.get(0);
 		} else {
 			return null;
 		}
 	}
 	
 	@Transactional
-	@Override
-	public void addUser(User user) {
-		sessionFactory.getCurrentSession().persist(user);
+	public void addAdmin(Admin admin) {
+		sessionFactory.getCurrentSession().persist(admin);
 	}
-	
 
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;

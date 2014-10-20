@@ -10,16 +10,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.faubg.rea.dao.AdminDao;
 import com.faubg.rea.dao.UserDao;
+import com.faubg.rea.model.Admin;
 import com.faubg.rea.model.User;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
-public class HomeController {
-	
+public class LoginController {
+
 	@Autowired private UserDao userDao;
+	@Autowired private AdminDao adminDao;
 	//private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	/**
@@ -40,22 +43,35 @@ public class HomeController {
 		return "home";
 		*/
 		
-		return "home";
+		//If not signed in, go to login.
+		return login(locale, model);
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(Locale locale, Model model) {
+		return "login";
 	}
 	
 	@RequestMapping(value = "/loginRequest", method = RequestMethod.POST)
 	public String loginRequest(Locale locale, Model model, @RequestParam String username, @RequestParam String password) {
 		
-		String loginSuccess = "The username or password you entered is invalid.";
+		String returnMessage = "The username or password you entered is invalid.";
 		
 		User foundUser = userDao.findByUsername(username);
-		if(foundUser != null){
+		if(foundUser == null){
+			Admin foundAdmin = adminDao.findByUsername(username);
+			if (foundAdmin != null){
+				if(foundAdmin.getPassword().equals(password)){
+					returnMessage = "You have been successfully logged in.";
+				}
+			}
+		} else {
 			if(foundUser.getPassword().equals(password)){
-				loginSuccess = "You have been successfully logged in.";
+				returnMessage = "You have been successfully logged in.";
 			}
 		}
 		
-		model.addAttribute("loginSuccess", loginSuccess);
+		model.addAttribute("loginSuccess", returnMessage);
 		
 		return "loginRequest";
 	}
