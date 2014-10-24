@@ -1,7 +1,8 @@
 package com.faubg.rea.controller;
 
-
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,59 +22,42 @@ import com.faubg.rea.model.User;
 @Controller
 public class LoginController {
 
-	@Autowired private UserDao userDao;
-	@Autowired private AdminDao adminDao;
-	//private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		/*
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "home";
-		*/
-		
-		//If not signed in, go to login.
-		return login(locale, model);
-	}
-	
+	@Autowired
+	private UserDao userDao;
+	@Autowired
+	private AdminDao adminDao;
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Locale locale, Model model) {
 		return "login";
 	}
-	
+
 	@RequestMapping(value = "/loginRequest", method = RequestMethod.POST)
-	public String loginRequest(Locale locale, Model model, @RequestParam String username, @RequestParam String password) {
-		
+	public String loginRequest(Locale locale, Model model,
+			@RequestParam String username, @RequestParam String password,
+			HttpServletRequest request) {
+
 		String returnMessage = "The username or password you entered is invalid.";
-		
+
 		User foundUser = userDao.findByUsername(username);
-		if(foundUser == null){
+		if (foundUser == null) {
 			Admin foundAdmin = adminDao.findByUsername(username);
-			if (foundAdmin != null){
-				if(foundAdmin.getPassword().equals(password)){
+			if (foundAdmin != null) {
+				if (foundAdmin.getPassword().equals(password)) {
 					returnMessage = "You have been successfully logged in.";
+					request.getSession().setAttribute("Account", foundAdmin);
 				}
 			}
 		} else {
-			if(foundUser.getPassword().equals(password)){
+			if (foundUser.getPassword().equals(password)) {
 				returnMessage = "You have been successfully logged in.";
+				model.addAttribute("Account", foundUser);
+				request.setAttribute("Account", foundUser);
 			}
 		}
-		
 		model.addAttribute("loginSuccess", returnMessage);
-		
+
 		return "loginRequest";
 	}
-	
+
 }

@@ -10,15 +10,19 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="refresh" content="2; url=/" />
 <title>Sign up Form</title>
 <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
 </head>
 
 <body>
-	<section class="container">
-		<div class="signup">
+	<section class="containerHeader">
+		<div class="containerBox">
 			<h1>Member login</h1>
 			<P>${loginSuccess}</P>
+			<form action="/" method="get" >
+				<p class="submit"><input type="submit" name="commit" value="Home"/>
+			</form>
 		</div>
 	</section>
 </body>
