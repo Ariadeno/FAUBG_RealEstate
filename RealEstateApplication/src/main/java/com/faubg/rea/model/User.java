@@ -11,7 +11,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "user", catalog = "aubg")
-public class User implements Account {
+public class User {
 	
 	@NotNull
 	@NotEmpty
