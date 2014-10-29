@@ -57,7 +57,7 @@ public class LoginController {
 		}
 		model.addAttribute("loginSuccess", returnMessage);
 
-		return "loginRequest";
+		return "redirect:/";
 	}
 
 }
