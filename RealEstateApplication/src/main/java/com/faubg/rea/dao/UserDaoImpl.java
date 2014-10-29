@@ -7,8 +7,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.faubg.rea.model.RegisteredName;
 import com.faubg.rea.model.User;
 
 @Repository
@@ -16,7 +14,6 @@ public class UserDaoImpl implements UserDao {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
-	
 	
 	@SuppressWarnings("unchecked")
 	@Transactional
@@ -40,7 +37,6 @@ public class UserDaoImpl implements UserDao {
 	public void addUser(User user) {
 		sessionFactory.getCurrentSession().persist(user);
 	}
-	
 
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;

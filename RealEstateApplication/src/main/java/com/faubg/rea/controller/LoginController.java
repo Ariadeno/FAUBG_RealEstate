@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.faubg.rea.dao.AdminDao;
 import com.faubg.rea.dao.UserDao;
@@ -20,6 +21,7 @@ import com.faubg.rea.model.User;
  * Handles requests for the application home page.
  */
 @Controller
+@SessionAttributes("loginSuccessAttr")
 public class LoginController {
 
 	@Autowired
@@ -45,17 +47,17 @@ public class LoginController {
 			if (foundAdmin != null) {
 				if (foundAdmin.getPassword().equals(password)) {
 					returnMessage = "You have been successfully logged in.";
-					request.getSession().setAttribute("Account", foundAdmin);
+					request.getSession().setAttribute("User", foundAdmin);
 				}
 			}
 		} else {
 			if (foundUser.getPassword().equals(password)) {
 				returnMessage = "You have been successfully logged in.";
-				model.addAttribute("Account", foundUser);
-				request.setAttribute("Account", foundUser);
+				model.addAttribute("User", foundUser);
+				request.getSession().setAttribute("User", foundUser);
 			}
 		}
-		model.addAttribute("loginSuccess", returnMessage);
+		model.addAttribute("loginSuccessAttr", returnMessage);
 
 		return "redirect:/";
 	}
