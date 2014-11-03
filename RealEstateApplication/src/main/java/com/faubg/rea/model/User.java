@@ -40,13 +40,16 @@ public class User {
 	@NotNull
 	@NotEmpty
 	private String zip;
+	@NotNull
+	@NotEmpty
+	private boolean isAdmin;
 
 	public User() {
 	}
 
 	public User(String username, String password, String email,
 			String firstName, String lastName, String phone, String address,
-			String city, String zip) {
+			String city, String zip, boolean isAdmin) {
 		this.username = username;
 		this.password = password;
 		this.email = email;
@@ -56,6 +59,7 @@ public class User {
 		this.address = address;
 		this.city = city;
 		this.zip = zip;
+		this.isAdmin = isAdmin;
 	}
 
 	@Id
@@ -138,6 +142,15 @@ public class User {
 
 	public void setZip(String zip) {
 		this.zip = zip;
+	}
+
+	@Column(name = "u_isAdmin", nullable = false)
+	public boolean getIsAdmin() {
+		return isAdmin;
+	}
+
+	public void setIsAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 }
 

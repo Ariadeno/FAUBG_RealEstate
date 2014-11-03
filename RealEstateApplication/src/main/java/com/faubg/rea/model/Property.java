@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name = "property", catalog = "aubg")
 public class Property {
-	
+
 	@NotNull
 	@NotEmpty
 	private String id;
@@ -35,8 +35,8 @@ public class Property {
 	public Property() {
 	}
 
-	public Property(String id, String address, String price,
-			String rental, String area, String description) {
+	public Property(String id, String address, String price, String rental,
+			String area, String description) {
 		this.id = id;
 		this.address = address;
 		this.price = price;
@@ -78,6 +78,11 @@ public class Property {
 		return rental;
 	}
 
+	@Column(name = "p_rental", nullable = false, length = 1)
+	public void setFirstName(String firstName) {
+		rental = firstName;
+	}
+
 	public void setRental(String rental) {
 		this.rental = rental;
 	}
@@ -101,4 +106,3 @@ public class Property {
 	}
 
 }
-
