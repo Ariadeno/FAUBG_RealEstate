@@ -27,9 +27,9 @@
 
                  <nav> 
                         <ul>
-                        <a href=""><li> Home</li></a>
-                        <a href=""><li> Buy</li></a>
-                        <a href=""><li> Rent</li></a>
+                        <a href="#"><li> Home</li></a>
+                        <a href="#"><li> Buy</li></a>
+                        <a href="#"><li> Rent</li></a>
                         <a href="/rea/login"><li id="loginknop"> Login</li> </a>           
                         </ul>
            		 </nav>

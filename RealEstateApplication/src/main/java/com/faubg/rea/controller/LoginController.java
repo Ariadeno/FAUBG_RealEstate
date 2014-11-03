@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.faubg.rea.dao.AdminDao;
 import com.faubg.rea.dao.UserDao;
-import com.faubg.rea.model.Admin;
 import com.faubg.rea.model.User;
 
 /**
@@ -26,8 +24,6 @@ public class LoginController {
 
 	@Autowired
 	private UserDao userDao;
-	@Autowired
-	private AdminDao adminDao;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Locale locale, Model model) {
@@ -42,15 +38,7 @@ public class LoginController {
 		String returnMessage = "The username or password you entered is invalid.";
 
 		User foundUser = userDao.findByUsername(username);
-		if (foundUser == null) {
-			Admin foundAdmin = adminDao.findByUsername(username);
-			if (foundAdmin != null) {
-				if (foundAdmin.getPassword().equals(password)) {
-					returnMessage = "You have been successfully logged in.";
-					request.getSession().setAttribute("User", foundAdmin);
-				}
-			}
-		} else {
+		if (foundUser != null) {
 			if (foundUser.getPassword().equals(password)) {
 				returnMessage = "You have been successfully logged in.";
 				model.addAttribute("User", foundUser);
