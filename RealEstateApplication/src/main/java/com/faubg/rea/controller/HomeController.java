@@ -25,12 +25,12 @@ import com.faubg.rea.controller.HomeController;
 @Controller
 public class HomeController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	/*private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	@Autowired
 	private UserDao userDao;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String login(Locale locale, Model model, HttpServletRequest request, @ModelAttribute("loginSucessAttr") String success) {
 		if (request.getSession().getAttribute("User") != null) {
 			User currentUser = (User) request.getSession().getAttribute("User");
@@ -39,5 +39,30 @@ public class HomeController {
 			logger.info(currentUser.getEmail());
 		}
 		return "home";
-	}
+	}*/
+	
+	@RequestMapping(value="/")
+    public String home() {
+        return "home";
+    }
+	
+	@RequestMapping(value="/login")
+    public String login() {
+        return "login";
+    }
+	
+	@RequestMapping(value="/rent")
+    public String rent() {
+        return "rent";
+    }
+	
+	@RequestMapping(value="/buy")
+    public String buy() {
+        return "buy";
+    }
+	
+	@RequestMapping(value="/contact")
+    public String contact() {
+        return "contact";
+    }
 }
