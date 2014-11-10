@@ -65,4 +65,10 @@ public class HomeController {
     public String contact() {
         return "contact";
     }
+	
+	@RequestMapping(value="/register")
+    public String registerRequest() {
+        return "register";
+    }
+	
 }

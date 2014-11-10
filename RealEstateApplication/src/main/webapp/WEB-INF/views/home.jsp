@@ -5,7 +5,7 @@
             </div>
             
             <div class="zweef" id="tekstvak1">
-            <p> "RealEstate" welcomes you to our comprehensive real estate website. No other site provides more detailed real estate market information for "" than you’ll find here. </p>
+            <p> "RealEstate" welcomes you to our comprehensive real estate website. No other site provides more detailed real estate market information for "" than you will find here. </p>
             </div>
             
             <div class="zweef" id="tekstvak2">

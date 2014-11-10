@@ -1,9 +1,16 @@
 
 body {
-  font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
-background: #0ca3d2;
-color: #404040;
-  
+ 	  font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
+}
+
+#container {
+	  font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
+	background: #0ca3d2;
+	color: #404040;
+	border: 1px solid;
+	border-radius: 3px;
+ 	 border-color: #FFFFFF; 
+ 	 width: 958px; 
 }
 
 .containerHeader {
@@ -28,21 +35,6 @@ color: #404040;
     z-index: -1;
     background: rgba(black, .08);
     border-radius: 4px;
-  }
-
- h1 {
-    margin: -20px -20px 21px;
-    line-height: 40px;
-    font-size: 15px;
-    font-weight: bold;
-    color: #555;
-    text-align: center;
-    text-shadow: 0 1px white;
-    background: #f3f3f3;
-    border-bottom: 1px solid #cfcfcf;
-    border-radius: 3px 3px 0 0;
-    @include linear-gradient(top, whiteffd, #eef2f5);
-    @include box-shadow(0 1px #f5f5f5);
   }
 
 p { margin: 20px 0 0; }
@@ -154,9 +146,10 @@ input[type=submit] {
   input[type=text], input[type=password] { line-height: 34px; }
 }
 
-footer{
-
+#loginFooter{
+		  font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
 	text-align:center;
+	height: 40px;
 	float:center;
 	font-size:1.1em;}
 

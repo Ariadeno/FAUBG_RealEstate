@@ -1,4 +1,4 @@
-   <div id="tekstvak">
+   <div id="container">
             
             <div class="zweef" id="titel">
                 <h2>Contact</h2><hr />

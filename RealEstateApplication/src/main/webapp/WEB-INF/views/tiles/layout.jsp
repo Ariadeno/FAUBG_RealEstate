@@ -9,7 +9,7 @@
       type="text/css" media="screen, projection"></link>
 </head>
 <body>
-<table border="1" cellpadding="2" cellspacing="2" align="center">
+<table border="0" cellpadding="2" cellspacing="1" align="center">
     <tr>
         <td height="30"><tiles:insertAttribute name="header" />
         </td>

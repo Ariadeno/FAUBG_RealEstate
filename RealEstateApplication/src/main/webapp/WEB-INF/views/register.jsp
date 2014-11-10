@@ -14,6 +14,7 @@
 <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
 </head>
 <body>
+<div  id="container">
 	<section class="containerHeader">
 		<div class="containerBox">
 			<h1>Sign Up</h1>
@@ -64,7 +65,7 @@
 			</form>
 		</div>
 	</section>
-
+</div>
 
 </body>
 </html>

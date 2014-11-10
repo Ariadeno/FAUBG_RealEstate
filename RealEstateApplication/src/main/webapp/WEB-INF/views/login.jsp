@@ -17,6 +17,7 @@
 
 </head>
 <body>
+<div  id="container">
 	<section class="containerHeader">
 		<div class="containerBox">
 			<h1>Member Login</h1>
@@ -47,10 +48,10 @@
 			</p>
 		</div>
 	</section>
-	<footer>
-		<b>Don't have an account?&nbsp;&nbsp;</b> <a href="register"><button
+	<div id="loginFooter">
+		<b>Don't have an account?&nbsp;&nbsp;</b> <a href="/rea/register"><button
 				type="button">Sign Up</button></a>
-	</footer>
-
+	</div>
+</div>
 </body>
 </html>
