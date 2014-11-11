@@ -9,7 +9,7 @@
                         <a href="/rea/"><li> Home </li></a>
                         <a href=""><li> Buy </li></a>
                         <a href=""><li> Rent </li></a>
-                        <a href="/rea/login"><li id="loginknop"> Login </li> </a>           
+                        <a href=${AccountUrl }><li id="loginknop"> ${LoginTitle} </li> </a>           
                         </ul>
            		 </nav>
              

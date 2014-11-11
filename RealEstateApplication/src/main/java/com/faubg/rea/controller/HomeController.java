@@ -4,8 +4,6 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +19,6 @@ import com.faubg.rea.controller.HomeController;
 /**
  * Handles requests for the application home page.
  */
-@SessionAttributes("loginSuccessAttr")
 @Controller
 public class HomeController {
 	
@@ -42,13 +39,19 @@ public class HomeController {
 	}*/
 	
 	@RequestMapping(value="/")
-    public String home() {
+    public String home(Model model, HttpServletRequest request) {
+		String loginTitle = "Login";
+		String accountUrl = "/rea/login";
+		if(request.getSession().getAttribute("LoggedIn") != null){
+			Boolean loggedIn = (Boolean)request.getSession().getAttribute("LoggedIn");
+			if(loggedIn){
+				loginTitle = "My Account";
+				accountUrl = "/rea/account";
+			} 
+		}
+		model.addAttribute("LoginTitle", loginTitle);
+		model.addAttribute("AccountUrl", accountUrl);
         return "home";
-    }
-	
-	@RequestMapping(value="/login")
-    public String login() {
-        return "login";
     }
 	
 	@RequestMapping(value="/rent")

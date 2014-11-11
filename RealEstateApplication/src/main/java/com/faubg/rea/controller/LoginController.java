@@ -26,7 +26,20 @@ public class LoginController {
 	private UserDao userDao;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Locale locale, Model model) {
+	public String login(Locale locale, Model model, HttpServletRequest request) {
+		//TEMP
+		String loginTitle = "Login";
+		String accountUrl = "/rea/login";
+		if(request.getSession().getAttribute("LoggedIn") != null){
+			Boolean loggedIn = (Boolean)request.getSession().getAttribute("LoggedIn");
+			if(loggedIn){
+				loginTitle = "My Account";
+				accountUrl = "/rea/account";
+			} 
+		}
+		model.addAttribute("LoginTitle", loginTitle);
+		model.addAttribute("AccountUrl", accountUrl);
+		//TEMP
 		return "login";
 	}
 
@@ -42,11 +55,13 @@ public class LoginController {
 			if (foundUser.getPassword().equals(password)) {
 				returnMessage = "You have been successfully logged in.";
 				model.addAttribute("User", foundUser);
-				request.getSession().setAttribute("User", foundUser);
+				request.getSession().setAttribute("LoggedIn", true);
+				request.getSession().setAttribute("username", foundUser.getUsername());
 			}
 		}
+		
 		model.addAttribute("loginSuccessAttr", returnMessage);
-
+		
 		return "redirect:/";
 	}
 	
