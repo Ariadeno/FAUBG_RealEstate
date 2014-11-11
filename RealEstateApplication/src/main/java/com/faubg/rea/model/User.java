@@ -7,6 +7,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -143,8 +144,9 @@ public class User {
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
-
-	@Column(name = "u_isAdmin", nullable = false)
+	
+	@Column(name = "u_isAdmin", nullable = false, length = 1, columnDefinition = "TINYINT")
+	@Type(type = "org.hibernate.type.NumericBooleanType")
 	public boolean getIsAdmin() {
 		return isAdmin;
 	}
