@@ -21,14 +21,15 @@
   <put-attribute name="body" value="/WEB-INF/views/login.jsp" />
  </definition>
  
+ <!--  
    <definition name="rent" extends="baseLayout">
   <put-attribute name="title" value="Rent" />
-  <put-attribute name="body" value="/WEB-INF/views/page.jsp" />
- </definition>
+  <put-attribute name="body" value="/WEB-INF/views/rent.jsp" />
+ </definition> !-->
  
    <definition name="buy" extends="baseLayout">
   <put-attribute name="title" value="Buy" />
-  <put-attribute name="body" value="/WEB-INF/views/page.jsp" />
+  <put-attribute name="body" value="/WEB-INF/views/buy.jsp" />
  </definition>
  
     <definition name="contact" extends="baseLayout">

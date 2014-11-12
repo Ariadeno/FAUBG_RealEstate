@@ -1,5 +1,6 @@
 package com.faubg.rea.controller;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.faubg.rea.dao.PropertyDao;
 import com.faubg.rea.dao.UserDao;
+import com.faubg.rea.model.Property;
 import com.faubg.rea.model.User;
 import com.faubg.rea.controller.HomeController;
 
@@ -21,6 +24,8 @@ import com.faubg.rea.controller.HomeController;
  */
 @Controller
 public class HomeController {
+	@Autowired
+	private PropertyDao propertyDao;
 	
 	/*private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -38,7 +43,7 @@ public class HomeController {
 		return "home";
 	}*/
 	
-	@RequestMapping(value="/")
+	@RequestMapping(value="/", method = RequestMethod.GET)
     public String home(Model model, HttpServletRequest request) {
 		String loginTitle = "Login";
 		String accountUrl = "/rea/login";
@@ -54,12 +59,14 @@ public class HomeController {
         return "home";
     }
 	
-	@RequestMapping(value="/rent")
-    public String rent() {
+	@RequestMapping(value="/rent", method = RequestMethod.GET)
+    public String rent(Model model, HttpServletRequest request) {
+		List<Property> properties = propertyDao.findAllRentalProperties();
+		model.addAttribute("rentalProperties", properties);
         return "rent";
     }
 	
-	@RequestMapping(value="/buy")
+	@RequestMapping(value="/buy", method = RequestMethod.GET)
     public String buy() {
         return "buy";
     }

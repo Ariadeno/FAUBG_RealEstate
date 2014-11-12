@@ -16,11 +16,11 @@
                         <ul>
                         <li> <a href="/rea/">Home</a></li>
                         <li><a href=""> Buy </a></li>
-                        <li><a href=""> Rent </a></li>
+                        <li><a href="rent"> Rent </a></li>
                         <li id="loginknop">
                         <a href=${AccountUrl }>${LoginTitle}</a>
                         <c:if test = "${LoginTitle == 'My Account'}">
-                        	&nbsp;&nbsp;<a href="/rea/logout">(Logout)</a>
+                        	&nbsp;&nbsp;<a href="logout">(Logout)</a>
                         </c:if>
                         </li>           
                         </ul>
