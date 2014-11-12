@@ -17,7 +17,7 @@
 
 </head>
 <body>
-<div  id="container">
+<div  class="container">
 	<section class="containerHeader">
 		<div class="containerBox">
 			<h1>Member Login</h1>

@@ -47,22 +47,23 @@ public class LoginController {
 	public String loginRequest(Locale locale, Model model,
 			@RequestParam String username, @RequestParam String password,
 			HttpServletRequest request) {
-
-		String returnMessage = "The username or password you entered is invalid.";
-
 		User foundUser = userDao.findByUsername(username);
 		if (foundUser != null) {
 			if (foundUser.getPassword().equals(password)) {
-				returnMessage = "You have been successfully logged in.";
 				model.addAttribute("User", foundUser);
 				request.getSession().setAttribute("LoggedIn", true);
 				request.getSession().setAttribute("username", foundUser.getUsername());
 			}
 		}
-		
-		model.addAttribute("loginSuccessAttr", returnMessage);
-		
 		return "redirect:/";
 	}
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest request) {
+		request.getSession().removeAttribute("LoggedIn");
+		request.getSession().removeAttribute("username");
+		return "redirect:/";
+	}
+	
 	
 }
