@@ -23,8 +23,9 @@ public class Image {
 	public Image(){
 	}
 	
-	public Image(String location){
+	public Image(String location, Property property){
 		this.location = location;
+		this.property = property;
 	}
 	
 	@Id
