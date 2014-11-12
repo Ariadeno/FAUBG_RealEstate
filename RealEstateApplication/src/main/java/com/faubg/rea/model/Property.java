@@ -6,12 +6,14 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -20,8 +22,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Property {
 
 	@NotNull
-	@NotEmpty
-	private String id;
+	private Integer id;
 	@NotNull
 	@NotEmpty
 	private String address;
@@ -29,8 +30,7 @@ public class Property {
 	@NotEmpty
 	private String price;
 	@NotNull
-	@NotEmpty
-	private boolean rental;
+	private Boolean rental;
 	@NotNull
 	@NotEmpty
 	private String area;
@@ -43,7 +43,7 @@ public class Property {
 	public Property() {
 	}
 
-	public Property(String id, String address, String price, boolean rental,
+	public Property(Integer id, String address, String price, Boolean rental,
 			String area, String description) {
 		this.id = id;
 		this.address = address;
@@ -54,12 +54,14 @@ public class Property {
 	}
 
 	@Id
+	@GenericGenerator(name="kaugen" , strategy="increment")
+	@GeneratedValue(generator="kaugen")
 	@Column(name = "p_id", unique = true, nullable = false, length = 11)
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -80,14 +82,20 @@ public class Property {
 	public void setPrice(String price) {
 		this.price = price;
 	}
-
+	
 	@Column(name = "p_rental", nullable = false, length = 1, columnDefinition = "TINYINT")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
-	public boolean isRental() {
+	public Boolean getRental(){
+		return this.rental;
+	}
+	
+	@Column(name = "p_rental", nullable = false, length = 1, columnDefinition = "TINYINT")
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	public Boolean isRental() {
 		return rental;
 	}
 
-	public void setRental(boolean isRental) {
+	public void setRental(Boolean isRental) {
 		rental = isRental;
 	}
 
@@ -100,7 +108,7 @@ public class Property {
 		this.area = area;
 	}
 
-	@Column(name = "p_description", nullable = false, length = 255)
+	@Column(name = "p_description", nullable = false, length = 1000)
 	public String getDescription() {
 		return description;
 	}

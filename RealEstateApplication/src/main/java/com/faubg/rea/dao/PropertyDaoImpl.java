@@ -39,6 +39,12 @@ public class PropertyDaoImpl implements PropertyDao {
 		return properties;
 	}
 	
+	@Transactional
+	@Override
+	public void addProperty(Property property) {
+		sessionFactory.getCurrentSession().persist(property);
+	}
+	
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}

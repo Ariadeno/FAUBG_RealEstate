@@ -17,7 +17,7 @@ public class Image {
 	@NotNull
 	@NotEmpty
 	private String location;
-	
+	@NotNull
 	private Property property;
 	
 	public Image(){
