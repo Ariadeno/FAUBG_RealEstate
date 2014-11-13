@@ -19,16 +19,6 @@
 	<section class="containerHeader">
 			<div class="containerBoxWide">
 			<a>HELLO</a>
-				<c:forEach var="rentalProperty" items="rentalProperties">
-					<h1>${rentalProperty.address}</h1>
-					<p>Price: ${rentalProperty.price }</p>
-					<p>Area: ${rentalProperty.area }</p>
-					<p>Description: ${rentalProperty.description}</p>
-					<c:forEach var="propertyImage" items="images">
-						 <img src=${propertyImage.location } alt="image"> 
-					</c:forEach>
-					<br/>
-				</c:forEach>
 			</div>
 	</section>
 	</div>

@@ -42,7 +42,6 @@ public class User {
 	@NotEmpty
 	private String zip;
 	@NotNull
-	@NotEmpty
 	private boolean isAdmin;
 
 	public User() {
