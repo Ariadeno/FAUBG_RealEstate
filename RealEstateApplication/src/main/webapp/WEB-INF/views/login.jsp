@@ -17,41 +17,41 @@
 
 </head>
 <body>
-<div  class="container">
-	<section class="containerHeader">
-		<div class="containerBox">
-			<h1>Member Login</h1>
-			<form action="loginRequest" method="post">
-				<p>
-					<input type="text" name="username" value="" placeholder="Username">
-				</p>
-				<p>
-					<input type="password" name="password" value=""
-						placeholder="Password">
-				</p>
-				<p class="remember_me">
-					<label class="first"> <input type="checkbox"
-						name="remember_me" id="remember_me"> Remember me on this
-						computer
-					</label>
-				</p>
+	<div class="container">
+		<section class="containerHeader">
+			<div class="containerBox">
+				<h1>Member Login</h1>
+				<form action="loginRequest" method="post">
+					<p>
+						<input type="text" name="username" value="" placeholder="Username">
+					</p>
+					<p>
+						<input type="password" name="password" value=""
+							placeholder="Password">
+					</p>
+					<p class="remember_me">
+						<label class="first"> <input type="checkbox"
+							name="remember_me" id="remember_me"> Remember me on this
+							computer
+						</label>
+					</p>
 
-				<p class="submit">
-					<input type="submit" name="commit" value="Login">
-			</form>
-		</div>
+					<p class="submit">
+						<input type="submit" name="commit" value="Login">
+				</form>
+			</div>
 
-		<div class="login-help">
-			<p>
-				Forgot your password? <a href="index.html">Click here to reset
-					it</a>.
-			</p>
+			<div class="login-help">
+				<p>
+					Forgot your password? <a href="index.html">Click here to reset
+						it</a>.
+				</p>
+			</div>
+		</section>
+		<div id="loginFooter">
+			<b>Don't have an account?&nbsp;&nbsp;</b> <a href="${salary}register"><button
+					type="button">Sign Up</button></a>
 		</div>
-	</section>
-	<div id="loginFooter">
-		<b>Don't have an account?&nbsp;&nbsp;</b> <a href="/rea/register"><button
-				type="button">Sign Up</button></a>
 	</div>
-</div>
 </body>
 </html>

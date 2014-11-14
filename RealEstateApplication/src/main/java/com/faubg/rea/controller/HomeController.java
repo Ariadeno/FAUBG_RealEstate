@@ -19,11 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.faubg.rea.dao.PropertyDao;
-import com.faubg.rea.dao.UserDao;
-import com.faubg.rea.mail.MailMailer;
+import com.faubg.rea.Variables;
+import com.faubg.rea.connections.dao.PropertyDao;
+import com.faubg.rea.connections.dao.UserDao;
 import com.faubg.rea.model.Property;
 import com.faubg.rea.model.User;
+import com.faubg.rea.connections.MailMailer;
 import com.faubg.rea.controller.HomeController;
 
 /**
@@ -31,6 +32,7 @@ import com.faubg.rea.controller.HomeController;
  */
 @Controller
 public class HomeController {
+
 	@Autowired
 	private PropertyDao propertyDao;
 	MailMailer mailMailer;
@@ -39,33 +41,16 @@ public class HomeController {
 		this.mailMailer = mailMailer;
 	}
 
-	/*
-	 * private static final Logger logger =
-	 * LoggerFactory.getLogger(HomeController.class);
-	 * 
-	 * @Autowired private UserDao userDao;
-	 * 
-	 * @RequestMapping(value = "/home", method = RequestMethod.GET) public
-	 * String login(Locale locale, Model model, HttpServletRequest request,
-	 * 
-	 * @ModelAttribute("loginSucessAttr") String success) { if
-	 * (request.getSession().getAttribute("User") != null) { User currentUser =
-	 * (User) request.getSession().getAttribute("User");
-	 * model.addAttribute("accountEmail", currentUser.getEmail());
-	 * logger.info(success); logger.info(currentUser.getEmail()); } return
-	 * "home"; }
-	 */
-
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model, HttpServletRequest request) {
 		String loginTitle = "Login";
-		String accountUrl = "/rea/login";
+		String accountUrl = Variables.ROOT_DIR + "login";
 		if (request.getSession().getAttribute("LoggedIn") != null) {
 			Boolean loggedIn = (Boolean) request.getSession().getAttribute(
 					"LoggedIn");
 			if (loggedIn) {
 				loginTitle = "My Account";
-				accountUrl = "/rea/account";
+				accountUrl = Variables.ROOT_DIR + "account";
 			}
 		}
 		model.addAttribute("LoginTitle", loginTitle);

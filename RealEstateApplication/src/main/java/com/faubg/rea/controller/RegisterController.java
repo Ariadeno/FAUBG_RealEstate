@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.faubg.rea.dao.UserDao;
-import com.faubg.rea.mail.MailMailer;
+import com.faubg.rea.connections.MailMailer;
+import com.faubg.rea.connections.dao.UserDao;
 import com.faubg.rea.model.User;
 
 @Controller

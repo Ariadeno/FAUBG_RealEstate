@@ -1,4 +1,4 @@
-package com.faubg.rea.mail;
+package com.faubg.rea.connections;
 
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;

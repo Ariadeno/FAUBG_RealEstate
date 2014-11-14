@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.faubg.rea.dao.UserDao;
+import com.faubg.rea.Variables;
+import com.faubg.rea.connections.dao.UserDao;
 import com.faubg.rea.model.User;
 
 /**
@@ -21,25 +22,26 @@ import com.faubg.rea.model.User;
 @Controller
 @SessionAttributes("loginSuccessAttr")
 public class LoginController {
-
+	
 	@Autowired
 	private UserDao userDao;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Locale locale, Model model, HttpServletRequest request) {
-		//TEMP
+		// TEMP
 		String loginTitle = "Login";
-		String accountUrl = "/rea/login";
-		if(request.getSession().getAttribute("LoggedIn") != null){
-			Boolean loggedIn = (Boolean)request.getSession().getAttribute("LoggedIn");
-			if(loggedIn){
+		String accountUrl = "login";
+		if (request.getSession().getAttribute("LoggedIn") != null) {
+			Boolean loggedIn = (Boolean) request.getSession().getAttribute(
+					"LoggedIn");
+			if (loggedIn) {
 				loginTitle = "My Account";
-				accountUrl = "/rea/account";
-			} 
+				accountUrl = Variables.ROOT_DIR + "account";
+			}
 		}
 		model.addAttribute("LoginTitle", loginTitle);
 		model.addAttribute("AccountUrl", accountUrl);
-		//TEMP
+		// TEMP
 		return "login";
 	}
 
@@ -52,18 +54,18 @@ public class LoginController {
 			if (foundUser.getPassword().equals(password)) {
 				model.addAttribute("User", foundUser);
 				request.getSession().setAttribute("LoggedIn", true);
-				request.getSession().setAttribute("username", foundUser.getUsername());
+				request.getSession().setAttribute("username",
+						foundUser.getUsername());
 			}
 		}
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request) {
 		request.getSession().removeAttribute("LoggedIn");
 		request.getSession().removeAttribute("username");
 		return "redirect:/";
 	}
-	
-	
+
 }

@@ -16,9 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.faubg.rea.dao.ImageDao;
-import com.faubg.rea.dao.PropertyDao;
-import com.faubg.rea.dao.UserDao;
+import com.faubg.rea.Variables;
+import com.faubg.rea.connections.dao.ImageDao;
+import com.faubg.rea.connections.dao.PropertyDao;
+import com.faubg.rea.connections.dao.UserDao;
 import com.faubg.rea.model.Image;
 import com.faubg.rea.model.Property;
 import com.faubg.rea.model.User;
@@ -39,13 +40,13 @@ public class AccountController {
 	public String login(Locale locale, Model model, HttpServletRequest request) {
 		//TEMP
 		String loginTitle = "Login";
-		String accountUrl = "/rea/login";
+		String accountUrl = Variables.ROOT_DIR + "login";
 		User user;
 		if(request.getSession().getAttribute("LoggedIn") != null){
 			Boolean loggedIn = (Boolean)request.getSession().getAttribute("LoggedIn");
 			if(loggedIn){
 				loginTitle = "My Account";
-				accountUrl = "/rea/account";
+				accountUrl = Variables.ROOT_DIR + "account";
 				String username = (String)request.getSession().getAttribute("username");
 				user = userDao.findByUsername(username);
 				model.addAttribute("User", user);

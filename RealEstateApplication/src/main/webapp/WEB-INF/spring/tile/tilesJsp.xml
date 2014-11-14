@@ -21,6 +21,11 @@
   <put-attribute name="body" value="/WEB-INF/views/login.jsp" />
  </definition>
  
+  <definition name="upload" extends="baseLayout">
+  <put-attribute name="title" value="Upload" />
+  <put-attribute name="body" value="/WEB-INF/views/upload.jsp" />
+ </definition>
+ 
  <!--  
    <definition name="rent" extends="baseLayout">
   <put-attribute name="title" value="Rent" />
