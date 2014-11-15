@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.faubg.rea.Variables;
-import com.faubg.rea.connections.dao.PropertyDao;
-import com.faubg.rea.connections.dao.UserDao;
 import com.faubg.rea.model.Property;
 import com.faubg.rea.model.User;
 import com.faubg.rea.connections.MailMailer;
 import com.faubg.rea.controller.HomeController;
+import com.faubg.rea.dao.PropertyDao;
+import com.faubg.rea.dao.UserDao;
 
 /**
  * Handles requests for the application home page.

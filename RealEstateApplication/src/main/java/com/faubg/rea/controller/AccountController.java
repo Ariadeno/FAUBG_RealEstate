@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.faubg.rea.Variables;
-import com.faubg.rea.connections.dao.ImageDao;
-import com.faubg.rea.connections.dao.PropertyDao;
-import com.faubg.rea.connections.dao.PropertyDaoImpl;
-import com.faubg.rea.connections.dao.UserDao;
+import com.faubg.rea.dao.ImageDao;
+import com.faubg.rea.dao.PropertyDao;
+import com.faubg.rea.dao.PropertyDaoImpl;
+import com.faubg.rea.dao.UserDao;
 import com.faubg.rea.model.Image;
 import com.faubg.rea.model.Property;
 import com.faubg.rea.model.User;
@@ -58,7 +58,7 @@ public class AccountController {
 	@RequestMapping(value = "/adminPanel/editProperty", method = RequestMethod.GET)
 	public String editProperty(Model model, HttpServletRequest request, @RequestParam(required = true, value = "id") Integer id) {
 		Check.Login(model, request);
-		Property property = propertyDao.findProprtyByID(id);
+		Property property = propertyDao.findPropertyByID(id);
 		model.addAttribute("property", property.toEditHTML());
 		return "editProperty";
 	}

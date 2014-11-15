@@ -1,4 +1,4 @@
-package com.faubg.rea.connections.dao;
+package com.faubg.rea.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +59,7 @@ public class PropertyDaoImpl implements PropertyDao {
 	@SuppressWarnings("unchecked")
 	@Transactional
 	@Override
-	public Property findProprtyByID(Integer id) {
+	public Property findPropertyByID(Integer id) {
 		List<Property> properties = new ArrayList<Property>();
 		properties = sessionFactory.getCurrentSession().createQuery("from Property where id is " + id).list();
 		return properties.get(0);

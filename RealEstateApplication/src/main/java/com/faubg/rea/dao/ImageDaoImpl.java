@@ -1,4 +1,4 @@
-package com.faubg.rea.connections.dao;
+package com.faubg.rea.dao;
 
 import java.util.ArrayList;
 import java.util.List;
