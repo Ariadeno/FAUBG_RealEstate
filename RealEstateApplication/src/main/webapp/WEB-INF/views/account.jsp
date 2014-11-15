@@ -15,9 +15,10 @@
 <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
 </head>
 <body>
+	<c:if test="${LoginTitle == 'My Account'}">
 	<div class="container">
 	<section class="containerHeader">
-			<div class="containerBoxWide">
+			<div class="containerBox">
 				<h1>Account details</h1>
 				<p>First Name:${User.firstName}</p>
 				<p>Last Name:${User.lastName}</p>
@@ -27,52 +28,16 @@
 				<p>Address:${User.address }</p>
 				<p>City:${User.city }</p>
 				<p>Zip:${User.zip }</p>
-				<c:if test = "${User.isAdmin eq true}">
-					<br/>
-					<h1>Admin panel</h1>
-					
-					<h3>Add property</h3>
-						<form method="post" action="account/addProperty">
-							<p>
-								<input type="text" name="address" value="" placeholder="Address">
-							</p>
-							<p>
-								<input type="text" name="price" value="" placeholder="Price">
-							</p>
-							<p>
-								<input type="text" name="area" value=""
-									placeholder="Area">
-							</p>
-							<p>
-								<input type="text" name="description" value="" placeholder="Description">
-							</p>
-							<p>
-								<input type="checkbox" name = "rental" id="terms">Rental property<a class="terms" href=#></a>
-							</p>
-							
-							<p>
-								<input type="text" name="images" value="" placeholder="Image 1">
-							</p>
-							
-							<p>
-								<input type="text" name="images" value="" placeholder="Image 2">
-							</p>
-							
-							<p>
-								<input type="text" name="images" value="" placeholder="Image 3">
-							</p>
-							
-							<p class="submit">
-								<input type="submit" name="commit" value="Submit">
-							</p>
-					</form>
-					
-					<c:out value="${param.images}" default="Nope - nothing"/>
-					
-					
-				</c:if>
 			</div>
 	</section>
 	</div>
+	</c:if>
+	<c:if test="${LoginTitle == 'Login'}">
+		<div class="container">
+			<section class="containerHeader">
+				<div class="containerBox">You have no access to this page!</div>
+			</section>
+		</div>
+	</c:if>
 </body>
 </html>

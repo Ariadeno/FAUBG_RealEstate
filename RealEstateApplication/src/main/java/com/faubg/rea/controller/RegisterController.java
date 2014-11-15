@@ -1,5 +1,6 @@
 package com.faubg.rea.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -27,15 +28,14 @@ public class RegisterController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public String register(Model model) {
+	public String register(Model model, HttpServletRequest request) {
+		Check.Login(model, request);
 		return "register";
 	}
 
 	@RequestMapping(value = "/registerRequest", method = RequestMethod.POST)
-	public String registerRequest(Model model,
-			@Valid @ModelAttribute("user") User user, BindingResult result) {
+	public String registerRequest(Model model, @Valid @ModelAttribute("user") User user, BindingResult result) {
 		String registrationMessage = "Registration unsuccesful";
-
 		if (!result.hasFieldErrors()) {
 			try {
 				userDao.addUser(user);

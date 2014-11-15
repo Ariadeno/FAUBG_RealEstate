@@ -3,54 +3,63 @@
         "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
- <definition name="baseLayout" template="/WEB-INF/views/tiles/layout.jsp">
-  <put-attribute name="title" value="Sample Title" />
-  <put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp" />
-  <put-attribute name="menu" value="/WEB-INF/views/tiles/menu.jsp" />
-  <put-attribute name="body" value="" />
-  <put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp" />
- </definition>
+	<definition name="baseLayout" template="/WEB-INF/views/tiles/layout.jsp">
+		<put-attribute name="title" value="Sample Title" />
+		<put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/views/tiles/menu.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp" />
+	</definition>
 
- <definition name="home" extends="baseLayout">
-  <put-attribute name="title" value="Home" />
-  <put-attribute name="body" value="/WEB-INF/views/home.jsp" />
- </definition>
- 
-  <definition name="login" extends="baseLayout">
-  <put-attribute name="title" value="Login" />
-  <put-attribute name="body" value="/WEB-INF/views/login.jsp" />
- </definition>
- 
-  <definition name="upload" extends="baseLayout">
-  <put-attribute name="title" value="Upload" />
-  <put-attribute name="body" value="/WEB-INF/views/upload.jsp" />
- </definition>
- 
- <!--  
-   <definition name="rent" extends="baseLayout">
-  <put-attribute name="title" value="Rent" />
-  <put-attribute name="body" value="/WEB-INF/views/rent.jsp" />
- </definition> !-->
- 
-   <definition name="buy" extends="baseLayout">
-  <put-attribute name="title" value="Buy" />
-  <put-attribute name="body" value="/WEB-INF/views/buy.jsp" />
- </definition>
- 
-    <definition name="contact" extends="baseLayout">
-  <put-attribute name="title" value="Contact" />
-  <put-attribute name="body" value="/WEB-INF/views/contact.jsp" />
- </definition>
- 
-     <definition name="register" extends="baseLayout">
-  <put-attribute name="title" value="Register" />
-  <put-attribute name="body" value="/WEB-INF/views/register.jsp" />
- </definition>
- 
- <definition name="account" extends="baseLayout">
-  <put-attribute name="title" value="Account" />
-  <put-attribute name="body" value="/WEB-INF/views/account.jsp" />
- </definition>
- 
- 
+	<definition name="home" extends="baseLayout">
+		<put-attribute name="title" value="Home" />
+		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
+	</definition>
+
+	<definition name="login" extends="baseLayout">
+		<put-attribute name="title" value="Login" />
+		<put-attribute name="body" value="/WEB-INF/views/login.jsp" />
+	</definition>
+
+	<definition name="upload" extends="baseLayout">
+		<put-attribute name="title" value="Upload" />
+		<put-attribute name="body" value="/WEB-INF/views/upload.jsp" />
+	</definition>
+
+	<definition name="adminPanel" extends="baseLayout">
+		<put-attribute name="title" value="AdminPanel" />
+		<put-attribute name="body" value="/WEB-INF/views/adminPanel.jsp" />
+	</definition>
+
+	<definition name="buy" extends="baseLayout">
+		<put-attribute name="title" value="Buy" />
+		<put-attribute name="body" value="/WEB-INF/views/buy.jsp" />
+	</definition>
+
+	<definition name="rent" extends="baseLayout">
+		<put-attribute name="title" value="Account" />
+		<put-attribute name="body" value="/WEB-INF/views/rent.jsp" />
+	</definition>
+
+	<definition name="contact" extends="baseLayout">
+		<put-attribute name="title" value="Contact" />
+		<put-attribute name="body" value="/WEB-INF/views/contact.jsp" />
+	</definition>
+
+	<definition name="register" extends="baseLayout">
+		<put-attribute name="title" value="Register" />
+		<put-attribute name="body" value="/WEB-INF/views/register.jsp" />
+	</definition>
+
+	<definition name="account" extends="baseLayout">
+		<put-attribute name="title" value="Account" />
+		<put-attribute name="body" value="/WEB-INF/views/account.jsp" />
+	</definition>
+
+	<definition name="editProperty" extends="baseLayout">
+		<put-attribute name="title" value="EditProperty" />
+		<put-attribute name="body" value="/WEB-INF/views/editProperty.jsp" />
+	</definition>
+
+
 </tiles-definitions>  

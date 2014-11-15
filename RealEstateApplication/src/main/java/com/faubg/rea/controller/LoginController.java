@@ -22,40 +22,25 @@ import com.faubg.rea.model.User;
 @Controller
 @SessionAttributes("loginSuccessAttr")
 public class LoginController {
-	
+
 	@Autowired
 	private UserDao userDao;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Locale locale, Model model, HttpServletRequest request) {
-		// TEMP
-		String loginTitle = "Login";
-		String accountUrl = "login";
-		if (request.getSession().getAttribute("LoggedIn") != null) {
-			Boolean loggedIn = (Boolean) request.getSession().getAttribute(
-					"LoggedIn");
-			if (loggedIn) {
-				loginTitle = "My Account";
-				accountUrl = Variables.ROOT_DIR + "account";
-			}
-		}
-		model.addAttribute("LoginTitle", loginTitle);
-		model.addAttribute("AccountUrl", accountUrl);
-		// TEMP
+		Check.Login(model, request);
 		return "login";
 	}
 
 	@RequestMapping(value = "/loginRequest", method = RequestMethod.POST)
-	public String loginRequest(Locale locale, Model model,
-			@RequestParam String username, @RequestParam String password,
-			HttpServletRequest request) {
+	public String loginRequest(Locale locale, Model model, @RequestParam String username, @RequestParam String password, HttpServletRequest request) {
 		User foundUser = userDao.findByUsername(username);
 		if (foundUser != null) {
 			if (foundUser.getPassword().equals(password)) {
 				model.addAttribute("User", foundUser);
 				request.getSession().setAttribute("LoggedIn", true);
-				request.getSession().setAttribute("username",
-						foundUser.getUsername());
+				request.getSession().setAttribute("username", foundUser.getUsername());
+				request.getSession().setAttribute("User", foundUser);
 			}
 		}
 		return "redirect:/";
@@ -65,6 +50,7 @@ public class LoginController {
 	public String logout(HttpServletRequest request) {
 		request.getSession().removeAttribute("LoggedIn");
 		request.getSession().removeAttribute("username");
+		request.getSession().removeAttribute("User");
 		return "redirect:/";
 	}
 

@@ -1,5 +1,7 @@
 package com.faubg.rea.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.faubg.rea.Variables;
 import com.faubg.rea.connections.dao.ImageDao;
 import com.faubg.rea.connections.dao.PropertyDao;
+import com.faubg.rea.connections.dao.PropertyDaoImpl;
 import com.faubg.rea.connections.dao.UserDao;
 import com.faubg.rea.model.Image;
 import com.faubg.rea.model.Property;
@@ -26,51 +29,70 @@ import com.faubg.rea.model.User;
 
 @Controller
 public class AccountController {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
-	
+
 	@Autowired
 	private UserDao userDao;
 	@Autowired
 	private PropertyDao propertyDao;
 	@Autowired
 	private ImageDao imageDao;
-	
+	private List<Property> propertyList;
+
 	@RequestMapping(value = "/account", method = RequestMethod.GET)
 	public String login(Locale locale, Model model, HttpServletRequest request) {
-		//TEMP
-		String loginTitle = "Login";
-		String accountUrl = Variables.ROOT_DIR + "login";
-		User user;
-		if(request.getSession().getAttribute("LoggedIn") != null){
-			Boolean loggedIn = (Boolean)request.getSession().getAttribute("LoggedIn");
-			if(loggedIn){
-				loginTitle = "My Account";
-				accountUrl = Variables.ROOT_DIR + "account";
-				String username = (String)request.getSession().getAttribute("username");
-				user = userDao.findByUsername(username);
-				model.addAttribute("User", user);
-			}
-		}
-		model.addAttribute("LoginTitle", loginTitle);
-		model.addAttribute("AccountUrl", accountUrl);
-		//TEMP
+		Check.Login(model, request);
 		return "account";
 	}
-	
-	@RequestMapping(value = "/account/addProperty", method = RequestMethod.POST)
-	public String addProperty(@RequestParam(required=false, value="rental") Boolean rental, Model model, HttpServletRequest request, @Valid @ModelAttribute("property") Property property, BindingResult result) {
+
+	@RequestMapping(value = "/adminPanel", method = RequestMethod.GET)
+	public String adminPanel(Locale locale, Model model, HttpServletRequest request) {
+		Check.Login(model, request);
+		List<Property> properties = propertyDao.findAllRentalProperties();
+		properties.addAll(propertyDao.findAllResaleProperties());
+		model.addAttribute("properties", properties);
+		return "adminPanel";
+	}
+
+	@RequestMapping(value = "/adminPanel/editProperty", method = RequestMethod.GET)
+	public String editProperty(Model model, HttpServletRequest request, @RequestParam(required = true, value = "id") Integer id) {
+		Check.Login(model, request);
+		Property property = propertyDao.findProprtyByID(id);
+		model.addAttribute("property", property.toEditHTML());
+		return "editProperty";
+	}
+
+	@RequestMapping(value = "/adminPanel/updateProperty", method = RequestMethod.POST)
+	public String updateProperty(Model model, @Valid @ModelAttribute("property") Property property, BindingResult result) {
+		if (!result.hasFieldErrors()) {
+			propertyDao.saveProperty(property);
+		}
+		return "redirect:/adminPanel";
+	}
+
+	@RequestMapping(value = "/adminPanel/addProperty", method = RequestMethod.POST)
+	public String addProperty(@RequestParam(required = false, value = "rental") Boolean rental, Model model, HttpServletRequest request,
+			@Valid @ModelAttribute("property") Property property, BindingResult result) {
 		Boolean ticked;
 		ticked = (rental == null) ? false : true;
 		property.setRental(ticked);
 		propertyDao.addProperty(property);
 		String[] values = request.getParameterValues("images");
-		for(String value : values){
-			if(!value.isEmpty()){
+		for (String value : values) {
+			if (!value.isEmpty()) {
 				Image image = new Image(value, property);
 				imageDao.addImage(image);
 			}
 		}
-		return "redirect:/account";
+		return "redirect:/adminPanel";
+	}
+
+	public List<Property> getPropertyList() {
+		return propertyList;
+	}
+
+	public void setPropertyList(List<Property> propertyList) {
+		this.propertyList = propertyList;
 	}
 }

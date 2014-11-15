@@ -5,7 +5,7 @@
             <h1> Contact </h1>
             
            	<ul>
-            <a href="/rea/contact"><li> Contact </li> </a>
+            <a href="${ROOT_DIR}contact"><li> Contact </li> </a>
             </ul>
             </section>
             
@@ -14,10 +14,10 @@
             <h1> SiteMap </h1>
             
             <ul>
-            <a href="/rea/"><li> Home</li> </a>
+            <a href="${ROOT_DIR}"><li> Home</li> </a>
             <a href=""> <li> Buy </li></a>
             <a href=""><li> Rent</li> </a>
-            <a href="/rea/login"> <li> Login </li></a>
+            <a href="${ROOT_DIR}login"> <li> Login </li></a>
             </ul>
             </section>
             

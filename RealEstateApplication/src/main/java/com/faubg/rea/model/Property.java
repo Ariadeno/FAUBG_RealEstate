@@ -37,14 +37,13 @@ public class Property {
 	@NotNull
 	@NotEmpty
 	private String description;
-	
+
 	private Set<Image> images = new HashSet<Image>(0);
-	
+
 	public Property() {
 	}
 
-	public Property(Integer id, String address, String price, Boolean rental,
-			String area, String description) {
+	public Property(Integer id, String address, String price, Boolean rental, String area, String description) {
 		this.id = id;
 		this.address = address;
 		this.price = price;
@@ -54,8 +53,8 @@ public class Property {
 	}
 
 	@Id
-	@GenericGenerator(name="kaugen" , strategy="increment")
-	@GeneratedValue(generator="kaugen")
+	@GenericGenerator(name = "kaugen", strategy = "increment")
+	@GeneratedValue(generator = "kaugen")
 	@Column(name = "p_id", unique = true, nullable = false, length = 11)
 	public Integer getId() {
 		return id;
@@ -82,13 +81,13 @@ public class Property {
 	public void setPrice(String price) {
 		this.price = price;
 	}
-	
+
 	@Column(name = "p_rental", nullable = false, length = 1, columnDefinition = "TINYINT")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
-	public Boolean getRental(){
+	public Boolean getRental() {
 		return this.rental;
 	}
-	
+
 	@Column(name = "p_rental", nullable = false, length = 1, columnDefinition = "TINYINT")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	public Boolean isRental() {
@@ -116,14 +115,58 @@ public class Property {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "property")
-	public Set<Image> getImages(){
+	public Set<Image> getImages() {
 		return this.images;
 	}
-	
-	public void setImages(Set<Image> images){
+
+	public void setImages(Set<Image> images) {
 		this.images = images;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder htmlBuilder = new StringBuilder();
+		htmlBuilder.append("<div><input type='hidden' name='id' value='").append(id).append("' /><h1>").append(address).append("</h1>");
+		htmlBuilder.append("Description: <i>").append(description).append("</i><br />");
+		htmlBuilder.append("Area: ").append(area).append("<br />");
+		if (rental) {
+			htmlBuilder.append("Rental: Yes<br />");
+		} else {
+			htmlBuilder.append("Rental: No<br />");
+		}
+		htmlBuilder.append("Price: ").append(price).append("<br /></div>");
+		return htmlBuilder.toString();
+	}
+
+	public String toEditHTML() {
+		/*
+		 * <table style="width:100%">
+  <tr>
+    <td>Jill</td>
+    <td>Smith</td> 
+    <td>50</td>
+  </tr>
+  <tr>
+    <td>Eve</td>
+    <td>Jackson</td> 
+    <td>94</td>
+  </tr>
+</table>
+		 */
+		StringBuilder htmlBuilder = new StringBuilder();
+		htmlBuilder.append("<form action='updateProperty' method='post'><input type='hidden' name='id' value='").append(id).append("' /><h1>").append(address).append("</h1>");
+		htmlBuilder.append("<table><tr><td>Address:</td><td><input type='text' name='address' value='").append(address).append("' plaeholder='Address'></td></tr>");
+		htmlBuilder.append("<tr><td>Description: </td><td><textarea rows='4' cols='50' name='description'>").append(description).append("</textarea></td></tr>");
+		htmlBuilder.append("<tr><td>Area: </td><td><input type='text' name='area' value='").append(area).append("' plaeholder='Area'></td></tr>");
+		if (rental) {
+			htmlBuilder.append("<tr><td>Rental: </td><td><input type='checkbox' name='rental' id='rental' checked='true'></td></tr>");
+		} else {
+			htmlBuilder.append("<tr><td>Rental: </td><td><input type='checkbox' name='rental' id='rental' checked='false'></td></tr>");
+		}
+		htmlBuilder.append("<tr><td>Price: </td><td><input type='text' name='price' value='").append(price).append("' plaeholder='Price'></td></tr></table><input type='submit' name='commit' value='Update'></form>");
+		return htmlBuilder.toString();
 	}
 
 }

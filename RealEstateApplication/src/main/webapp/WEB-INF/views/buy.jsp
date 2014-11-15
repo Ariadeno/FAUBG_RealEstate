@@ -11,18 +11,18 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Rent</title>
+<title>Buy</title>
 <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
 </head>
 <body>
 	<div class="container">
 		<section class="containerHeader">
 			<div class="containerBox">
-				<c:if test="${not empty rentalProperties}">
-						<c:forEach var="listValue" items="${rentalProperties}">
+				<c:if test="${not empty buyProperties}">
+						<c:forEach var="listValue" items="${buyProperties}">
 							${listValue}
 							<c:if test="${LoginTitle == 'My Account'}">
-								<input type="submit" name="commit" value="Rent me!">
+								<input type="submit" name="commit" value="Buy me!">
 							</c:if>
 						</c:forEach>
 				</c:if>

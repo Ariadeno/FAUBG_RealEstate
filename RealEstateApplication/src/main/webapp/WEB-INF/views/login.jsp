@@ -19,7 +19,7 @@
 <body>
 	<div class="container">
 		<section class="containerHeader">
-			<div class="containerBox">
+			<div class="containerBoxSmall">
 				<h1>Member Login</h1>
 				<form action="loginRequest" method="post">
 					<p>
@@ -30,8 +30,8 @@
 							placeholder="Password">
 					</p>
 					<p class="remember_me">
-						<label class="first"> <input type="checkbox"
-							name="remember_me" id="remember_me"> Remember me on this
+						<label class="first"> <input type="checkbox" name="remember_me"
+							id="remember_me"> Remember me on this
 							computer
 						</label>
 					</p>
@@ -48,8 +48,9 @@
 				</p>
 			</div>
 		</section>
+		
 		<div id="loginFooter">
-			<b>Don't have an account?&nbsp;&nbsp;</b> <a href="${salary}register"><button
+			<b>Don't have an account?&nbsp;&nbsp;</b> <a href="${ROOT_DIR}register"><button
 					type="button">Sign Up</button></a>
 		</div>
 	</div>

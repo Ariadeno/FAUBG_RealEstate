@@ -43,40 +43,35 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model, HttpServletRequest request) {
-		String loginTitle = "Login";
-		String accountUrl = Variables.ROOT_DIR + "login";
-		if (request.getSession().getAttribute("LoggedIn") != null) {
-			Boolean loggedIn = (Boolean) request.getSession().getAttribute(
-					"LoggedIn");
-			if (loggedIn) {
-				loginTitle = "My Account";
-				accountUrl = Variables.ROOT_DIR + "account";
-			}
-		}
-		model.addAttribute("LoginTitle", loginTitle);
-		model.addAttribute("AccountUrl", accountUrl);
+		Check.Login(model, request);
 		return "home";
 	}
-
+	
 	@RequestMapping(value = "/rent", method = RequestMethod.GET)
 	public String rent(Model model, HttpServletRequest request) {
+		Check.Login(model, request);
 		List<Property> properties = propertyDao.findAllRentalProperties();
 		model.addAttribute("rentalProperties", properties);
 		return "rent";
 	}
 
 	@RequestMapping(value = "/buy", method = RequestMethod.GET)
-	public String buy() {
+	public String buy(Model model, HttpServletRequest request) {
+		Check.Login(model, request);
+		List<Property> properties = propertyDao.findAllResaleProperties();
+		model.addAttribute("buyProperties", properties);
 		return "buy";
 	}
 
 	@RequestMapping(value = "/contact")
-	public String contact() {
+	public String contact(Model model, HttpServletRequest request) {
+		Check.Login(model, request);
 		return "contact";
 	}
 
 	@RequestMapping(value = "/register")
-	public String registerRequest() {
+	public String registerRequest(Model model, HttpServletRequest request) {
+		Check.Login(model, request);
 		return "register";
 	}
 
