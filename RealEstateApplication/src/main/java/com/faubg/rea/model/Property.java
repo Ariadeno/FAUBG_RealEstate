@@ -43,7 +43,8 @@ public class Property {
 	public Property() {
 	}
 
-	public Property(Integer id, String address, String price, Boolean rental, String area, String description) {
+	public Property(Integer id, String address, String price, Boolean rental,
+			String area, String description) {
 		this.id = id;
 		this.address = address;
 		this.price = price;
@@ -121,6 +122,18 @@ public class Property {
 		return this.images;
 	}
 
+	private Set<Room> rooms = new HashSet<Room>(0);
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "property")
+	public Set<Room> getRooms() {
+		return this.rooms;
+	}
+
+	public void setRooms(Set<Room> rooms) {
+		this.rooms = rooms;
+
+	}
+
 	public void setImages(Set<Image> images) {
 		this.images = images;
 	}
@@ -128,8 +141,10 @@ public class Property {
 	@Override
 	public String toString() {
 		StringBuilder htmlBuilder = new StringBuilder();
-		htmlBuilder.append("<div><input type='hidden' name='id' value='").append(id).append("' /><h1>").append(address).append("</h1>");
-		htmlBuilder.append("Description: <i>").append(description).append("</i><br />");
+		htmlBuilder.append("<div><input type='hidden' name='id' value='")
+				.append(id).append("' /><h1>").append(address).append("</h1>");
+		htmlBuilder.append("Description: <i>").append(description)
+				.append("</i><br />");
 		htmlBuilder.append("Area: ").append(area).append("<br />");
 		if (rental) {
 			htmlBuilder.append("Rental: Yes<br />");
@@ -142,30 +157,34 @@ public class Property {
 
 	public String toEditHTML() {
 		/*
-		 * <table style="width:100%">
-  <tr>
-    <td>Jill</td>
-    <td>Smith</td> 
-    <td>50</td>
-  </tr>
-  <tr>
-    <td>Eve</td>
-    <td>Jackson</td> 
-    <td>94</td>
-  </tr>
-</table>
+		 * <table style="width:100%"> <tr> <td>Jill</td> <td>Smith</td>
+		 * <td>50</td> </tr> <tr> <td>Eve</td> <td>Jackson</td> <td>94</td>
+		 * </tr> </table>
 		 */
 		StringBuilder htmlBuilder = new StringBuilder();
-		htmlBuilder.append("<form action='updateProperty' method='post'><input type='hidden' name='id' value='").append(id).append("' /><h1>").append(address).append("</h1>");
-		htmlBuilder.append("<table><tr><td>Address:</td><td><input type='text' name='address' value='").append(address).append("' plaeholder='Address'></td></tr>");
-		htmlBuilder.append("<tr><td>Description: </td><td><textarea rows='4' cols='50' name='description'>").append(description).append("</textarea></td></tr>");
-		htmlBuilder.append("<tr><td>Area: </td><td><input type='text' name='area' value='").append(area).append("' plaeholder='Area'></td></tr>");
+		htmlBuilder
+				.append("<form action='updateProperty' method='post'><input type='hidden' name='id' value='")
+				.append(id).append("' /><h1>").append(address).append("</h1>");
+		htmlBuilder
+				.append("<table><tr><td>Address:</td><td><input type='text' name='address' value='")
+				.append(address).append("' plaeholder='Address'></td></tr>");
+		htmlBuilder
+				.append("<tr><td>Description: </td><td><textarea rows='4' cols='50' name='description'>")
+				.append(description).append("</textarea></td></tr>");
+		htmlBuilder
+				.append("<tr><td>Area: </td><td><input type='text' name='area' value='")
+				.append(area).append("' plaeholder='Area'></td></tr>");
 		if (rental) {
-			htmlBuilder.append("<tr><td>Rental: </td><td><input type='checkbox' name='rental' id='rental' checked='true'></td></tr>");
+			htmlBuilder
+					.append("<tr><td>Rental: </td><td><input type='checkbox' name='rental' id='rental' checked='true'></td></tr>");
 		} else {
-			htmlBuilder.append("<tr><td>Rental: </td><td><input type='checkbox' name='rental' id='rental' checked='false'></td></tr>");
+			htmlBuilder
+					.append("<tr><td>Rental: </td><td><input type='checkbox' name='rental' id='rental' checked='false'></td></tr>");
 		}
-		htmlBuilder.append("<tr><td>Price: </td><td><input type='text' name='price' value='").append(price).append("' plaeholder='Price'></td></tr></table><input type='submit' name='commit' value='Update'></form>");
+		htmlBuilder
+				.append("<tr><td>Price: </td><td><input type='text' name='price' value='")
+				.append(price)
+				.append("' plaeholder='Price'></td></tr></table><input type='submit' name='commit' value='Update'></form>");
 		return htmlBuilder.toString();
 	}
 
