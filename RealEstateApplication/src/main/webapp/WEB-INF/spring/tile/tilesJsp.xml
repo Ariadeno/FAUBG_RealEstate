@@ -6,7 +6,6 @@
 	<definition name="baseLayout" template="/WEB-INF/views/tiles/layout.jsp">
 		<put-attribute name="title" value="Sample Title" />
 		<put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp" />
-		<put-attribute name="menu" value="/WEB-INF/views/tiles/menu.jsp" />
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp" />
 	</definition>
@@ -34,6 +33,11 @@
 	<definition name="buy" extends="baseLayout">
 		<put-attribute name="title" value="Buy" />
 		<put-attribute name="body" value="/WEB-INF/views/buy.jsp" />
+	</definition>
+
+	<definition name="all" extends="baseLayout">
+		<put-attribute name="title" value="All" />
+		<put-attribute name="all" value="/WEB-INF/views/all.jsp" />
 	</definition>
 
 	<definition name="rent" extends="baseLayout">

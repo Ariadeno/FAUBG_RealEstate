@@ -1,31 +1,20 @@
 <div class="footer">
-   <footer>
-        	<section class="classfooter">
-            
-            <h1> Contact </h1>
-            
-           	<ul>
-            <a href="${ROOT_DIR}contact"><li> Contact </li> </a>
-            </ul>
-            </section>
-            
-            <section class="classfooter">
-            
-            <h1> SiteMap </h1>
-            
-            <ul>
-            <a href="${ROOT_DIR}"><li> Home</li> </a>
-            <a href=""> <li> Buy </li></a>
-            <a href=""><li> Rent</li> </a>
-            <a href="${ROOT_DIR}login"> <li> Login </li></a>
-            </ul>
-            </section>
-            
-            <section class="classfooter">
-
-            <ul>
-            <a href=""><li> image? logo </li> </a>
-            </ul>
-            </section>
-        </footer>
- </div>
+	<footer>
+		<div id="mainContainer">
+			<hr />
+			<div class="box">
+				<h3>Contact</h3>
+				<p>Bla bla contact informatie bla bla bla bla meer contact
+					informatie.</p>
+			</div>
+			<div class="box">
+				<h3>Site Map</h3>
+				<p>Bla bla site map bla bla bla bla meer site map.</p>
+			</div>
+			<div class="box">
+				<h3>Image</h3>
+				<p>Bla bla image bla bla bla bla meer images.</p>
+			</div>
+		</div>
+	</footer>
+</div>
