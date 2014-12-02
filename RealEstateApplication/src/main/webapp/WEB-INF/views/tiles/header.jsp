@@ -40,10 +40,6 @@
 					<c:if test="${LoginTitle == 'My Account'}">
 						<li style="float: right;"><a href="logout">Logout</a></li>
 					</c:if>
-					<c:if test="${isAdmin == true}">
-						<li style="float: right;"><a href="adminPanel">Admin
-								Panel</a></li>
-					</c:if>
 					<li style="float: right;"><a href=${AccountUrl }>${LoginTitle}</a></li>
 				</ul>
 			</div>

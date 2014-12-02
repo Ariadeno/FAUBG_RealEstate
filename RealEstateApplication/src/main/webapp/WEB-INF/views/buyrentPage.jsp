@@ -9,4 +9,9 @@
 	</c:if>
 	<hr />
 	<div class="box">${property}</div>
+	<c:if test="${not empty properties}">
+		<c:forEach var="listValue" items="${propertyImages}">
+			<img src="${listValue}" />
+		</c:forEach>
+	</c:if>
 </div>
