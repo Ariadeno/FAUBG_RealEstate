@@ -4,36 +4,36 @@
 
 	<form method="post" action="registerRequest">
 		<p>
-			<input type="text" name="username" value="" placeholder="Username">
+			<input type="text" name="username" value="" placeholder="Username" required>
 		</p>
 		<p>
 			<input type="password" name="password" value=""
-				placeholder="Password">
+				placeholder="Password" required>
 		</p>
 		<p>
 			<input type="password" name="password2" value=""
-				placeholder="Confirm Password">
+				placeholder="Confirm Password" required>
 		</p>
 		<p>
-			<input type="text" name="email" value="" placeholder="E-mail">
+			<input type="text" name="email" value="" placeholder="E-mail" required>
 		</p>
 		<p>
-			<input type="text" name="firstName" value="" placeholder="First Name">
+			<input type="text" name="firstName" value="" placeholder="First Name" required>
 		</p>
 		<p>
-			<input type="text" name="lastName" value="" placeholder="Last Name">
+			<input type="text" name="lastName" value="" placeholder="Last Name" required>
 		</p>
 		<p>
-			<input type="text" name="phone" value="" placeholder="Phone Number">
+			<input type="text" name="phone" value="" placeholder="Phone Number" required>
 		</p>
 		<p>
-			<input type="text" name="address" value="" placeholder="Address">
+			<input type="text" name="address" value="" placeholder="Address" required>
 		</p>
 		<p>
-			<input type="text" name="city" value="" placeholder="City">
+			<input type="text" name="city" value="" placeholder="City" required>
 		</p>
 		<p>
-			<input type="text" name="zip" value="" placeholder="Zip">
+			<input type="text" name="zip" value="" placeholder="Zip" required>
 		</p>
 
 		<p>

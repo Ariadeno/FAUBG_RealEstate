@@ -8,10 +8,17 @@
 		<h1>You just rented</h1>
 	</c:if>
 	<hr />
+	<form action="makeOffer" method="get">
 	<div class="box">${property}</div>
 	<c:if test="${not empty propertyImages}">
 		<c:forEach var="listValue" items="${propertyImages}">
 			<br /><img src="${listValue}">
 		</c:forEach>
 	</c:if>
+	<input type="text" name="offer" value="" placeholder="your offer in euro" required>
+	<div style="display: none;">${listValue}</div>
+	
+	<p class="submit">
+					<input type="submit" name="commit" value="Make offer">
+	</form>
 </div>
