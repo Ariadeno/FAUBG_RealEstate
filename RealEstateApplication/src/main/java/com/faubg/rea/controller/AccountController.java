@@ -1,5 +1,8 @@
 package com.faubg.rea.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,8 +23,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.faubg.rea.Variables;
 import com.faubg.rea.dao.ImageDao;
 import com.faubg.rea.dao.PropertyDao;
 import com.faubg.rea.dao.PropertyDaoImpl;
@@ -89,19 +92,63 @@ public class AccountController {
 	@RequestMapping(value = "/adminPanel/addProperty", method = RequestMethod.POST)
 	public String addProperty(
 			@RequestParam(required = false, value = "rental") Boolean rental,
-			Model model, HttpServletRequest request,
+			@RequestParam("images") MultipartFile[] images, Model model,
+			HttpServletRequest request,
 			@Valid @ModelAttribute("property") Property property,
 			BindingResult result) {
 		Boolean ticked;
 		ticked = (rental == null) ? false : true;
 		property.setRental(ticked);
 		propertyDao.addProperty(property);
-		String[] values = request.getParameterValues("images");
-		if (values != null) {
-			for (String value : values) {
-				if (!value.isEmpty()) {
-					Image image = new Image(value, property);
+		for (MultipartFile file : images) {
+			if (!file.isEmpty()) {
+				try {
+					byte[] bytes = file.getBytes();
+
+					// Creating the directory to store file
+					String rootPath = System.getProperty("catalina.home");
+					if (!rootPath.contains("C:")) {
+						rootPath = "/opt/bitnami/apache-tomcat/webapps/ROOT/resources/images/";
+					}
+
+					File dir = new File(rootPath + File.separator + "uploads");
+					if (!dir.exists())
+						dir.mkdirs();
+
+					// Create the file on server
+					String uniqueIdentifier = String.valueOf(System
+							.currentTimeMillis());
+					uniqueIdentifier = uniqueIdentifier
+							.substring(uniqueIdentifier.length() - 5);
+					String fileName = null;
+					if (file.getOriginalFilename().toLowerCase()
+							.contains(".jpg")) {
+						fileName = file.getOriginalFilename().toLowerCase()
+								.replace(".jpg", "")
+								+ "_" + uniqueIdentifier + ".jpg";
+					} else if (file.getOriginalFilename().toLowerCase()
+							.contains(".png")) {
+						fileName = file.getOriginalFilename().toLowerCase()
+								.replace(".png", "")
+								+ "_" + uniqueIdentifier + ".png";
+					} else {
+						fileName = file.getOriginalFilename().toLowerCase()
+								+ "_" + uniqueIdentifier;
+					}
+					File serverFile = new File(dir.getAbsolutePath()
+							+ File.separator + fileName);
+					BufferedOutputStream stream = new BufferedOutputStream(
+							new FileOutputStream(serverFile));
+					stream.write(bytes);
+					stream.close();
+					Image image = new Image("../resources/images/uploads/"
+							+ fileName, property);
 					imageDao.addImage(image);
+					logger.info("Server File Location="
+							+ serverFile.getAbsolutePath());
+
+				} catch (Exception e) {
+					logger.error(e.getMessage());
 				}
 			}
 		}
@@ -116,21 +163,23 @@ public class AccountController {
 		Property property = propertyDao.findPropertyByID(id);
 		List<String> imagesSRC = new LinkedList<String>();
 		Set<Image> propertyImages = property.getImages();
-		//for (Image image : propertyImages) {
-			//imagesSRC.add(image.getLocation());
-		//}
+		for (Image image : propertyImages) {
+			imagesSRC.add(image.getLocation());
+		}
 		model.addAttribute("property", property);
 		model.addAttribute("propertyImages", imagesSRC);
 		return "buyrentPage";
 	}
-	
+
 	@RequestMapping(value = "/makeOffer", method = RequestMethod.GET)
 	public String makeOffer(Model model, HttpServletRequest request,
 			@RequestParam(value = "offer") Integer offer,
-			@RequestParam(required = true, value = "id") Integer id ) {
+			@RequestParam(required = true, value = "id") Integer id) {
 		Check.Login(model, request);
 		Property property = propertyDao.findPropertyByID(id);
-		if(offer !=null ){return "redirect:/";}
+		if (offer != null) {
+			return "redirect:/";
+		}
 		return "home";
 	}
 
