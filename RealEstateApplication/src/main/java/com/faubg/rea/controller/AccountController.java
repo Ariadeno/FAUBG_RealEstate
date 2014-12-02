@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,6 +31,7 @@ import com.faubg.rea.model.Property;
 import com.faubg.rea.model.User;
 
 @Controller
+@Transactional
 public class AccountController {
 
 	private static final Logger logger = LoggerFactory
@@ -95,13 +97,16 @@ public class AccountController {
 		property.setRental(ticked);
 		propertyDao.addProperty(property);
 		String[] values = request.getParameterValues("images");
-		for (String value : values) {
-			if (!value.isEmpty()) {
-				Image image = new Image(value, property);
-				imageDao.addImage(image);
+		if (values != null) {
+			for (String value : values) {
+				if (!value.isEmpty()) {
+					Image image = new Image(value, property);
+					imageDao.addImage(image);
+				}
 			}
 		}
-		return "redirect:/adminPanel";
+		model.addAttribute("property", property.toEditHTML());
+		return "editProperty";
 	}
 
 	@RequestMapping(value = "/buyrent", method = RequestMethod.GET)
