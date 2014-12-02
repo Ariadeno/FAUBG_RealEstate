@@ -27,9 +27,11 @@
     animation: imageAnimation 36s linear infinite 0s; 
 }
 .cb-slideshow li:nth-child(1) span { 
-    background-image: url(../images/1500x675_apt_interior.jpg) 
+	background-size: 100% auto;
+    background-image: url(../images/1500x675_apt_interior.jpg) ;
 }
 .cb-slideshow li:nth-child(2) span { 
+	background-size: 100% auto;
     background-image: url(../images/1500x675_brooklyn_apt.jpg);
     -webkit-animation-delay: 6s;
     -moz-animation-delay: 6s;
@@ -38,6 +40,7 @@
     animation-delay: 6s; 
 }
 .cb-slideshow li:nth-child(3) span { 
+	background-size: 100% auto;
     background-image: url(../images/1500x675_modern_townhome.jpg);
     -webkit-animation-delay: 12s;
     -moz-animation-delay: 12s;
@@ -46,6 +49,7 @@
     animation-delay: 12s; 
 }
 .cb-slideshow li:nth-child(4) span { 
+	background-size: 100% auto;
     background-image: url(../images/1500x675_sea_home.jpg);
     -webkit-animation-delay: 18s;
     -moz-animation-delay: 18s;
@@ -54,7 +58,9 @@
     animation-delay: 18s; 
 }
 .cb-slideshow li:nth-child(5) span { 
+	background-size: 100% auto;
     background-image: url(../images/1500x675_white_home.jpg);
+    
     -webkit-animation-delay: 24s;
     -moz-animation-delay: 24s;
     -o-animation-delay: 24s;
