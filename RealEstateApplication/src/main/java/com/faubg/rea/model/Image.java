@@ -39,7 +39,7 @@ public class Image {
 	}
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id", nullable = false)
+	@JoinColumn(name = "p_id", nullable = false)
 	public Property getProperty(){
 		return this.property;
 	}
