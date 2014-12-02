@@ -33,14 +33,14 @@
 		<section class="search">
 			<header class="search-hdr">
 				<h1
-					class="search-hdr-1 zsg-trapezoid zsg-trapezoid_br zsg-content_collapsed">Search</h1>
+					class="search-hdr-1 trapezoid trapezoid_br content_collapsed">Search</h1>
 			</header>
-			<div class="zsg-g zsg-g_gutterless">
-				<div class="zsg-lg-1 zsg-md-1 zsg-sm-1 search-body-container">
+			<div class="g g_gutterless">
+				<div class="lg-1 md-1 sm-1 search-body-container">
 					<div class="search-body">
 						<form id="formSearchBar" name="formSearchBar" action="search"
 							role="search" class="search-form" method="get">
-							<ul class="zsg-radio-tabs targeted-search">
+							<ul class="radio-tabs targeted-search">
 								<li><input id="searchbar-type-allhomes"
 									name="searchbartype" value="1_ah" type="radio"><label
 									for="searchbar-type-allhomes" class="za-track-event"
@@ -57,7 +57,7 @@
 									data-za-action="For Rent" data-za-category="Homepage">
 										For Rent </label></li>
 							</ul>
-							<div class="zsg-searchbox zsg-searchbox_lg yui3-skin-sam"
+							<div class="searchbox searchbox_lg yui3-skin-sam"
 								id="yui_3_15_0_1_1417199162936_106">
 								<label class="hide-visually" for="citystatezip">Search</label><input
 									placeholder="Search Name" tabindex="1"
@@ -67,7 +67,7 @@
 									aria-autocomplete="list" aria-expanded="false"
 									aria-owns="yui_3_15_0_1_1417199162936_470">
 								<button type="submit" aria-label="Submit"
-									class="zsg-search-button zsg-button_alt"
+									class="search-button button_alt"
 									id="yui_3_15_0_1_1417199162936_1062">
 									<span>Find</span>
 								</button>

@@ -117,7 +117,7 @@
 	#logo a {
 		background-image: url("../images/logo_100.svg");
 		position: fixed;
-		height: 120px;
+		height: 110px;
 		width: 100px;
 		margin-top: 0px;
 		z-index: 10000000;

@@ -5,6 +5,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <head>
 <link rel="stylesheet" href="<c:url value="/resources/css/base.css" />">
+<link rel="stylesheet" href="<c:url value="/resources/css/input.css" />">
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/responsive-nav.css" />">
 <link rel="stylesheet"
