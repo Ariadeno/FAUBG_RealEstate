@@ -37,7 +37,9 @@ public class Property {
 	@NotNull
 	@NotEmpty
 	private String description;
-
+	
+	private Set<Room> rooms = new HashSet<Room>(0);
+	private Set<Offer> offers = new HashSet<Offer>(0);
 	private Set<Image> images = new HashSet<Image>(0);
 
 	public Property() {
@@ -121,8 +123,10 @@ public class Property {
 	public Set<Image> getImages() {
 		return this.images;
 	}
-
-	private Set<Room> rooms = new HashSet<Room>(0);
+	
+	public void setImages(Set<Image> images) {
+		this.images = images;
+	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "property")
 	public Set<Room> getRooms() {
@@ -133,9 +137,14 @@ public class Property {
 		this.rooms = rooms;
 
 	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "property")
+	public Set<Offer> getOffers() {
+		return offers;
+	}
 
-	public void setImages(Set<Image> images) {
-		this.images = images;
+	public void setOffers(Set<Offer> offers) {
+		this.offers = offers;
 	}
 
 	@Override

@@ -1,8 +1,13 @@
 package com.faubg.rea.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -43,7 +48,9 @@ public class User {
 	private String zip;
 	@NotNull
 	private boolean isAdmin;
-
+	
+	private Set<Offer> offers = new HashSet<Offer>(0);
+	
 	public User() {
 	}
 
@@ -153,5 +160,15 @@ public class User {
 	public void setIsAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	public Set<Offer> getOffers() {
+		return offers;
+	}
+
+	public void setOffers(Set<Offer> offers) {
+		this.offers = offers;
+	}
+
 }
 
