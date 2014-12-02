@@ -1,0 +1,227 @@
+/*! responsive-nav.js 1.0.32 by @viljamis */
+@media screen and (max-width: 40em) {
+	.nav-collapse {
+		z-index: 100000;
+	}
+}
+
+.nav-collapse-container {
+	background-color: #ffffff;
+	width: 100%;
+	position: fixed;
+	z-index: 100000;
+}
+
+.nav-collapse ul {
+	margin: 0;
+	padding: 0;
+	display: block;
+	list-style: none;
+	margin-bottom: 0px;
+	z-index: 10000;
+}
+
+.nav-collapse li {
+	width: 100%;
+	display: block;
+	position: relative;
+}
+
+.js .nav-collapse {
+	clip: rect(0, 0, 0, 0);
+	max-height: 0;
+	position: relative;
+	display: block;
+	overflow: hidden;
+	zoom: 1;
+}
+
+.nav-collapse.opened {
+	max-height: 9999px;
+}
+
+.disable-pointer-events {
+	pointer-events: none !important;
+}
+
+.nav-toggle {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+@media screen and (min-width: 40em) {
+	.js .nav-collapse {
+		position: relative;
+	}
+	.js .nav-collapse.closed {
+		max-height: none;
+	}
+	.nav-toggle {
+		display: none;
+	}
+}
+
+/*************************\
+| Advanced menu           |
+\*************************/
+.nav-collapse, .nav-collapse * {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	font-size: 100%;
+}
+
+.nav-collapse, .nav-collapse ul {
+	list-style: none;
+	float: left;
+}
+
+.nav-collapse li {
+	float: left;
+	width: 100%;
+	left: 50px;
+}
+
+@media screen and (min-width: 40em) {
+	.nav-collapse li {
+		width: 120px;
+		left: 100px;
+	}
+}
+
+.nav-collapse ul {
+	
+}
+
+@media screen and (min-width: 40em) {
+	.nav-collapse ul {
+		position: fixed;
+	}
+}
+
+#logo a {
+	background-image: url("../images/logo_50.svg");
+	position: fixed;
+	height: 50px;
+	width: 50px;
+	margin-top: 0px;
+	z-index: 10000000;
+}
+
+@media screen and (min-width: 40em) {
+	#logo a {
+		background-image: url("../images/logo_100.svg");
+		position: fixed;
+		height: 120px;
+		width: 100px;
+		margin-top: 0px;
+		z-index: 10000000;
+	}
+}
+
+.nav-collapse a {
+	text-decoration: none;
+	width: 100%;
+	background: #ffffff;
+	border-bottom: 1px solid white;
+	padding: 0.7em 1em;
+	float: left;
+}
+
+@media screen and (min-width: 40em) {
+	.nav-collapse a {
+		margin: 0;
+		padding: 1em;
+		float: left;
+		text-align: center;
+	}
+}
+
+/* ------------------------------------------
+  NAV TOGGLE STYLES
+--------------------------------------------- */
+@font-face {
+	font-weight: normal;
+	font-style: normal;
+}
+
+.nav-toggle {
+	position: fixed;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	text-decoration: none;
+	text-indent: -999px;
+	position: relative;
+	overflow: hidden;
+	width: 70px;
+	height: 55px;
+	float: right;
+	z-index: 100000;
+}
+
+.nav-toggle:before {
+	color: #aaaaaa; /* Edit this to change the icon color */
+	font-family: "responsivenav", sans-serif;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	font-size: 28px;
+	text-transform: none;
+	position: fixed;
+	content: "≡";
+	text-indent: 0;
+	text-align: center;
+	line-height: 55px;
+	speak: none;
+	top: 0;
+	right: 10px;
+}
+
+.nav-toggle.active::before {
+	font-size: 24px;
+	content: "x";
+	right: 12px;
+	color: #aaaaaa;
+}
+
+.nav-collapse ul li ul {
+	width: 100%;
+	display: block;
+	list-style: none;
+	opacity: 0;
+	visibility: hidden;
+	position: absolute;
+	top: 49px;
+	left: -1px;
+	z-index: 10000000;
+	border-top: 1px solid white;
+}
+
+.nav-collapse ul li ul li {
+	display: block;
+	width: 100%;
+	z-index: 10000000;
+	left: 0;
+}
+
+.nav-collapse ul li:hover ul {
+	display: block;
+	opacity: 1;
+	visibility: visible;
+}
+
+@media screen and (min-width: 40em) {
+	.account-menu li {
+		left: 0px;
+	}
+}
