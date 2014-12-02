@@ -88,6 +88,14 @@ public class AccountController {
 		return "redirect:/adminPanel";
 	}
 
+	@RequestMapping(value = "/buyrent", method = RequestMethod.GET)
+	public String buyrentProperty(Model model, HttpServletRequest request, @RequestParam(required = true, value = "id") Integer id) {
+		Check.Login(model, request);
+		Property property = propertyDao.findPropertyByID(id);
+		model.addAttribute("property", property);
+		return "buyrentPage";
+	}
+
 	public List<Property> getPropertyList() {
 		return propertyList;
 	}

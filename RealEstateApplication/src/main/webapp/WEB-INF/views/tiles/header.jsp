@@ -36,7 +36,7 @@
 				</ul>
 			</nav>
 			<div class="account-menu">
-				<ul>
+				<ul style="right:0;">
 					<c:if test="${LoginTitle == 'My Account'}">
 						<li style="float: right;"><a href="logout">Logout</a></li>
 					</c:if>

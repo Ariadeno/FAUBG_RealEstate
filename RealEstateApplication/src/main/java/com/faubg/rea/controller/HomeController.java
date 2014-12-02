@@ -53,16 +53,16 @@ public class HomeController {
 	public String rent(Model model, HttpServletRequest request) {
 		Check.Login(model, request);
 		List<Property> properties = propertyDao.findAllRentalProperties();
-		model.addAttribute("rentalProperties", properties);
-		return "rent";
+		model.addAttribute("properties", properties);
+		return "properties";
 	}
 
 	@RequestMapping(value = "/buy", method = RequestMethod.GET)
 	public String buy(Model model, HttpServletRequest request) {
 		Check.Login(model, request);
 		List<Property> properties = propertyDao.findAllResaleProperties();
-		model.addAttribute("buyProperties", properties);
-		return "buy";
+		model.addAttribute("properties", properties);
+		return "properties";
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
@@ -70,8 +70,8 @@ public class HomeController {
 		Check.Login(model, request);
 		List<Property> properties = propertyDao.findAllResaleProperties();
 		properties.addAll(propertyDao.findAllRentalProperties());
-		model.addAttribute("allProperties", properties);
-		return "buy";
+		model.addAttribute("properties", properties);
+		return "properties";
 	}
 
 	@RequestMapping(value = "/contact")

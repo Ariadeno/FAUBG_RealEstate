@@ -8,21 +8,11 @@
 .cb-slideshow, .cb-slideshow:after {
 	height: 650px;
 }
-
-.mainContainer {
-	border-radius: 5px;
-	padding:20px;
-	left: -50%;
-	width: 400px;
-	position: absolute;
-	top: -550px;
-	background-color: rgba(255, 255, 255, 0.9);
-}
 </style>
-<div style="left: 50%; width: 400px; position: absolute;">
-<div class="mainContainer">
+<div style="left: 50%; width: 350px; position: absolute;">
+<div class="onImageContainer">
 	<c:if test="${LoginTitle == 'My Account'}">
-		<h1>Account details</h1>
+		<h1>My Account</h1>
 		<hr />
 		<div style="text-align: left;">
 			<p>First Name:${User.firstName}</p>
