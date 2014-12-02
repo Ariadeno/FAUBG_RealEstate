@@ -24,11 +24,11 @@
 			<h1>Member Login</h1>
 			<form action="loginRequest" method="post">
 				<p>
-					<input type="text" name="username" value="" placeholder="Username">
+					<input type="text" name="username" value="" placeholder="Username" required>
 				</p>
 				<p>
 					<input type="password" name="password" value=""
-						placeholder="Password">
+						placeholder="Password" required>
 				</p>
 				<p class="remember_me">
 					<label class="first"> <input type="checkbox"
@@ -38,7 +38,7 @@
 				</p>
 
 				<p class="submit">
-					<input type="submit" name="commit" value="Login">
+					<input type="submit" name="commit" value="Login" required>
 			</form>
 		</div>
 

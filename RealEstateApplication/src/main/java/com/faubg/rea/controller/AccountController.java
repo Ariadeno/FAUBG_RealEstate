@@ -111,12 +111,22 @@ public class AccountController {
 		Property property = propertyDao.findPropertyByID(id);
 		List<String> imagesSRC = new LinkedList<String>();
 		Set<Image> propertyImages = property.getImages();
-		for (Image image : propertyImages) {
-			imagesSRC.add(image.getLocation());
-		}
+		//for (Image image : propertyImages) {
+			//imagesSRC.add(image.getLocation());
+		//}
 		model.addAttribute("property", property);
 		model.addAttribute("propertyImages", imagesSRC);
 		return "buyrentPage";
+	}
+	
+	@RequestMapping(value = "/makeOffer", method = RequestMethod.GET)
+	public String makeOffer(Model model, HttpServletRequest request,
+			@RequestParam(value = "offer") Integer offer,
+			@RequestParam(required = true, value = "id") Integer id ) {
+		Check.Login(model, request);
+		Property property = propertyDao.findPropertyByID(id);
+		if(offer !=null ){return "redirect:/";}
+		return "home";
 	}
 
 	public List<Property> getPropertyList() {
