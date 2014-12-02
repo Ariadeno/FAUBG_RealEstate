@@ -41,9 +41,10 @@ public class LoginController {
 				request.getSession().setAttribute("LoggedIn", true);
 				request.getSession().setAttribute("username", foundUser.getUsername());
 				request.getSession().setAttribute("User", foundUser);
+				return "redirect:/";
 			}
 		}
-		return "redirect:/";
+		return "redirect:/login";
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)

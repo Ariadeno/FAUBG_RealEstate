@@ -1,8 +1,10 @@
 package com.faubg.rea.controller;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -30,7 +32,8 @@ import com.faubg.rea.model.User;
 @Controller
 public class AccountController {
 
-	private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(AccountController.class);
 
 	@Autowired
 	private UserDao userDao;
@@ -43,20 +46,28 @@ public class AccountController {
 	@RequestMapping(value = "/account", method = RequestMethod.GET)
 	public String login(Locale locale, Model model, HttpServletRequest request) {
 		Check.Login(model, request);
+		User user = (User) request.getSession().getAttribute("User");
+		if (user != null) {
+			if (user.getIsAdmin()) {
+				List<Property> properties = propertyDao
+						.findAllRentalProperties();
+				properties.addAll(propertyDao.findAllResaleProperties());
+				model.addAttribute("properties", properties);
+			}
+		}
 		return "account";
 	}
 
 	@RequestMapping(value = "/adminPanel", method = RequestMethod.GET)
-	public String adminPanel(Locale locale, Model model, HttpServletRequest request) {
+	public String adminPanel(Locale locale, Model model,
+			HttpServletRequest request) {
 		Check.Login(model, request);
-		List<Property> properties = propertyDao.findAllRentalProperties();
-		properties.addAll(propertyDao.findAllResaleProperties());
-		model.addAttribute("properties", properties);
 		return "adminPanel";
 	}
 
 	@RequestMapping(value = "/adminPanel/editProperty", method = RequestMethod.GET)
-	public String editProperty(Model model, HttpServletRequest request, @RequestParam(required = true, value = "id") Integer id) {
+	public String editProperty(Model model, HttpServletRequest request,
+			@RequestParam(required = true, value = "id") Integer id) {
 		Check.Login(model, request);
 		Property property = propertyDao.findPropertyByID(id);
 		model.addAttribute("property", property.toEditHTML());
@@ -64,7 +75,9 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/adminPanel/updateProperty", method = RequestMethod.POST)
-	public String updateProperty(Model model, @Valid @ModelAttribute("property") Property property, BindingResult result) {
+	public String updateProperty(Model model,
+			@Valid @ModelAttribute("property") Property property,
+			BindingResult result) {
 		if (!result.hasFieldErrors()) {
 			propertyDao.saveProperty(property);
 		}
@@ -72,8 +85,11 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/adminPanel/addProperty", method = RequestMethod.POST)
-	public String addProperty(@RequestParam(required = false, value = "rental") Boolean rental, Model model, HttpServletRequest request,
-			@Valid @ModelAttribute("property") Property property, BindingResult result) {
+	public String addProperty(
+			@RequestParam(required = false, value = "rental") Boolean rental,
+			Model model, HttpServletRequest request,
+			@Valid @ModelAttribute("property") Property property,
+			BindingResult result) {
 		Boolean ticked;
 		ticked = (rental == null) ? false : true;
 		property.setRental(ticked);
@@ -86,6 +102,21 @@ public class AccountController {
 			}
 		}
 		return "redirect:/adminPanel";
+	}
+
+	@RequestMapping(value = "/buyrent", method = RequestMethod.GET)
+	public String buyrentProperty(Model model, HttpServletRequest request,
+			@RequestParam(required = true, value = "id") Integer id) {
+		Check.Login(model, request);
+		Property property = propertyDao.findPropertyByID(id);
+		List<String> imagesSRC = new LinkedList<String>();
+		Set<Image> propertyImages = property.getImages();
+		for (Image image : propertyImages) {
+			imagesSRC.add(image.getLocation());
+		}
+		model.addAttribute("property", property);
+		model.addAttribute("propertyImages", imagesSRC);
+		return "buyrentPage";
 	}
 
 	public List<Property> getPropertyList() {

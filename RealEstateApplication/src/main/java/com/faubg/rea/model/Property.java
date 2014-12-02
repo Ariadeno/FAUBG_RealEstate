@@ -150,26 +150,21 @@ public class Property {
 	@Override
 	public String toString() {
 		StringBuilder htmlBuilder = new StringBuilder();
-		htmlBuilder.append("<div><input type='hidden' name='id' value='")
-				.append(id).append("' /><h1>").append(address).append("</h1>");
-		htmlBuilder.append("Description: <i>").append(description)
-				.append("</i><br />");
+		htmlBuilder.append("<input type='hidden' name='id' value='").append(id)
+				.append("' /><h3>").append(address).append("</h3>");
+		htmlBuilder.append("Description: <div class=\"comment more\">")
+				.append(description).append("</div><br />");
 		htmlBuilder.append("Area: ").append(area).append("<br />");
 		if (rental) {
 			htmlBuilder.append("Rental: Yes<br />");
 		} else {
 			htmlBuilder.append("Rental: No<br />");
 		}
-		htmlBuilder.append("Price: ").append(price).append("<br /></div>");
+		htmlBuilder.append("Price: ").append(price).append("<br />");
 		return htmlBuilder.toString();
 	}
 
 	public String toEditHTML() {
-		/*
-		 * <table style="width:100%"> <tr> <td>Jill</td> <td>Smith</td>
-		 * <td>50</td> </tr> <tr> <td>Eve</td> <td>Jackson</td> <td>94</td>
-		 * </tr> </table>
-		 */
 		StringBuilder htmlBuilder = new StringBuilder();
 		htmlBuilder
 				.append("<form action='updateProperty' method='post'><input type='hidden' name='id' value='")

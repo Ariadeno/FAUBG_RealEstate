@@ -6,7 +6,6 @@
 	<definition name="baseLayout" template="/WEB-INF/views/tiles/layout.jsp">
 		<put-attribute name="title" value="Sample Title" />
 		<put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp" />
-		<put-attribute name="menu" value="/WEB-INF/views/tiles/menu.jsp" />
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp" />
 	</definition>
@@ -26,19 +25,9 @@
 		<put-attribute name="body" value="/WEB-INF/views/upload.jsp" />
 	</definition>
 
-	<definition name="adminPanel" extends="baseLayout">
-		<put-attribute name="title" value="AdminPanel" />
-		<put-attribute name="body" value="/WEB-INF/views/adminPanel.jsp" />
-	</definition>
-
-	<definition name="buy" extends="baseLayout">
-		<put-attribute name="title" value="Buy" />
-		<put-attribute name="body" value="/WEB-INF/views/buy.jsp" />
-	</definition>
-
-	<definition name="rent" extends="baseLayout">
-		<put-attribute name="title" value="Account" />
-		<put-attribute name="body" value="/WEB-INF/views/rent.jsp" />
+	<definition name="properties" extends="baseLayout">
+		<put-attribute name="title" value="Properties" />
+		<put-attribute name="body" value="/WEB-INF/views/properties.jsp" />
 	</definition>
 
 	<definition name="contact" extends="baseLayout">
@@ -59,6 +48,11 @@
 	<definition name="editProperty" extends="baseLayout">
 		<put-attribute name="title" value="EditProperty" />
 		<put-attribute name="body" value="/WEB-INF/views/editProperty.jsp" />
+	</definition>
+
+	<definition name="buyrentPage" extends="baseLayout">
+		<put-attribute name="title" value="Buy / Rent" />
+		<put-attribute name="body" value="/WEB-INF/views/buyrentPage.jsp" />
 	</definition>
 
 
