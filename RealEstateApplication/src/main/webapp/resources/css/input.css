@@ -66,14 +66,19 @@ p.submit:hover {
 	cursor: pointer;
 }
 
-.searchbox_lg input {
+.blueInputbox_lg input {
 	height: 40px;
 	padding-bottom: 8px;
 	padding-right: 85px;
 	padding-top: 8px
 }
 
-.search-button {
+.blueInput-submit-button {
+	position: absolute;
+	display: block;
+}
+
+.blueInput-button {
 	background: transparent;
 	border-radius: 0;
 	border-width: 0;
@@ -82,16 +87,13 @@ p.submit:hover {
 	line-height: 1;
 	margin-top: -12px;
 	padding: 3px 0 0;
-	position: absolute;
 	right: 6px;
 	top: 50%
 }
 
-.searchbox_lg .search-button {
+.blueInputbox_lg .blueInput-button {
 	background-color: #0074e4;
 	color: #fff;
-	display: block;
-	font-size: 1.8em;
 	height: 100%;
 	margin-top: 0;
 	padding: 6px 0;

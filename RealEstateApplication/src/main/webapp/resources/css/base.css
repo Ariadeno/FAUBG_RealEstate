@@ -201,6 +201,14 @@ img.scale-with-grid {
 	width: 80%;
 }
 
+@media screen and (max-width: 640px) {
+	.mainContainer {
+		margin: 0px;
+		margin-top: 20px;
+		width: 100%;
+	}
+}
+
 .onImageContainer {
 	padding: 20px;
 	width: 350px;
@@ -255,8 +263,8 @@ a.morelink {
 	display: none;
 }
 
-/*SearchBox*/
-.searchbox {
+/*blueInputBox*/
+.blueInputbox {
 	position: relative
 }
 
@@ -285,8 +293,8 @@ h1.trapezoid, .trapezoid.h1, h1.steps>li>a, .steps>li>a.h1 {
 	line-height: 65px
 }
 
-h1.trapezoid:before, .trapezoid.h1:before, h1.trapezoid:after, .trapezoid.h1:after, h1.steps>li>a:before, .steps>li>a.h1:before,
-	h1.steps>li>a:after, .steps>li>a.h1:after {
+h1.trapezoid:before, .trapezoid.h1:before, h1.trapezoid:after, .trapezoid.h1:after, h1.steps>li>a:before, .steps>li>a.h1:before, h1.steps>li>a:after,
+	.steps>li>a.h1:after {
 	border-bottom-width: 65px;
 	border-top-width: 65px
 }
@@ -318,4 +326,119 @@ h1.trapezoid:before, .trapezoid.h1:before, h1.trapezoid:after, .trapezoid.h1:aft
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box
+}
+
+.radio-tabs li {
+	display: inline-block;
+	letter-spacing: normal;
+	word-spacing: normal;
+	position: relative;
+	text-align: left;
+	margin-right: 10%
+}
+
+.radio-tabs input[type=radio] {
+	border: 0;
+	left: -9999px;
+	position: absolute;
+	width: auto
+}
+
+.radio-tabs input[type=radio]:checked+label {
+	color: #fff !important;
+	font-weight: bold
+}
+
+.radio-tabs input[type=radio]+label {
+	padding: 0 0 10px 0;
+	position: static
+}
+
+.radio-tabs input[type=radio]:checked+label:after {
+	content: '';
+	border-radius: 0 !important;
+	bottom: 0;
+	background: none !important;
+	border-color: transparent transparent #fff transparent;
+	border-style: solid;
+	border-width: 0 10px 10px 10px;
+	display: inline-block;
+	left: 50%;
+	margin-bottom: -1px;
+	margin-left: -5px;
+	top: auto;
+	position: absolute
+}
+
+.blueInput .trapezoid {
+	background-color: rgba(27, 80, 152, 0.9);
+	margin-right: 0;
+	width: 100%
+}
+
+.blueInput .blueInput-form {
+	background-color: rgba(0, 116, 228, 0.9);
+	color: #fff;
+	padding: 1rem;
+}
+
+.blueInput .blueInput-form .blueInput-button {
+	background-color: #0000ff;
+	height: 40px;
+	top: -1px;
+	width: auto;
+	padding-right: 1rem;
+	padding-left: 1rem;
+}
+
+.blueInput .blueInput-input {
+	border: 0;
+	outline: 0px;
+	box-shadow: none;
+	color: #333;
+	font-size: 13px;
+	width: 100% /*width: -webkit-calc(100% - 5px); width: calc(100% - 5px);*/
+}
+
+.blueInput-wrapper {
+	top: 50%;
+	width: 80%;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+@media screen and (max-width: 640px) {
+	.blueInput-wrapper {
+		top: 50%;
+		width: 100%;
+		left: 0;
+		right: 0;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+.blueInput {
+	margin: 0
+}
+
+.blueInput .trapezoid:after {
+	display: block;
+	border-left-color: rgba(27, 80, 152, 0.9)
+}
+
+.blueInput .blueInput-hdr-1 {
+	width: auto
+}
+
+.blueInputContainer {
+	width: 100%;
+	min-width: 320px;
+	max-width: 1920px;
+	border-radius: 5px;
+	position: absolute;
+	top: 250px;
+	margin-left: 0px;
 }

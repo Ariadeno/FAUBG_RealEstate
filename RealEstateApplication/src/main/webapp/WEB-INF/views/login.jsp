@@ -17,42 +17,45 @@
 	background-color: rgba(255, 255, 255, 0.8);
 	margin-left: 0px;
 }
+
+#loginButton {
+	background-image: url(/resources/images/login.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	top: 59px;
+}
+
+#registerButton {
+	height: auto;
+}
 </style>
-<div style="left: 50%; width: 400px; position: absolute;">
-	<div class="mainContainer">
-		<div class="containerBoxSmall">
-			<h1>Member Login</h1>
-			<form action="loginRequest" method="post">
-				<p>
-					<input type="text" name="username" value="" placeholder="Username" required>
-				</p>
-				<p>
-					<input type="password" name="password" value=""
-						placeholder="Password" required>
-				</p>
-				<p class="remember_me">
-					<label class="first"> <input type="checkbox"
-						name="remember_me" id="remember_me"> Remember me on this
-						computer
-					</label>
-				</p>
-
-				<p class="submit">
-					<input type="submit" name="commit" value="Login" required>
-			</form>
-		</div>
-
-		<div class="login-help">
-			<p>
-				Forgot your password? <a href="index.html">Click here to reset
-					it</a>.
-			</p>
-		</div>
-
-		<div id="loginFooter">
-			<b>Don't have an account?&nbsp;&nbsp;</b> <a
-				href="${ROOT_DIR}register"><button type="button"
-					style="width: 100px;">Sign-Up</button></a>
-		</div>
+<div class="blueInputContainer">
+	<div class="blueInput-wrapper">
+		<!-- blueInput -->
+		<section class="blueInput">
+			<header class="blueInput-hdr">
+				<h1 class="blueInput-hdr-1 trapezoid trapezoid_br content_collapsed">Login</h1>
+			</header>
+			<div class="g g_gutterless">
+				<div class="lg-1 md-1 sm-1 blueInput-body-container">
+					<div class="blueInput-body">
+						<form id="formblueInputBar" name="formblueInputBar" action="loginRequest" role="blueInput" class="blueInput-form" method="post">
+							<div class="blueInputbox blueInputbox_lg yui3-skin-sam" id="yui_3_15_0_1_1417199162936_106">
+								<label class="hide-visually" for="username">Username</label><input placeholder="Username" tabindex="1"
+									class="blueInput-input yui3-aclist-input" type="text" autocomplete="off" data-default-placeholder="Username" id="usernameInput"
+									maxlength="150" name="username" autocorrect="off" aria-autocomplete="list" aria-expanded="false" aria-owns="yui_3_15_0_1_1417199162936_470">
+								<label class="hide-visually" for="username">Password</label><input placeholder="Password" tabindex="1" c class="blueInput-input yui3-aclist-input"
+									type="password" id="passwordInput" name="password">
+								<button type="submit" aria-label="Submit" class="blueInput-button blueInput-submit-button button_alt" id="loginButton" tabindex="3"></button>
+								<div style="text-align: right;">
+									<b style="padding-right: 20px;">Don't have an account?</b> <a href="/register"><button type="button" class="blueInput-button button_alt" id="registerButton"
+											tabindex="4">Sign-Up</button></a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
 	</div>
 </div>
