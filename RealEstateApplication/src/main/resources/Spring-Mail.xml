@@ -17,7 +17,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 		</property>
 	</bean>
 
-	<bean id="mailMail" class="com.faubg.rea.mail.MailMailer">
+	<bean id="mailMail" class="com.faubg.rea.connections.MailMailer">
 		<property name="mailSender" ref="mailSender" />
 	</bean>
 </beans>

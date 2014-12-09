@@ -1,36 +1,9 @@
 @import url('http://fonts.googleapis.com/css?family=Lato');
 
-/*
-* Skeleton V1.2
-* Copyright 2011, Dave Gamache
-* www.getskeleton.com
-* Free to use under the MIT license.
-* http://www.opensource.org/licenses/mit-license.php
-* 6/20/2012
-*/
-
-/* Table of Content
-==================================================
-	#Reset & Basics
-	#Basic Styles
-	#Site Styles
-	#Typography
-	#Links
-	#Lists
-	#Images
-	#Buttons
-	#Forms
-	#Misc */
-
-/* #Reset & Basics (Inspired by E. Meyers)
-================================================== */
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
-	blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn,
-	em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
-	b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
-	table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas,
-	details, embed, figure, figcaption, footer, header, hgroup, menu, nav,
-	output, ruby, section, summary, time, mark, audio, video {
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
+	img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
+	caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby,
+	section, summary, time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -40,14 +13,12 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
 	vertical-align: baseline;
 }
 
-article, aside, details, figcaption, figure, footer, header, hgroup,
-	menu, nav, section {
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 
 html {
 	width: 100%;
-	color: #404040;
 }
 
 body {
@@ -60,28 +31,11 @@ footer {
 	text-align: center;
 }
 
-blockquote, q {
-	quotes: none;
-}
-
-blockquote:before, blockquote:after, q:before, q:after {
-	content: '';
-	content: none;
-}
-
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-
-/* #Basic Styles
-================================================== */
 body {
 	background: #fff;
-	font: 14px/21px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial,
-		sans-serif;
+	font: 14px/21px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	color: #444;
-	-webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
+	-webkit-font-smoothing: antialiased;
 	-webkit-text-size-adjust: 100%;
 }
 
@@ -186,8 +140,7 @@ blockquote cite:before {
 	content: "\2014 \0020";
 }
 
-blockquote cite a, blockquote cite a:visited, blockquote cite a:visited
-	{
+blockquote cite a, blockquote cite a:visited, blockquote cite a:visited {
 	color: #555;
 }
 
@@ -224,67 +177,6 @@ img.scale-with-grid {
 
 /* #Forms
 ================================================== */
-form {
-	margin-bottom: 20px;
-}
-
-fieldset {
-	margin-bottom: 20px;
-}
-
-input[type="text"], input[type="password"], input[type="email"],
-	textarea, select {
-	border: 1px solid #ccc;
-	padding: 6px 4px;
-	outline: none;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	border-radius: 2px;
-	font: 13px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial,
-		sans-serif;
-	color: #777;
-	margin: 0;
-	width: 210px;
-	max-width: 100%;
-	display: block;
-	margin-bottom: 20px;
-	background: #fff;
-}
-
-select {
-	padding: 0;
-}
-
-input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus,
-	textarea:focus {
-	color: #444;
-	-moz-box-shadow: 0 0 3px rgba(0, 0, 0, .2);
-	-webkit-box-shadow: 0 0 3px rgba(0, 0, 0, .2);
-}
-
-textarea {
-	min-height: 60px;
-}
-
-label, legend {
-	display: block;
-	font-weight: bold;
-	font-size: 13px;
-}
-
-select {
-	width: 220px;
-}
-
-input[type="checkbox"] {
-	display: inline;
-}
-
-label span, legend span {
-	font-weight: normal;
-	font-size: 13px;
-	color: #444;
-}
 
 /* #Misc
 ================================================== */
@@ -307,6 +199,14 @@ label span, legend span {
 	margin: 20px auto;
 	margin-left: 120px;
 	width: 80%;
+}
+
+@media screen and (max-width: 640px) {
+	.mainContainer {
+		margin: 0px;
+		margin-top: 20px;
+		width: 100%;
+	}
 }
 
 .onImageContainer {
@@ -363,180 +263,23 @@ a.morelink {
 	display: none;
 }
 
-input {
-	border: 1px solid #eee;
-	border-radius: 4px;
-	line-height: 1.5em;
-	padding: 4px;
-	position: relative;
-	bottom: 1px;
-	margin-right: 4px;
-	vertical-align: middle;
-}
-
-input[type=text], input[type=password] {
-	padding: 0 10px;
-	width: 200px;
-	height: 34px;
-	color: #404040;
-	background: white;
-	border: 1px solid;
-	border-color: #c4c4c4 #d1d1d1 #d4d4d4;
-	border-radius: 2px;
-	outline: 5px solid #eff4f7;
-	-moz-outline-radius: 3px; // Can we get this on WebKit please? @include
-	box-shadow(inset 0 1px 3px rgba(black, .12)); &: focus { border-color :
-	#7dc9e2;
-	outline-color: #dceefc;
-	outline-offset: 0;
-	//
-	WebKit
-	sets
-	this
-	to
-	-1
-	by
-	default
-}
-
-}
-p.submit:hover {
-	cursor: pointer;
-}
-
-textarea {
-	margin: 5px;
-	padding: 0 10px;
-	width: 400px;
-	height: 75px;
-	color: #404040;
-	background: white;
-	border: 1px solid;
-	border-color: #c4c4c4 #d1d1d1 #d4d4d4;
-	border-radius: 2px;
-	outline: 5px solid #eff4f7;
-	-moz-outline-radius: 3px; // Can we get this on WebKit please? @include
-	box-shadow(inset 0 1px 3px rgba(black, .12)); &: focus { border-color :
-	#7dc9e2;
-	outline-color: #dceefc;
-	outline-offset: 0;
-	//
-	WebKit
-	sets
-	this
-	to
-	-1
-	by
-	default
-}
-
-}
-input[type=submit] {
-	cursor: pointer;
-	padding: 0 50px;
-	height: 29px;
-	font-size: 12px;
-	font-weight: bold;
-	color: #527881;
-	text-shadow: 0 1px #e3f1f1;
-	background: #cde5ef;
-	border: 1px solid;
-	border-color: #b4ccce #b3c0c8 #9eb9c2;
-	border-radius: 16px;
-	outline: 0; @ include box-sizing(content-box); // Firefox sets this to
-	border-box by default @include linear-gradient(top, #edf5f8, #cde5ef);
-	@ include box-shadow(inset 0 1px white, 0 1px 2px rgba(black, .15)); &:
-	active { background : #cde5ef;
-	border-color: #9eb9c2 #b3c0c8 #b4ccce;
-	@
-	include
-	box-shadow(inset
-	0
-	0
-	3px
-	rgba(black,
-	.2));
-}
-
-}
-button[type=button] {
-	position: relative;
-	vertical-align: top;
-	width: 10%;
-	height: 23px;
-	padding: 0;
-	font-size: 15px;
-	color: white;
-	text-align: center;
-	text-shadow: 0 1px 2px rgba(black, .25);
-	background: #f0776c;
-	border: 0;
-	border-bottom: 2px solid #d76b60;
-	border-radius: 5px;
-	cursor: pointer;
-	@
-	include
-	box-shadow(inset
-	0
-	-2px
-	#d76b60);
-}
-
-/*SearchBox*/
-.zsg-searchbox_lg .zsg-search-button {
-	background-color: #0074e4;
-	color: #fff;
-	display: block;
-	font-size: 1.8em;
-	height: 100%;
-	margin-top: 0;
-	padding: 6px 0;
-	right: 0;
-	text-align: center;
-	top: 0;
-	width: 80px
-}
-
-.zsg-searchbox_lg input {
-	height: 40px;
-	padding-bottom: 8px;
-	padding-right: 85px;
-	padding-top: 8px
-}
-
-.zsg-search-button {
-	background: transparent;
-	border-radius: 0;
-	border-width: 0;
-	color: #0074e4;
-	font-size: 1.2em;
-	line-height: 1;
-	margin-top: -12px;
-	padding: 3px 0 0;
-	position: absolute;
-	right: 6px;
-	top: 50%
-}
-
-.zsg-searchbox {
+/*blueInputBox*/
+.blueInputbox {
 	position: relative
 }
 
-.zsg-trapezoid_bl:before, .zsg-trapezoid_br:after, .zsg-steps>li>a:before
-	{
+.trapezoid_bl:before, .trapezoid_br:after, .steps>li>a:before {
 	border-top-style: solid;
 	border-top-color: transparent
 }
 
-.zsg-trapezoid_tr:after, .zsg-trapezoid_br:after, .zsg-steps>li>a:after
-	{
+.trapezoid_tr:after, .trapezoid_br:after, .steps>li>a:after {
 	border-left-width: 1em;
 	border-left-style: solid;
 	right: -1em
 }
 
-.zsg-trapezoid:before, .zsg-trapezoid:after, .zsg-steps>li>a:before,
-	.zsg-steps>li>a:after {
+.trapezoid:before, .trapezoid:after, .steps>li>a:before, .steps>li>a:after {
 	content: "";
 	display: inline-block;
 	width: 0;
@@ -545,20 +288,18 @@ button[type=button] {
 	top: 0
 }
 
-h1.zsg-trapezoid, .zsg-trapezoid.zsg-h1, h1.zsg-steps>li>a, .zsg-steps>li>a.zsg-h1
-	{
+h1.trapezoid, .trapezoid.h1, h1.steps>li>a, .steps>li>a.h1 {
 	height: 65px;
 	line-height: 65px
 }
 
-h1.zsg-trapezoid:before, .zsg-trapezoid.zsg-h1:before, h1.zsg-trapezoid:after,
-	.zsg-trapezoid.zsg-h1:after, h1.zsg-steps>li>a:before, .zsg-steps>li>a.zsg-h1:before,
-	h1.zsg-steps>li>a:after, .zsg-steps>li>a.zsg-h1:after {
+h1.trapezoid:before, .trapezoid.h1:before, h1.trapezoid:after, .trapezoid.h1:after, h1.steps>li>a:before, .steps>li>a.h1:before, h1.steps>li>a:after,
+	.steps>li>a.h1:after {
 	border-bottom-width: 65px;
 	border-top-width: 65px
 }
 
-.zsg-trapezoid, .zsg-steps>li>a {
+.trapezoid, .steps>li>a {
 	color: #fff;
 	background-color: #333;
 	display: inline-block;
@@ -577,7 +318,7 @@ h1.zsg-trapezoid:before, .zsg-trapezoid.zsg-h1:before, h1.zsg-trapezoid:after,
 	text-shadow: none
 }
 
-.zsg-content_collapsed {
+.content_collapsed {
 	margin-bottom: 0
 }
 
@@ -585,4 +326,119 @@ h1.zsg-trapezoid:before, .zsg-trapezoid.zsg-h1:before, h1.zsg-trapezoid:after,
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box
+}
+
+.radio-tabs li {
+	display: inline-block;
+	letter-spacing: normal;
+	word-spacing: normal;
+	position: relative;
+	text-align: left;
+	margin-right: 10%
+}
+
+.radio-tabs input[type=radio] {
+	border: 0;
+	left: -9999px;
+	position: absolute;
+	width: auto
+}
+
+.radio-tabs input[type=radio]:checked+label {
+	color: #fff !important;
+	font-weight: bold
+}
+
+.radio-tabs input[type=radio]+label {
+	padding: 0 0 10px 0;
+	position: static
+}
+
+.radio-tabs input[type=radio]:checked+label:after {
+	content: '';
+	border-radius: 0 !important;
+	bottom: 0;
+	background: none !important;
+	border-color: transparent transparent #fff transparent;
+	border-style: solid;
+	border-width: 0 10px 10px 10px;
+	display: inline-block;
+	left: 50%;
+	margin-bottom: -1px;
+	margin-left: -5px;
+	top: auto;
+	position: absolute
+}
+
+.blueInput .trapezoid {
+	background-color: rgba(27, 80, 152, 0.9);
+	margin-right: 0;
+	width: 100%
+}
+
+.blueInput .blueInput-form {
+	background-color: rgba(0, 116, 228, 0.9);
+	color: #fff;
+	padding: 1rem;
+}
+
+.blueInput .blueInput-form .blueInput-button {
+	background-color: #0000ff;
+	height: 40px;
+	top: -1px;
+	width: auto;
+	padding-right: 1rem;
+	padding-left: 1rem;
+}
+
+.blueInput .blueInput-input {
+	border: 0;
+	outline: 0px;
+	box-shadow: none;
+	color: #333;
+	font-size: 13px;
+	width: 100% /*width: -webkit-calc(100% - 5px); width: calc(100% - 5px);*/
+}
+
+.blueInput-wrapper {
+	top: 50%;
+	width: 80%;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+@media screen and (max-width: 640px) {
+	.blueInput-wrapper {
+		top: 50%;
+		width: 100%;
+		left: 0;
+		right: 0;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+.blueInput {
+	margin: 0
+}
+
+.blueInput .trapezoid:after {
+	display: block;
+	border-left-color: rgba(27, 80, 152, 0.9)
+}
+
+.blueInput .blueInput-hdr-1 {
+	width: auto
+}
+
+.blueInputContainer {
+	width: 100%;
+	min-width: 320px;
+	max-width: 1920px;
+	border-radius: 5px;
+	position: absolute;
+	top: 250px;
+	margin-left: 0px;
 }

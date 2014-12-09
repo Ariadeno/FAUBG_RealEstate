@@ -1,4 +1,4 @@
-.zsg-radio-tabs li {
+.radio-tabs li {
 	display: inline-block;
 	letter-spacing: normal;
 	word-spacing: normal;
@@ -7,24 +7,24 @@
 	margin-right: 10%
 }
 
-.zsg-radio-tabs input[type=radio] {
+.radio-tabs input[type=radio] {
 	border: 0;
 	left: -9999px;
 	position: absolute;
 	width: auto
 }
 
-.zsg-radio-tabs input[type=radio]:checked+label {
+.radio-tabs input[type=radio]:checked+label {
 	color: #fff !important;
 	font-weight: bold
 }
 
-.zsg-radio-tabs input[type=radio]+label {
+.radio-tabs input[type=radio]+label {
 	padding: 0 0 10px 0;
 	position: static
 }
 
-.zsg-radio-tabs input[type=radio]:checked+label:after {
+.radio-tabs input[type=radio]:checked+label:after {
 	content: '';
 	border-radius: 0 !important;
 	bottom: 0;
@@ -40,7 +40,7 @@
 	position: absolute
 }
 
-.search .zsg-trapezoid {
+.search .trapezoid {
 	background-color: rgba(27, 80, 152, 0.9);
 	margin-right: 0;
 	width: 100%
@@ -52,7 +52,7 @@
 	padding: 1rem;
 }
 
-.search .search-form .zsg-search-button {
+.search .search-form .search-button {
 	background-color: #74c005;
 	height: 40px;
 	top: -1px;
@@ -89,7 +89,7 @@
 	margin: 0
 }
 
-.search .zsg-trapezoid:after {
+.search .trapezoid:after {
 	display: block;
 	border-left-color: rgba(27, 80, 152, 0.9)
 }

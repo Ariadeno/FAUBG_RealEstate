@@ -36,23 +36,18 @@
 				<div style="text-align: left;">
 					<h1>New Property</h1>
 					<hr />
-					<form action="adminPanel/addProperty" method="POST"
+					<form method="POST" action="adminPanel/addProperty"
 						enctype="multipart/form-data">
 						<input type="text" name="address" value="" placeholder="Address"><br />
 						<input type="text" name="price" value="" placeholder="Price"><br />
 						<input type="text" name="area" value="" placeholder="Area"><br />
-						<input type="text" name="description" value=""
-							placeholder="Description"><br />
-						<div id="initRow">
-							<input type="file" name="files">
-						</div>
-						<p>
-							<input type="checkbox" name="rental" id="terms">Rental
-							property<a class="terms" href=#></a>
-						</p>
-						<p>
-							<input type="submit" name="commit" value="Submit">
-						</p>
+						<input type="text" name="description" value="" placeholder="Description"><br />
+							<input type="file" name="images"><br />
+							<input type="file" name="images"><br />
+							<input type="file" name="images"><br />
+						<input type="checkbox" name="rental" id="terms">Rental
+						property<a class="terms" href=#></a> <input type="submit"
+							name="commit" value="Submit">
 					</form>
 				</div>
 			</div>

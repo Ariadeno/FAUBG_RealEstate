@@ -34,7 +34,8 @@ public class RegisterController {
 	}
 
 	@RequestMapping(value = "/registerRequest", method = RequestMethod.POST)
-	public String registerRequest(Model model, @Valid @ModelAttribute("user") User user, BindingResult result) {
+	public String registerRequest(Model model,
+			@Valid @ModelAttribute("user") User user, BindingResult result) {
 		String registrationMessage = "Registration unsuccesful";
 		if (!result.hasFieldErrors()) {
 			try {
@@ -63,6 +64,6 @@ public class RegisterController {
 
 		model.addAttribute("registrationSuccess", registrationMessage);
 
-		return "registerRequest";
+		return "login";
 	}
 }
