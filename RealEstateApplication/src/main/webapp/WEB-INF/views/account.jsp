@@ -17,7 +17,7 @@
 		<div class="onImageContainer" style="left: -105%;">
 			<h1>My Account</h1>
 			<hr />
-			<form action="adminPanel/viewOffers" method="GET">
+			<form action="account/viewOffers" method="GET">
 			<div style="text-align: left;">
 				<p>First Name:${User.firstName}</p>
 				<p>Last Name:${User.lastName}</p>
@@ -36,7 +36,7 @@
 				<div style="text-align: left;">
 					<h1>New Property</h1>
 					<hr />
-					<form method="POST" action="adminPanel/addProperty"
+					<form method="POST" action="account/addProperty"
 						enctype="multipart/form-data">
 						<input type="text" name="address" value="" placeholder="Address"><br />
 						<input type="text" name="price" value="" placeholder="Price"><br />
@@ -71,7 +71,7 @@
 				<div style="text-align: left;">
 					<h1>New Property</h1>
 					<hr />
-					<form action="adminPanel/addProperty" method="POST"
+					<form action="account/addProperty" method="POST"
 						enctype="multipart/form-data">
 						<input type="text" name="address" value="" placeholder="Address"><br />
 						<input type="text" name="price" value="" placeholder="Price"><br />

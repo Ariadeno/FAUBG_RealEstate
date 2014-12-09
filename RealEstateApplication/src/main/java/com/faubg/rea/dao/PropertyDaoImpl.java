@@ -31,7 +31,6 @@ public class PropertyDaoImpl implements PropertyDao {
 	@Override
 	public List<Property> findAllRentalProperties() {
 		List<Property> properties = new ArrayList<Property>();
-
 		properties = sessionFactory.getCurrentSession().createQuery("from Property where rental is true").list();
 		return properties;
 	}

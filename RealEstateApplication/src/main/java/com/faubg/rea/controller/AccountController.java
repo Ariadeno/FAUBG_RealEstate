@@ -65,23 +65,14 @@ public class AccountController {
 				properties.addAll(propertyDao.findAllResaleProperties());
 				model.addAttribute("properties", properties);
 				//List<Offer> offers = offerDao.findAllOfers();
-			//	model.addAttribute("offers", offers);\
+				//model.addAttribute("offers", offers);
 				model.addAttribute("viewProperties", true);
-				
-				
-				
 			}
 		}
 		return "account";
 	}
-
-	@RequestMapping(value = "/adminPanel", method = RequestMethod.GET)
-	public String adminPanel(Locale locale, Model model, HttpServletRequest request) {
-		Check.Login(model, request);
-		return "adminPanel";
-	}
 	
-	@RequestMapping(value = "/adminPanel/viewOffers", method = RequestMethod.GET)
+	@RequestMapping(value = "/account/viewOffers", method = RequestMethod.GET)
 	public String viewOffers(Model model, HttpServletRequest request)
 			{
 		Check.Login(model, request);
@@ -93,17 +84,14 @@ public class AccountController {
 				properties.addAll(propertyDao.findAllResaleProperties());
 				model.addAttribute("properties", properties);
 				//List<Offer> offers = offerDao.findAllOfers();
-			//	model.addAttribute("offers", offers);\
+				//model.addAttribute("offers", offers);
 				model.addAttribute("viewProperties", false);
-				
-				
-				
 			}
 		}
 		return "account";
 	}
 
-	@RequestMapping(value = "/adminPanel/editProperty", method = RequestMethod.GET)
+	@RequestMapping(value = "/account/editProperty", method = RequestMethod.GET)
 	public String editProperty(Model model, HttpServletRequest request, @RequestParam(required = true, value = "id") Integer id) {
 		Check.Login(model, request);
 		Property property = propertyDao.findPropertyByID(id);
@@ -117,15 +105,15 @@ public class AccountController {
 		return "editProperty";
 	}
 
-	@RequestMapping(value = "/adminPanel/updateProperty", method = RequestMethod.POST)
+	@RequestMapping(value = "/account/updateProperty", method = RequestMethod.POST)
 	public String updateProperty(Model model, @Valid @ModelAttribute("property") Property property, BindingResult result) {
 		if (!result.hasFieldErrors()) {
 			propertyDao.saveProperty(property);
 		}
-		return "redirect:/adminPanel";
+		return "redirect:/account";
 	}
 
-	@RequestMapping(value = "/adminPanel/addProperty", method = RequestMethod.POST)
+	@RequestMapping(value = "/account/addProperty", method = RequestMethod.POST)
 	public String addProperty(@RequestParam(required = false, value = "rental") Boolean rental, @RequestParam("images") MultipartFile[] images,
 			Model model, HttpServletRequest request, @Valid @ModelAttribute("property") Property property, BindingResult result) {
 		Boolean ticked;

@@ -40,7 +40,6 @@ public class OfferDaoImpl implements OfferDao {
 	@Override
 	public List<Offer> findAllOfers() {
 		List<Offer> offers = new ArrayList<Offer>();
-
 		offers = sessionFactory.getCurrentSession().createQuery("from Offer").list();
 		return offers;
 	}
