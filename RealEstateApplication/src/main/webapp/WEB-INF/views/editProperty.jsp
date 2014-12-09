@@ -9,6 +9,11 @@ td {
 	<h1>Edit Property</h1>
 	<hr />
 	<div style="text-align: left;">
-		${property}
+	<div class="box">${property}</div>
+	<c:if test="${not empty propertyImages}">
+		<c:forEach var="listValue" items="${propertyImages}">
+			<br /><img src="${listValue}">
+		</c:forEach>
+	</c:if>
 	</div>
 </div>

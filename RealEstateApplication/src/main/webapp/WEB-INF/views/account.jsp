@@ -35,7 +35,7 @@
 					<hr />
 					<form method="POST" action="adminPanel/addProperty"
 						enctype="multipart/form-data">
-						> <input type="text" name="address" value="" placeholder="Address"><br />
+						<input type="text" name="address" value="" placeholder="Address"><br />
 						<input type="text" name="price" value="" placeholder="Price"><br />
 						<input type="text" name="area" value="" placeholder="Area"><br />
 						<input type="text" name="description" value="" placeholder="Description"><br />

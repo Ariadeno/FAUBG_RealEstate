@@ -3,12 +3,14 @@ package com.faubg.rea.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -37,8 +39,9 @@ import com.faubg.rea.model.User;
 @Transactional
 public class AccountController {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(AccountController.class);
+	private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
+	@Autowired
+	ServletContext context;
 
 	@Autowired
 	private UserDao userDao;
@@ -54,8 +57,7 @@ public class AccountController {
 		User user = (User) request.getSession().getAttribute("User");
 		if (user != null) {
 			if (user.getIsAdmin()) {
-				List<Property> properties = propertyDao
-						.findAllRentalProperties();
+				List<Property> properties = propertyDao.findAllRentalProperties();
 				properties.addAll(propertyDao.findAllResaleProperties());
 				model.addAttribute("properties", properties);
 			}
@@ -64,25 +66,27 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/adminPanel", method = RequestMethod.GET)
-	public String adminPanel(Locale locale, Model model,
-			HttpServletRequest request) {
+	public String adminPanel(Locale locale, Model model, HttpServletRequest request) {
 		Check.Login(model, request);
 		return "adminPanel";
 	}
 
 	@RequestMapping(value = "/adminPanel/editProperty", method = RequestMethod.GET)
-	public String editProperty(Model model, HttpServletRequest request,
-			@RequestParam(required = true, value = "id") Integer id) {
+	public String editProperty(Model model, HttpServletRequest request, @RequestParam(required = true, value = "id") Integer id) {
 		Check.Login(model, request);
 		Property property = propertyDao.findPropertyByID(id);
+		List<String> imagesSRC = new LinkedList<String>();
+		Set<Image> propertyImages = property.getImages();
+		for (Image image : propertyImages) {
+			imagesSRC.add(image.getLocation());
+		}
+		model.addAttribute("propertyImages", imagesSRC);
 		model.addAttribute("property", property.toEditHTML());
 		return "editProperty";
 	}
 
 	@RequestMapping(value = "/adminPanel/updateProperty", method = RequestMethod.POST)
-	public String updateProperty(Model model,
-			@Valid @ModelAttribute("property") Property property,
-			BindingResult result) {
+	public String updateProperty(Model model, @Valid @ModelAttribute("property") Property property, BindingResult result) {
 		if (!result.hasFieldErrors()) {
 			propertyDao.saveProperty(property);
 		}
@@ -90,12 +94,8 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/adminPanel/addProperty", method = RequestMethod.POST)
-	public String addProperty(
-			@RequestParam(required = false, value = "rental") Boolean rental,
-			@RequestParam("images") MultipartFile[] images, Model model,
-			HttpServletRequest request,
-			@Valid @ModelAttribute("property") Property property,
-			BindingResult result) {
+	public String addProperty(@RequestParam(required = false, value = "rental") Boolean rental, @RequestParam("images") MultipartFile[] images,
+			Model model, HttpServletRequest request, @Valid @ModelAttribute("property") Property property, BindingResult result) {
 		Boolean ticked;
 		ticked = (rental == null) ? false : true;
 		property.setRental(ticked);
@@ -109,43 +109,31 @@ public class AccountController {
 					String rootPath = System.getProperty("catalina.home");
 					if (!rootPath.contains("C:")) {
 						rootPath = "/opt/bitnami/apache-tomcat/webapps/ROOT/resources/images/";
+					} else {
+						rootPath = rootPath.substring(0, rootPath.length() - 22) + "MainWithRoot\\wtpwebapps\\RealEstateApplication\\resources\\images";
 					}
 
 					File dir = new File(rootPath + File.separator + "uploads");
 					if (!dir.exists())
 						dir.mkdirs();
-
 					// Create the file on server
-					String uniqueIdentifier = String.valueOf(System
-							.currentTimeMillis());
-					uniqueIdentifier = uniqueIdentifier
-							.substring(uniqueIdentifier.length() - 5);
+					String uniqueIdentifier = String.valueOf(System.currentTimeMillis());
+					uniqueIdentifier = uniqueIdentifier.substring(uniqueIdentifier.length() - 5);
 					String fileName = null;
-					if (file.getOriginalFilename().toLowerCase()
-							.contains(".jpg")) {
-						fileName = file.getOriginalFilename().toLowerCase()
-								.replace(".jpg", "")
-								+ "_" + uniqueIdentifier + ".jpg";
-					} else if (file.getOriginalFilename().toLowerCase()
-							.contains(".png")) {
-						fileName = file.getOriginalFilename().toLowerCase()
-								.replace(".png", "")
-								+ "_" + uniqueIdentifier + ".png";
+					if (file.getOriginalFilename().toLowerCase().contains(".jpg")) {
+						fileName = file.getOriginalFilename().toLowerCase().replace(".jpg", "") + "_" + uniqueIdentifier + ".jpg";
+					} else if (file.getOriginalFilename().toLowerCase().contains(".png")) {
+						fileName = file.getOriginalFilename().toLowerCase().replace(".png", "") + "_" + uniqueIdentifier + ".png";
 					} else {
-						fileName = file.getOriginalFilename().toLowerCase()
-								+ "_" + uniqueIdentifier;
+						fileName = file.getOriginalFilename().toLowerCase() + "_" + uniqueIdentifier;
 					}
-					File serverFile = new File(dir.getAbsolutePath()
-							+ File.separator + fileName);
-					BufferedOutputStream stream = new BufferedOutputStream(
-							new FileOutputStream(serverFile));
+					File serverFile = new File(dir.getAbsolutePath() + File.separator + fileName);
+					BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
 					stream.write(bytes);
 					stream.close();
-					Image image = new Image("../resources/images/uploads/"
-							+ fileName, property);
+					Image image = new Image("../resources/images/uploads/" + fileName, property);
 					imageDao.addImage(image);
-					logger.info("Server File Location="
-							+ serverFile.getAbsolutePath());
+					logger.info("Server File Location=" + serverFile.getAbsolutePath());
 
 				} catch (Exception e) {
 					logger.error(e.getMessage());
@@ -157,8 +145,7 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/buyrent", method = RequestMethod.GET)
-	public String buyrentProperty(Model model, HttpServletRequest request,
-			@RequestParam(required = true, value = "id") Integer id) {
+	public String buyrentProperty(Model model, HttpServletRequest request, @RequestParam(required = true, value = "id") Integer id) {
 		Check.Login(model, request);
 		Property property = propertyDao.findPropertyByID(id);
 		List<String> imagesSRC = new LinkedList<String>();
@@ -172,8 +159,7 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/makeOffer", method = RequestMethod.GET)
-	public String makeOffer(Model model, HttpServletRequest request,
-			@RequestParam(value = "offer") Integer offer,
+	public String makeOffer(Model model, HttpServletRequest request, @RequestParam(value = "offer") Integer offer,
 			@RequestParam(required = true, value = "id") Integer id) {
 		Check.Login(model, request);
 		Property property = propertyDao.findPropertyByID(id);
