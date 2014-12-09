@@ -7,7 +7,7 @@
 	<c:if test="${not empty properties}">
 		<c:forEach var="listValue" items="${properties}">
 			<div class="box">
-				<form action="adminPanel/editProperty" method="get">
+				<form action="/account/editProperty" method="get">
 					${listValue}
 					<c:if test="${isAdmin eq true}">
 						<input type="submit" name="commit" value="Edit">
@@ -15,7 +15,7 @@
 				</form>
 				<c:if test="${isAdmin eq false}">
 					<c:if test="${LoginTitle == 'My Account'}">
-						<form action="buyrent" method="get" enctype="multipart/form-data">
+						<form action="/buyrent" method="get" enctype="multipart/form-data">
 							<div style="display: none;">${listValue}</div>
 							<c:if test="${fn:contains(listValue,'Rental: No')}">
 								<input type="submit" name="commit" value="Buy me!">
