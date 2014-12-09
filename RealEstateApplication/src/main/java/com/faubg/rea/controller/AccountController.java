@@ -22,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.faubg.rea.Variables;
 import com.faubg.rea.dao.ImageDao;
+import com.faubg.rea.dao.OfferDao;
 import com.faubg.rea.dao.PropertyDao;
 import com.faubg.rea.dao.PropertyDaoImpl;
 import com.faubg.rea.dao.UserDao;
 import com.faubg.rea.model.Image;
+import com.faubg.rea.model.Offer;
 import com.faubg.rea.model.Property;
 import com.faubg.rea.model.User;
 
@@ -40,6 +42,8 @@ public class AccountController {
 	@Autowired
 	private PropertyDao propertyDao;
 	@Autowired
+	private OfferDao offerDao;
+	@Autowired
 	private ImageDao imageDao;
 	private List<Property> propertyList;
 
@@ -53,6 +57,12 @@ public class AccountController {
 						.findAllRentalProperties();
 				properties.addAll(propertyDao.findAllResaleProperties());
 				model.addAttribute("properties", properties);
+				//List<Offer> offers = offerDao.findAllOfers();
+			//	model.addAttribute("offers", offers);\
+				model.addAttribute("viewProperties", true);
+				
+				
+				
 			}
 		}
 		return "account";
@@ -63,6 +73,28 @@ public class AccountController {
 			HttpServletRequest request) {
 		Check.Login(model, request);
 		return "adminPanel";
+	}
+	
+	@RequestMapping(value = "/adminPanel/viewOffers", method = RequestMethod.GET)
+	public String viewOffers(Model model, HttpServletRequest request)
+			{
+		Check.Login(model, request);
+		User user = (User) request.getSession().getAttribute("User");
+		if (user != null) {
+			if (user.getIsAdmin()) {
+				List<Property> properties = propertyDao
+						.findAllRentalProperties();
+				properties.addAll(propertyDao.findAllResaleProperties());
+				model.addAttribute("properties", properties);
+				//List<Offer> offers = offerDao.findAllOfers();
+			//	model.addAttribute("offers", offers);\
+				model.addAttribute("viewProperties", false);
+				
+				
+				
+			}
+		}
+		return "account";
 	}
 
 	@RequestMapping(value = "/adminPanel/editProperty", method = RequestMethod.GET)

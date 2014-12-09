@@ -17,6 +17,7 @@
 		<div class="onImageContainer" style="left: -105%;">
 			<h1>My Account</h1>
 			<hr />
+			<form action="adminPanel/viewOffers" method="GET">
 			<div style="text-align: left;">
 				<p>First Name:${User.firstName}</p>
 				<p>Last Name:${User.lastName}</p>
@@ -26,7 +27,9 @@
 				<p>Address:${User.address }</p>
 				<p>City:${User.city }</p>
 				<p>Zip:${User.zip }</p>
+				<input type="submit" name="commit" value="View all offers">
 			</div>
+			</form>
 		</div>
 		<c:if test="${isAdmin eq true}">
 			<div class="onImageContainer" style="left: 5%">
@@ -96,7 +99,12 @@
 		</c:if>
 	</div>
 	<c:if test="${isAdmin eq true}">
+	<c:if test="${viewProperties eq true}">
 		<jsp:include page="properties.jsp" />
+	</c:if>
+	<c:if test="${viewProperties eq false}">
+		<jsp:include page="viewOffers.jsp" />
+	</c:if>
 	</c:if>
 </c:if>
 <div class="mainContainer">
