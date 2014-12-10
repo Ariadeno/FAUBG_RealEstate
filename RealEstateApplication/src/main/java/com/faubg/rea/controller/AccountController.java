@@ -192,6 +192,7 @@ public class AccountController {
 		for (Image image : propertyImages) {
 			imagesSRC.add(image.getLocation());
 		}
+		model.addAttribute("offers", property.getOffers());
 		model.addAttribute("property", property);
 		model.addAttribute("propertyImages", imagesSRC);
 		return "buyrentPage";

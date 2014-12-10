@@ -15,6 +15,15 @@
 			<br /><img src="${listValue}">
 		</c:forEach>
 	</c:if>
+	
+	<c:if test="${not empty offers}">
+		<c:forEach var="listValue" items="${offers}">
+			
+					${listValue}
+					
+		</c:forEach>
+	</c:if>
+	
 	<form action="makeOffer" method="get" enctype="multipart/form-data">
 	<input type="text" name="offer" value="" placeholder="your offer in euro" required>
 	<div style="display: none;">${listValue}</div>
