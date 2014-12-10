@@ -1,5 +1,6 @@
 package com.faubg.rea.controller;
 
+import java.awt.Desktop.Action;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -89,6 +90,23 @@ public class AccountController {
 			}
 		}
 		return "account";
+	}
+	
+	@RequestMapping(value = "/account/acceptRefuse", method = RequestMethod.POST)
+	public String acceptOrRefuse(Model model, HttpServletRequest request, @RequestParam String action,
+			 @RequestParam(required = true, value = "id") Integer id)
+	{
+		Offer offer = offerDao.findOfferByID(id);
+		
+		if (action.equals("Accept")){
+			
+			offer.setStatus("Accepted");
+		}
+		if (action.equals("Refuse")){
+			offer.setStatus("Refused");
+		}
+		
+		return "redirect:/account";
 	}
 
 	@RequestMapping(value = "/account/editProperty", method = RequestMethod.GET)
