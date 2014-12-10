@@ -1,5 +1,6 @@
 package com.faubg.rea.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -16,6 +17,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,13 +49,20 @@ public class HomeController {
 		Check.Login(model, request);
 		return "home";
 	}
-
-	@RequestMapping(value = "/rent", method = RequestMethod.GET)
-	public String rent(Model model, HttpServletRequest request) {
+	
+	@RequestMapping(value = "/rent{id}", method = RequestMethod.GET)
+	public String rent(@PathVariable("id") int pageNumber, Model model, HttpServletRequest request) {
 		Check.Login(model, request);
 		List<Property> properties = propertyDao.findAllRentalProperties();
-		model.addAttribute("properties", properties);
+		model.addAttribute("pageNumber", pageNumber);
+		model.addAttribute("properties", getElementsFromPage(properties, pageNumber));
+		model.addAttribute("pages", pageChecker(properties));
 		return "properties";
+	}
+	
+	@RequestMapping(value = "/rent", method = RequestMethod.GET)
+	public String rentRedirect(Model model, HttpServletRequest request) {
+		return "redirect:/rent0";
 	}
 
 	@RequestMapping(value = "/buy", method = RequestMethod.GET)
@@ -99,6 +108,23 @@ public class HomeController {
 		} else {
 			return "redirect:/all";
 		}
+	}
+	
+	private int pageChecker(List<Property> properties) {
+		int count = properties.size();
+		int pages = (int) Math.ceil(count / 2.0);	
+		return pages;
+	}
+	
+	private List<Property> getElementsFromPage(List<Property> properties, int page) {
+		int pages = pageChecker(properties);
+		List<Property> pageList = new ArrayList<Property>();
+		int min = page * 2;
+		int max = min+2;
+		for(int i = min; i < max; i ++) {
+			pageList.add(properties.get(i));			
+		}		
+		return pageList;
 	}
 
 }

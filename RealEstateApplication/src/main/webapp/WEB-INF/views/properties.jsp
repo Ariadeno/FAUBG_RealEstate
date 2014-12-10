@@ -30,6 +30,58 @@
 		</c:forEach>
 	</c:if>
 </div>
+<div class="mainContainer">
+	<button id="btn_previous" type="button" onclick="goPrevious()">Previous</button>
+	<script>
+	function previousCheck() {
+		var x = ${pageNumber};
+		if(x == 0) {
+		document.getElementById('btn_previous').style.visibility='hidden';
+		}
+		else {document.getElementById('btn_previous').style.visibility='visible';}
+	}
+	previousCheck();
+	function goPrevious() {
+		var x = ${pageNumber};
+		var y =1;
+		var pre = x-y;
+		var link = "/rent";
+		var link1 = link + pre.toString() 
+		window.location.href=link1;
+	}
+	</script>	
+	<p id= pageNumber></p>
+	<script>
+			function correctPageNumber() {
+				var x = ${pageNumber};
+				var y = 1;
+				return (x + y);
+			}
+		document.getElementById("pageNumber").innerHTML = correctPageNumber() + "/" + ${pages};
+	</script>	
+	<button id="btn_next" type="button" onclick="goNext()">Next</button>
+	<script>
+	function nextCheck() {
+		var x = ${pages};
+		var x2 = x - 1;
+		var y = ${pageNumber};
+		if(y < x2) {
+		document.getElementById('btn_next').style.visibility='visible';
+		}
+		else {document.getElementById('btn_next').style.visibility='hidden';}
+	}
+	nextCheck();
+	function goNext() {
+		var x = ${pageNumber};
+		var y =1;
+		var pre = x+y;
+		var link = "/rent";
+		var link1 = link + pre.toString() 
+		window.location.href=link1;
+	}	
+	</script>	
+	
+</div>
 <script>
 	$(document)
 			.ready(
