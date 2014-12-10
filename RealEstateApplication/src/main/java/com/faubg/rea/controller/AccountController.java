@@ -5,6 +5,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -200,13 +201,24 @@ public class AccountController {
 	public String makeOffer(Model model, HttpServletRequest request, @RequestParam(value = "offer") Integer offer,
 			@RequestParam(required = true, value = "id") Integer id) {
 		Check.Login(model, request);
-		Property property = propertyDao.findPropertyByID(id);
-		if (offer != null) {
-			return "redirect:/";
-		}
-		return "home";
+		//get the property that is being viewed
+		Property property1 = propertyDao.findPropertyByID(id);
+		//get current user
+		User user1 = (User) request.getSession().getAttribute("User");
+		//get current time
+		java.util.Date date= new java.util.Date();
+		Timestamp currentTime = new Timestamp(date.getTime());
+		//add the new offer
+		offerDao.addOffer(new Offer(1,user1,property1,offer, currentTime, "NotAccepted"));
+		
+		model.addAttribute("user", user1);
+		model.addAttribute("property", property1);
+		model.addAttribute("offer", offer);
+		return "confirmation";
 	}
-
+	
+	
+	
 	public List<Property> getPropertyList() {
 		return propertyList;
 	}

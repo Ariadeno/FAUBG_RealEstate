@@ -54,6 +54,10 @@
 		<put-attribute name="title" value="Buy / Rent" />
 		<put-attribute name="body" value="/WEB-INF/views/buyrentPage.jsp" />
 	</definition>
-
+	
+	<definition name="confirmation" extends="baseLayout">
+		<put-attribute name="title" value="Confirmation" />
+		<put-attribute name="body" value="/WEB-INF/views/Confirmation.jsp" />
+	</definition>
 
 </tiles-definitions>  

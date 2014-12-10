@@ -5,10 +5,13 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "offer", catalog = "aubg")
@@ -34,7 +37,9 @@ public class Offer {
 	}
 
 	@Id
-	@Column(name = "o_id")
+	@GenericGenerator(name = "kaugen", strategy = "increment")
+	@GeneratedValue(generator = "kaugen")
+	@Column(name = "o_id", unique = true, nullable = false, length = 11)
 	public Integer getId() {
 		return id;
 	}
