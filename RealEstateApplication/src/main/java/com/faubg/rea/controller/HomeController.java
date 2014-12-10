@@ -55,6 +55,7 @@ public class HomeController {
 		Check.Login(model, request);
 		List<Property> properties = propertyDao.findAllRentalProperties();
 		model.addAttribute("pageNumber", pageNumber);
+		model.addAttribute("pageType", "/rent");
 		model.addAttribute("properties", getElementsFromPage(properties, pageNumber));
 		model.addAttribute("pages", pageChecker(properties));
 		return "properties";
@@ -65,12 +66,20 @@ public class HomeController {
 		return "redirect:/rent0";
 	}
 
-	@RequestMapping(value = "/buy", method = RequestMethod.GET)
-	public String buy(Model model, HttpServletRequest request) {
+	@RequestMapping(value = "/buy{id}", method = RequestMethod.GET)
+	public String buy(@PathVariable("id") int pageNumber, Model model, HttpServletRequest request) {
 		Check.Login(model, request);
 		List<Property> properties = propertyDao.findAllResaleProperties();
-		model.addAttribute("properties", properties);
+		model.addAttribute("pageNumber", pageNumber);
+		model.addAttribute("pageType", "/buy");
+		model.addAttribute("properties", getElementsFromPage(properties, pageNumber));
+		model.addAttribute("pages", pageChecker(properties));
 		return "properties";
+	}
+	
+	@RequestMapping(value = "/buy", method = RequestMethod.GET)
+	public String buyRedirect(Model model, HttpServletRequest request) {
+		return "redirect:/buy0";
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)

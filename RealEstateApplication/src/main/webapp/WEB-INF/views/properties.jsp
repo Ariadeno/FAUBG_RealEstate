@@ -30,7 +30,9 @@
 		</c:forEach>
 	</c:if>
 </div>
+
 <div class="mainContainer">
+
 	<button id="btn_previous" type="button" onclick="goPrevious()">Previous</button>
 	<script>
 	function previousCheck() {
@@ -45,7 +47,7 @@
 		var x = ${pageNumber};
 		var y =1;
 		var pre = x-y;
-		var link = "/rent";
+		var link = ${pageType};
 		var link1 = link + pre.toString() 
 		window.location.href=link1;
 	}
@@ -64,7 +66,7 @@
 	function nextCheck() {
 		var x = ${pages};
 		var x2 = x - 1;
-		var y = ${pageNumber};
+		var y = "${pageNumber}";
 		if(y < x2) {
 		document.getElementById('btn_next').style.visibility='visible';
 		}
@@ -75,7 +77,7 @@
 		var x = ${pageNumber};
 		var y =1;
 		var pre = x+y;
-		var link = "/rent";
+		var link = "${pageType}";
 		var link1 = link + pre.toString() 
 		window.location.href=link1;
 	}	
