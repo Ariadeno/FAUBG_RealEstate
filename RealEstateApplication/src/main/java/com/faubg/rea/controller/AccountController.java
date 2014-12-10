@@ -83,8 +83,8 @@ public class AccountController {
 						.findAllRentalProperties();
 				properties.addAll(propertyDao.findAllResaleProperties());
 				model.addAttribute("properties", properties);
-				//List<Offer> offers = offerDao.findAllOfers();
-				//model.addAttribute("offers", offers);
+				List<Offer> offers = offerDao.findAllOfers();
+				model.addAttribute("offers", offers);
 				model.addAttribute("viewProperties", false);
 			}
 		}
