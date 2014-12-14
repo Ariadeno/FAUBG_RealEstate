@@ -44,10 +44,10 @@
 	}
 	previousCheck();
 	function goPrevious() {
-		var x = ${pageNumber};
+		var x = "${pageNumber}";
 		var y =1;
 		var pre = x-y;
-		var link = ${pageType};
+		var link = "${pageType}";
 		var link1 = link + pre.toString() 
 		window.location.href=link1;
 	}
