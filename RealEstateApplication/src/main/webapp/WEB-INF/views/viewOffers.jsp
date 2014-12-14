@@ -6,11 +6,11 @@
 	<c:if test="${not empty offers}">
 		<c:forEach var="listValue" items="${offers}">
 			<div class="box">
-				<form action="/adminPanel/acceptRefuse" method="get">
+				<form action="/account/acceptRefuse" method="post">
 					${listValue}
 					<c:if test="${isAdmin eq true}">
-						<input type="submit" name="commit" value="Accept">
-						<input type="submit" name="commit" value="Refuse">
+						<input type="submit" name="action" value="Accept">
+						<input type="submit" name="action" value="Refuse">
 					</c:if>
 				</form>
 			</div>

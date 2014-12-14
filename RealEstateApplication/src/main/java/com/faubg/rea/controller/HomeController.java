@@ -135,5 +135,11 @@ public class HomeController {
 		}		
 		return pageList;
 	}
+	
+	@RequestMapping(value = "/confirmation", method = RequestMethod.GET)
+	public String confirmation(Locale locale, Model model, HttpServletRequest request) {
+		Check.Login(model, request);
+		return "confirmation";
+	}
 
 }

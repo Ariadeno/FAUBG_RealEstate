@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.faubg.rea.model.Offer;
+import com.faubg.rea.model.Property;
 @Repository
 public class OfferDaoImpl implements OfferDao {
 	
@@ -42,5 +43,14 @@ public class OfferDaoImpl implements OfferDao {
 		List<Offer> offers = new ArrayList<Offer>();
 		offers = sessionFactory.getCurrentSession().createQuery("from Offer").list();
 		return offers;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	@Override
+	public Offer findOfferByID(Integer id) {
+		List<Offer> offers = new ArrayList<Offer>();
+		offers = sessionFactory.getCurrentSession().createQuery("from Offer where id is " + id).list();
+		return offers.get(0);
 	}
 }

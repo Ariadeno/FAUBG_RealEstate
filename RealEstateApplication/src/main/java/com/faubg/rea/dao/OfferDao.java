@@ -8,5 +8,6 @@ public interface OfferDao {
 	List<Offer> findAllOfers();
 	void addOffer(Offer offer);
 	void saveOffer(Offer offer);
+	Offer findOfferByID(Integer id);
 	
 }
