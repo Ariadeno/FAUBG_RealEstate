@@ -12,23 +12,23 @@
 	<div class="box">${property}</div>
 	<c:if test="${not empty propertyImages}">
 		<c:forEach var="listValue" items="${propertyImages}">
-			<br /><img src="${listValue}">
+			<br /><img src="${listValue}"/>
 		</c:forEach>
 	</c:if>
 	
 	<c:if test="${not empty offers}">
 		<c:forEach var="listValue" items="${offers}">
-			
+			<div class="box">
 					${listValue}
-					
+					</div>
 		</c:forEach>
 	</c:if>
 	
 	<form action="makeOffer" method="get" enctype="multipart/form-data">
-	<input type="text" name="offer" value="" placeholder="your offer in euro" required>
-	<div style="display: none;">${listValue}</div>
-	
+	<input type="text" name="offerAmount" value="" placeholder="your offer in euro" required/>
+	<input type="hidden" name="id" value="${id}" />
 	<p class="submit">
-	<input type="submit" name="commit" value="Make offer">
+	<input type="submit" name="commit" value="Make offer"/>
+	</p>
 	</form>
 </div>

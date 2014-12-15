@@ -192,29 +192,35 @@ public class AccountController {
 		for (Image image : propertyImages) {
 			imagesSRC.add(image.getLocation());
 		}
-		model.addAttribute("offers", property.getOffers());
+		List<Offer> offers = new LinkedList<Offer>();
+		for (Offer offer : property.getOffers()) {
+			offers.add(offer);
+		}
+		model.addAttribute("id", property.getId());
+		model.addAttribute("offers", offers);
 		model.addAttribute("property", property);
 		model.addAttribute("propertyImages", imagesSRC);
 		return "buyrentPage";
 	}
 
 	@RequestMapping(value = "/makeOffer", method = RequestMethod.GET)
-	public String makeOffer(Model model, HttpServletRequest request, @RequestParam(value = "offer") Integer offer,
+	public String makeOffer(Model model, HttpServletRequest request, @RequestParam(value = "offerAmount") Integer offerAmount,
 			@RequestParam(required = true, value = "id") Integer id) {
 		Check.Login(model, request);
 		//get the property that is being viewed
-		Property property1 = propertyDao.findPropertyByID(id);
+		Property property = propertyDao.findPropertyByID(id);
 		//get current user
-		User user1 = (User) request.getSession().getAttribute("User");
+		User user = (User) request.getSession().getAttribute("User");
 		//get current time
 		java.util.Date date= new java.util.Date();
 		Timestamp currentTime = new Timestamp(date.getTime());
 		//add the new offer
-		offerDao.addOffer(new Offer(1,user1,property1,offer, currentTime, "NotAccepted"));
+		Offer offer = new Offer(-1,user,property,offerAmount, currentTime, "NotAccepted");
+		offerDao.addOffer(offer);
 		
-		model.addAttribute("user", user1);
-		model.addAttribute("property", property1);
-		model.addAttribute("offer", offer);
+		model.addAttribute("user", user);
+		model.addAttribute("property", property);
+		model.addAttribute("offer", offerAmount);
 		return "confirmation";
 	}
 	

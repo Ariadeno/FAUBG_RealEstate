@@ -138,7 +138,7 @@ public class Property {
 
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "property")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "property")
 	public Set<Offer> getOffers() {
 		return offers;
 	}
