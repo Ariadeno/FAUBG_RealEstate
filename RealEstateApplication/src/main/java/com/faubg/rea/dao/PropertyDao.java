@@ -9,4 +9,5 @@ public interface PropertyDao {
 	void addProperty(Property property);
 	Property findPropertyByID(Integer id);
 	void saveProperty(Property property);
+	void deleteProperty(Property property);
 }

@@ -63,4 +63,11 @@ public class PropertyDaoImpl implements PropertyDao {
 		properties = sessionFactory.getCurrentSession().createQuery("from Property where id is " + id).list();
 		return properties.get(0);
 	}
+
+	@Transactional
+	@Override
+	public void deleteProperty(Property property) {
+		// TODO Auto-generated method stub
+		sessionFactory.getCurrentSession().delete(property);
+	}
 }

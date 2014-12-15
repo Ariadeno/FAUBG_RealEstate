@@ -49,6 +49,11 @@
 		<put-attribute name="title" value="EditProperty" />
 		<put-attribute name="body" value="/WEB-INF/views/editProperty.jsp" />
 	</definition>
+	
+	<definition name="deleteProperty" extends="baseLayout">
+		<put-attribute name="title" value="DeleteProperty" />
+		<put-attribute name="body" value="/WEB-INF/views/deleteProperty.jsp" />
+	</definition>
 
 	<definition name="buyrentPage" extends="baseLayout">
 		<put-attribute name="title" value="Buy / Rent" />

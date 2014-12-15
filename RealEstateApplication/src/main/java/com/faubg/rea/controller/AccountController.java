@@ -123,6 +123,14 @@ public class AccountController {
 		model.addAttribute("property", property.toEditHTML());
 		return "editProperty";
 	}
+	
+	@RequestMapping(value = "/account/deleteProperty", method = RequestMethod.GET)
+	public String deleteProperty(Model model, HttpServletRequest request, @RequestParam(required = true, value = "id") Integer id) {
+		Check.Login(model, request);
+		Property property = propertyDao.findPropertyByID(id);
+		propertyDao.deleteProperty(property);
+		return "deleteProperty";
+	}
 
 	@RequestMapping(value = "/account/updateProperty", method = RequestMethod.POST)
 	public String updateProperty(Model model, @Valid @ModelAttribute("property") Property property, BindingResult result) {
