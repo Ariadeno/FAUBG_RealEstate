@@ -17,7 +17,7 @@
 		<div class="onImageContainer" style="left: -105%;">
 			<h1>My Account</h1>
 			<hr />
-			<form action="/account/viewOffers" method="GET">
+			
 			<div style="text-align: left;">
 				<p>First Name:${User.firstName}</p>
 				<p>Last Name:${User.lastName}</p>
@@ -28,9 +28,9 @@
 				<p>City:${User.city }</p>
 				<p>Zip:${User.zip }</p>
 				<p>${test}</p>
-				<input type="submit" name="commit" value="View all offers">
+				
 			</div>
-			</form>
+			
 		</div>
 		<c:if test="${isAdmin eq true}">
 			<div class="onImageContainer" style="left: 5%">
@@ -50,6 +50,13 @@
 						property<a class="terms" href=#></a> <input type="submit"
 							name="commit" value="Submit">
 					</form>
+				
+				</div>
+				<form action="/account/viewOffers" method="GET">
+				<input type="submit" name="commit" value="View all offers">
+				</form>
+				<div>
+				
 				</div>
 			</div>
 		</c:if>
