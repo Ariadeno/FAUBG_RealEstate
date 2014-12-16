@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.faubg.rea.model.Offer;
 import com.faubg.rea.model.Property;
 
 @Repository
@@ -33,6 +34,19 @@ public class PropertyDaoImpl implements PropertyDao {
 		List<Property> properties = new ArrayList<Property>();
 		properties = sessionFactory.getCurrentSession().createQuery("from Property where rental is true").list();
 		return properties;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	@Override
+	public List<Property> findAllOccupiedProperties() {
+		List<Offer> acceptedOffers = new ArrayList<Offer>();
+		List<Property> occupiedProperties = new ArrayList<Property>();
+		acceptedOffers = sessionFactory.getCurrentSession().createQuery("from Offer where status = ?").setParameter(0, "Accepted").list();
+		for(Offer offer : acceptedOffers){
+			occupiedProperties.add(offer.getProperty());
+		}
+		return occupiedProperties;
 	}
 
 	@Transactional

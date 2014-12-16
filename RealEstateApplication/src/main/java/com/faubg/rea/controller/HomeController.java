@@ -67,7 +67,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/buy{id}", method = RequestMethod.GET)
-	public String buy(@PathVariable("id") int pageNumber, Model model, HttpServletRequest request) {
+	public String buy(@PathVariable("id") int pageNumber, @RequestParam(required = false, value = "orderBy") String orderBy, Model model, HttpServletRequest request) {
 		Check.Login(model, request);
 		List<Property> properties = propertyDao.findAllResaleProperties();
 		model.addAttribute("pageNumber", pageNumber);

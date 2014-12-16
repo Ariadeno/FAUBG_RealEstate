@@ -58,13 +58,22 @@ public class AccountController {
 	private List<Property> propertyList;
 
 	@RequestMapping(value = "/account", method = RequestMethod.GET)
-	public String login(Locale locale, Model model, HttpServletRequest request) {
+	public String login(@RequestParam(required = false, value = "occupied") boolean occupied, Locale locale, Model model, HttpServletRequest request) {
 		Check.Login(model, request);
 		User user = (User) request.getSession().getAttribute("User");
+		String test = "";
 		if (user != null) {
 			if (user.getIsAdmin()) {
-				List<Property> properties = propertyDao.findAllRentalProperties();
-				properties.addAll(propertyDao.findAllResaleProperties());
+				List<Property> properties;
+				if(occupied){
+					test = "hello";
+					properties = propertyDao.findAllOccupiedProperties();
+				} else {
+					properties = propertyDao.findAllRentalProperties();
+					properties.addAll(propertyDao.findAllResaleProperties());
+				}
+				
+				model.addAttribute("test", test);
 				model.addAttribute("properties", properties);
 				//List<Offer> offers = offerDao.findAllOfers();
 				//model.addAttribute("offers", offers);

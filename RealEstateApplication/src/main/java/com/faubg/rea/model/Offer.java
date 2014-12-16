@@ -58,7 +58,7 @@ public class Offer {
 		this.user = user;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "p_id")
 	public Property getProperty() {
 		return property;

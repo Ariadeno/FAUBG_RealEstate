@@ -10,4 +10,5 @@ public interface PropertyDao {
 	Property findPropertyByID(Integer id);
 	void saveProperty(Property property);
 	void deleteProperty(Property property);
+	public List<Property> findAllOccupiedProperties();
 }

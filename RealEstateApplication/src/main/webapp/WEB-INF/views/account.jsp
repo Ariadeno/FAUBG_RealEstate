@@ -27,6 +27,7 @@
 				<p>Address:${User.address }</p>
 				<p>City:${User.city }</p>
 				<p>Zip:${User.zip }</p>
+				<p>${test}</p>
 				<input type="submit" name="commit" value="View all offers">
 			</div>
 			</form>
@@ -95,6 +96,14 @@
 	</div>
 	<c:if test="${isAdmin eq true}">
 	<c:if test="${viewProperties eq true}">
+		<form action="account/" method="GET">
+			<p>
+				<input type="checkbox" name="occupied" id="terms">Show only occupied properties<a class="terms" href=#></a>
+			</p>
+			<p>
+				<input type="submit" value="Submit">
+			</p>
+		</form>
 		<jsp:include page="properties.jsp" />
 	</c:if>
 	<c:if test="${viewProperties eq false}">
