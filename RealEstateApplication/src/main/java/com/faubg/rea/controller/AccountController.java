@@ -119,10 +119,11 @@ public class AccountController {
 			offer.setStatus("Accepted");
 		}
 		if (action.equals("Refuse")){
-			offer.setStatus("Refused");
+			offer.setStatus("Refused");			
 		}
+		model.addAttribute("viewProperties", false);
 		
-		return "redirect:/account";
+		return viewOffers(model, request);
 	}
 
 	@RequestMapping(value = "/account/editProperty", method = RequestMethod.GET)
