@@ -39,6 +39,24 @@ public class PropertyDaoImpl implements PropertyDao {
 	@SuppressWarnings("unchecked")
 	@Transactional
 	@Override
+	public List<Property> findAllRentalPropertiesWithinPriceRange(int x, int y) {
+		List<Property> properties = new ArrayList<Property>();
+		properties = sessionFactory.getCurrentSession().createQuery("from Property where rental is true and price between :from and :to").setParameter("from", x).setParameter("to", y).list();
+		return properties;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	@Override
+	public List<Property> findAllResalePropertiesWithinPriceRange(int x, int y) {
+		List<Property> properties = new ArrayList<Property>();
+		properties = sessionFactory.getCurrentSession().createQuery("from Property where rental is false and price between :from and :to").setParameter("from", x).setParameter("to", y).list();
+		return properties;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	@Override
 	public List<Property> findAllOccupiedProperties() {
 		List<Offer> acceptedOffers = new ArrayList<Offer>();
 		List<Property> occupiedProperties = new ArrayList<Property>();

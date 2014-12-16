@@ -5,6 +5,14 @@
 	<h1>Properties</h1>
 	<hr />
 	<c:if test="${not empty properties}">
+	<form action="${contextPath }${pageType}0" method="GET">
+			<p>
+				<input type="checkbox" name="orderBy" id="terms"><a>Narrow your search</a>
+				<input type="text" name="from" id="priceFrom" placeholder="Price from">
+				<input type="text" name="to" id="priceTo" placeholder="Price to">
+				<input type="submit" value="Submit">
+			</p>
+		</form>
 		<c:forEach var="listValue" items="${properties}">
 			<div class="box">
 					${listValue}
@@ -17,7 +25,6 @@
 						<form action="${contextPath }/account/deleteProperty" method="get">
 							<input type="hidden" name="id" value="${listValue.id}">
 							<input type="submit" name="commit" value="Delete">
-							
 						</form>
 					</c:if>
 

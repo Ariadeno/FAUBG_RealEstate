@@ -51,9 +51,16 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/rent{id}", method = RequestMethod.GET)
-	public String rent(@PathVariable("id") int pageNumber, Model model, HttpServletRequest request) {
+	public String rent(@PathVariable("id") int pageNumber, @RequestParam(required = false, value = "orderBy") boolean orderBy, @RequestParam(required = false, value = "from") String priceFrom, @RequestParam(required = false, value = "to") String priceTo, Model model, HttpServletRequest request) {
 		Check.Login(model, request);
-		List<Property> properties = propertyDao.findAllRentalProperties();
+		List<Property> properties = null;
+		if(orderBy){
+			if((!priceFrom.isEmpty()) && (!priceTo.isEmpty())){
+				properties = propertyDao.findAllRentalPropertiesWithinPriceRange(Integer.valueOf(priceFrom), Integer.valueOf(priceTo));
+			}
+		} else {
+			properties = propertyDao.findAllRentalProperties();
+		}
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("pageType", "/rent");
 		model.addAttribute("properties", getElementsFromPage(properties, pageNumber));
@@ -67,9 +74,16 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/buy{id}", method = RequestMethod.GET)
-	public String buy(@PathVariable("id") int pageNumber, @RequestParam(required = false, value = "orderBy") String orderBy, Model model, HttpServletRequest request) {
+	public String buy(@PathVariable("id") int pageNumber, @RequestParam(required = false, value = "orderBy") boolean orderBy, @RequestParam(required = false, value = "from") String priceFrom, @RequestParam(required = false, value = "to") String priceTo, Model model, HttpServletRequest request) {
 		Check.Login(model, request);
-		List<Property> properties = propertyDao.findAllResaleProperties();
+		List<Property> properties = null;
+		if(orderBy){
+			if((!priceFrom.isEmpty()) && (!priceTo.isEmpty())){
+				properties = propertyDao.findAllResalePropertiesWithinPriceRange(Integer.valueOf(priceFrom), Integer.valueOf(priceTo));
+			}
+		} else {
+			properties = propertyDao.findAllResaleProperties();
+		}
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("pageType", "/buy");
 		model.addAttribute("properties", getElementsFromPage(properties, pageNumber));

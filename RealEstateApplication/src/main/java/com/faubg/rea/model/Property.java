@@ -28,7 +28,7 @@ public class Property {
 	private String address;
 	@NotNull
 	@NotEmpty
-	private String price;
+	private int price;
 	@NotNull
 	private Boolean rental;
 	@NotNull
@@ -45,7 +45,7 @@ public class Property {
 	public Property() {
 	}
 
-	public Property(Integer id, String address, String price, Boolean rental,
+	public Property(Integer id, String address, int price, Boolean rental,
 			String area, String description) {
 		this.id = id;
 		this.address = address;
@@ -77,11 +77,11 @@ public class Property {
 	}
 
 	@Column(name = "p_price", nullable = false, length = 11)
-	public String getPrice() {
+	public int getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 
