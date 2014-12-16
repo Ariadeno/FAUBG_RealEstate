@@ -1,11 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<c:set var="contextPath" value="/rea"/>
 <div class="mainContainer">
 	<h1>Properties</h1>
 	<hr />
 	<c:if test="${not empty properties}">
-	<form action="${contextPath }${pageType}0" method="GET">
+	<form action="${pageType}0" method="GET">
 			<p>
 				<input type="checkbox" name="orderBy" id="terms"><a>Narrow your search</a>
 				<input type="text" name="from" id="priceFrom" placeholder="Price from">
@@ -17,12 +16,12 @@
 			<div class="box">
 					${listValue}
 					<c:if test="${isAdmin eq true}">
-						<form action="${contextPath }/account/editProperty" method="get">
+						<form action="/account/editProperty" method="get">
 							<input type="hidden" name="id" value="${listValue.id}">
 							<input type="submit" name="commit" value="Edit">
 							
 						</form>
-						<form action="${contextPath }/account/deleteProperty" method="get">
+						<form action="/account/deleteProperty" method="get">
 							<input type="hidden" name="id" value="${listValue.id}">
 							<input type="submit" name="commit" value="Delete">
 						</form>
@@ -31,7 +30,7 @@
 				
 				<c:if test="${isAdmin eq false}">
 					<c:if test="${LoginTitle == 'My Account'}">
-						<form action="${contextPath}/buyrent" method="get" enctype="multipart/form-data">
+						<form action="/buyrent" method="get" enctype="multipart/form-data">
 							<div style="display: none;">${listValue}</div>
 							<c:if test="${fn:contains(listValue,'Rental: No')}">
 								<input type="submit" name="commit" value="Buy me!">
@@ -64,7 +63,7 @@
 		var y =1;
 		var pre = x-y;
 		var link = "${pageType}";
-		var link1 = "${contextPath}" + link + pre.toString()
+		var link1 = link + pre.toString()
 		window.location.href=link1;
 	}
 	</script>	
@@ -94,7 +93,7 @@
 		var y =1;
 		var pre = x+y;
 		var link = "${pageType}";
-		var link1 = "${contextPath}" + link + pre.toString() 
+		var link1 = link + pre.toString() 
 		window.location.href=link1;
 	}	
 	</script>	

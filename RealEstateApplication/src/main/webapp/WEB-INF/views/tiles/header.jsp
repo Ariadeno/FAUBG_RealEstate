@@ -15,7 +15,6 @@
 <script src="<c:url value="/resources/js/responsive-nav.js" />"></script>
 <meta name="theme-color" content="#1B5098">
 </head>
-<c:set var="contextPath" value="/rea"/>
 <div class="header">
 	<ul class="cb-slideshow">
 		<li><span>Image 01</span></li>
@@ -31,17 +30,17 @@
 		<div class="nav-collapse-container">
 			<nav>
 				<ul style="width: 100%; background-color: #ffffff;">
-					<li><a href="${contextPath }/">Home</a></li>
-					<li><a href="${contextPath }/buy">Buy</a></li>
-					<li><a href="${contextPath }/rent">Rent</a></li>
+					<li><a href="/">Home</a></li>
+					<li><a href="/buy">Buy</a></li>
+					<li><a href="/rent">Rent</a></li>
 				</ul>
 			</nav>
 			<div class="account-menu">
 				<ul style="right:0;">
 					<c:if test="${LoginTitle == 'My Account'}">
-						<li style="float: right;"><a href="${contextPath }/logout">Logout</a></li>
+						<li style="float: right;"><a href="/logout">Logout</a></li>
 					</c:if>
-					<li style="float: right;"><a href="${contextPath }${AccountUrl}">${LoginTitle}</a></li>
+					<li style="float: right;"><a href="${AccountUrl}">${LoginTitle}</a></li>
 				</ul>
 			</div>
 		</div>

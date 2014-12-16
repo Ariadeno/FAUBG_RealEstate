@@ -12,13 +12,12 @@
 	}
 }
 </style>
-<c:set var="contextPath" value="/rea"/>
 <c:if test="${LoginTitle == 'My Account'}">
 	<div style="left: 50%; width: 350px; position: absolute;">
 		<div class="onImageContainer" style="left: -105%;">
 			<h1>My Account</h1>
 			<hr />
-			<form action="${contextPath}/account/viewOffers" method="GET">
+			<form action="/account/viewOffers" method="GET">
 			<div style="text-align: left;">
 				<p>First Name:${User.firstName}</p>
 				<p>Last Name:${User.lastName}</p>
@@ -38,7 +37,7 @@
 				<div style="text-align: left;">
 					<h1>New Property</h1>
 					<hr />
-					<form method="POST" action="account/addProperty"
+					<form method="POST" action="/account/addProperty"
 						enctype="multipart/form-data">
 						<input type="text" name="address" value="" placeholder="Address"><br />
 						<input type="text" name="price" value="" placeholder="Price"><br />
@@ -73,7 +72,7 @@
 				<div style="text-align: left;">
 					<h1>New Property</h1>
 					<hr />
-					<form action="account/addProperty" method="POST"
+					<form action="/account/addProperty" method="POST"
 						enctype="multipart/form-data">
 						<input type="text" name="address" value="" placeholder="Address"><br />
 						<input type="text" name="price" value="" placeholder="Price"><br />
@@ -97,7 +96,7 @@
 	</div>
 	<c:if test="${isAdmin eq true}">
 	<c:if test="${viewProperties eq true}">
-		<form action="account/" method="GET">
+		<form action="/account/" method="GET">
 			<p>
 				<input type="checkbox" name="occupied" id="terms">Show only occupied properties<a class="terms" href=#></a>
 			</p>
