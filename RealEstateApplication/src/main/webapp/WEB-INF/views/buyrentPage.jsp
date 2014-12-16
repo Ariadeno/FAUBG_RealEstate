@@ -2,10 +2,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <div class="mainContainer">
 	<c:if test="${fn:contains(property,'Rental: No')}">
-		<h1>You just bought</h1>
+		<h1>This property is for sale.</h1>
 	</c:if>
 	<c:if test="${fn:contains(property,'Rental: Yes')}">
-		<h1>You just rented</h1>
+		<h1>This property is for rent.</h1>
 	</c:if>
 	<hr />
 	

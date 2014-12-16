@@ -111,6 +111,14 @@
 	</c:if>
 	</c:if>
 </c:if>
+
+<c:if test="${not empty userOffers}">
+		<c:forEach var="listValue" items="${userOffers}">
+			<div class="box">
+					${listValue}
+					</div>
+		</c:forEach>
+	</c:if>
 <div class="mainContainer">
 	<c:if test="${LoginTitle == 'Login'}">You have no access to this page!</c:if>
 </div>

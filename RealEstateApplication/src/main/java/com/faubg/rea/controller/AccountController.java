@@ -80,6 +80,12 @@ public class AccountController {
 				model.addAttribute("viewProperties", true);
 			}
 		}
+		
+		//List<Offer> offers = new LinkedList<Offer>();
+		//for (Offer offer : user.getOffers()) {
+		//	offers.add(offer);
+		//}
+		//model.addAttribute("userOffers", offers);
 		return "account";
 	}
 	
@@ -232,8 +238,13 @@ public class AccountController {
 		java.util.Date date= new java.util.Date();
 		Timestamp currentTime = new Timestamp(date.getTime());
 		//add the new offer
-		Offer offer = new Offer(-1,user,property,offerAmount, currentTime, "NotAccepted");
-		offerDao.addOffer(offer);
+				Offer offer = new Offer();
+				offer.setDate(currentTime);
+				offer.setPrice(offerAmount);
+				offer.setProperty(property);
+				offer.setStatus("NotAccepted");
+				offer.setUser(user);
+				offerDao.addOffer(offer);
 		
 		model.addAttribute("user", user);
 		model.addAttribute("property", property);
