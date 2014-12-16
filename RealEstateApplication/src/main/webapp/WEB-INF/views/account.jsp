@@ -12,12 +12,13 @@
 	}
 }
 </style>
+<c:set var="contextPath" value="/rea"/>
 <c:if test="${LoginTitle == 'My Account'}">
 	<div style="left: 50%; width: 350px; position: absolute;">
 		<div class="onImageContainer" style="left: -105%;">
 			<h1>My Account</h1>
 			<hr />
-			<form action="account/viewOffers" method="GET">
+			<form action="${contextPath}/account/viewOffers" method="GET">
 			<div style="text-align: left;">
 				<p>First Name:${User.firstName}</p>
 				<p>Last Name:${User.lastName}</p>

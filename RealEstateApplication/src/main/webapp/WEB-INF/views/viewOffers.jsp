@@ -1,12 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<c:set var="contextPath" value="/rea"/>
 <div class="mainContainer">
 	<h1>Offers</h1>
 	<hr />
 	<c:if test="${not empty offers}">
 		<c:forEach var="listValue" items="${offers}">
 			<div class="box">
-				<form action="/account/acceptRefuse" method="post">
+				<form action="${contextPath}/account/acceptRefuse" method="post">
 					${listValue}
 					<c:if test="${isAdmin eq true}">
 						<input type="submit" name="action" value="Accept">
