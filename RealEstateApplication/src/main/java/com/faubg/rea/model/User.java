@@ -161,7 +161,7 @@ public class User {
 		this.isAdmin = isAdmin;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
 	public Set<Offer> getOffers() {
 		return offers;
 	}

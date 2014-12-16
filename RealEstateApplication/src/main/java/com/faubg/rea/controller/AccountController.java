@@ -56,7 +56,7 @@ public class AccountController {
 	@Autowired
 	private ImageDao imageDao;
 	private List<Property> propertyList;
-
+	@Transactional
 	@RequestMapping(value = "/account", method = RequestMethod.GET)
 	public String login(@RequestParam(required = false, value = "occupied") boolean occupied, Locale locale, Model model, HttpServletRequest request) {
 		Check.Login(model, request);
@@ -81,11 +81,11 @@ public class AccountController {
 			}
 		}
 		
-		//List<Offer> offers = new LinkedList<Offer>();
-		//for (Offer offer : user.getOffers()) {
-		//	offers.add(offer);
-		//}
-		//model.addAttribute("userOffers", offers);
+		List<Offer> offers = new LinkedList<Offer>();
+		for (Offer offer : user.getOffers()) {
+			offers.add(offer);
+		}
+		model.addAttribute("userOffers", offers);
 		return "account";
 	}
 	
