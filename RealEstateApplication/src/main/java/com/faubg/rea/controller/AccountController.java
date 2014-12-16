@@ -203,6 +203,7 @@ public class AccountController {
 				}
 			}
 		}
+		
 		model.addAttribute("property", property.toEditHTML());
 		return "editProperty";
 	}
