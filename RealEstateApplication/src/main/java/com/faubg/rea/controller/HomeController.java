@@ -49,13 +49,15 @@ public class HomeController {
 		Check.Login(model, request);
 		return "home";
 	}
-	
+
 	@RequestMapping(value = "/rent{id}", method = RequestMethod.GET)
-	public String rent(@PathVariable("id") int pageNumber, @RequestParam(required = false, value = "orderBy") boolean orderBy, @RequestParam(required = false, value = "from") String priceFrom, @RequestParam(required = false, value = "to") String priceTo, Model model, HttpServletRequest request) {
+	public String rent(@PathVariable("id") int pageNumber, @RequestParam(required = false, value = "orderBy") boolean orderBy,
+			@RequestParam(required = false, value = "from") String priceFrom, @RequestParam(required = false, value = "to") String priceTo,
+			Model model, HttpServletRequest request) {
 		Check.Login(model, request);
 		List<Property> properties = null;
-		if(orderBy){
-			if((!priceFrom.isEmpty()) && (!priceTo.isEmpty())){
+		if (orderBy) {
+			if ((!priceFrom.isEmpty()) && (!priceTo.isEmpty())) {
 				properties = propertyDao.findAllRentalPropertiesWithinPriceRange(Integer.valueOf(priceFrom), Integer.valueOf(priceTo));
 			}
 		} else {
@@ -67,18 +69,20 @@ public class HomeController {
 		model.addAttribute("pages", pageChecker(properties));
 		return "properties";
 	}
-	
+
 	@RequestMapping(value = "/rent", method = RequestMethod.GET)
 	public String rentRedirect(Model model, HttpServletRequest request) {
 		return "redirect:/rent0";
 	}
 
 	@RequestMapping(value = "/buy{id}", method = RequestMethod.GET)
-	public String buy(@PathVariable("id") int pageNumber, @RequestParam(required = false, value = "orderBy") boolean orderBy, @RequestParam(required = false, value = "from") String priceFrom, @RequestParam(required = false, value = "to") String priceTo, Model model, HttpServletRequest request) {
+	public String buy(@PathVariable("id") int pageNumber, @RequestParam(required = false, value = "orderBy") boolean orderBy,
+			@RequestParam(required = false, value = "from") String priceFrom, @RequestParam(required = false, value = "to") String priceTo,
+			Model model, HttpServletRequest request) {
 		Check.Login(model, request);
 		List<Property> properties = null;
-		if(orderBy){
-			if((!priceFrom.isEmpty()) && (!priceTo.isEmpty())){
+		if (orderBy) {
+			if ((!priceFrom.isEmpty()) && (!priceTo.isEmpty())) {
 				properties = propertyDao.findAllResalePropertiesWithinPriceRange(Integer.valueOf(priceFrom), Integer.valueOf(priceTo));
 			}
 		} else {
@@ -90,7 +94,7 @@ public class HomeController {
 		model.addAttribute("pages", pageChecker(properties));
 		return "properties";
 	}
-	
+
 	@RequestMapping(value = "/buy", method = RequestMethod.GET)
 	public String buyRedirect(Model model, HttpServletRequest request) {
 		return "redirect:/buy0";
@@ -118,11 +122,8 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/search")
-	public String searchRequest(
-			Model model,
-			@RequestParam String name,
-			@RequestParam(value = "searchbartype", required = false, defaultValue = "1_ah") String searchbartype,
-			HttpServletRequest request) {
+	public String searchRequest(Model model, @RequestParam String name,
+			@RequestParam(value = "searchbartype", required = false, defaultValue = "1_ah") String searchbartype, HttpServletRequest request) {
 		Check.Login(model, request);
 		if (searchbartype.equals("for_sale")) {
 			return "redirect:/buy";
@@ -132,24 +133,26 @@ public class HomeController {
 			return "redirect:/all";
 		}
 	}
-	
+
 	private int pageChecker(List<Property> properties) {
 		int count = properties.size();
-		int pages = (int) Math.ceil(count / 2.0);	
+		int pages = (int) Math.ceil(count / 2.0);
 		return pages;
 	}
-	
+
 	private List<Property> getElementsFromPage(List<Property> properties, int page) {
 		int pages = pageChecker(properties);
 		List<Property> pageList = new ArrayList<Property>();
 		int min = page * 2;
-		int max = min+2;
-		for(int i = min; i < max; i ++) {
-			pageList.add(properties.get(i));			
-		}		
+		int max = min + 2;
+		for (int i = min; i < max; i++) {
+			if (i < properties.size()) {
+				pageList.add(properties.get(i));
+			}
+		}
 		return pageList;
 	}
-	
+
 	@RequestMapping(value = "/confirmation", method = RequestMethod.GET)
 	public String confirmation(Locale locale, Model model, HttpServletRequest request) {
 		Check.Login(model, request);
