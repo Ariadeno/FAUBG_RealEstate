@@ -43,8 +43,6 @@
 						<input type="text" name="price" value="" placeholder="Price"><br />
 						<input type="text" name="area" value="" placeholder="Area"><br />
 						<input type="text" name="description" value="" placeholder="Description"><br />
-						<input type="text" name="longitude" value="" placeholder="Longitude"><br />
-						<input type="text" name="latitude" value="" placeholder="Latitude"><br />
 							<input type="file" name="images"><br />
 							<input type="file" name="images"><br />
 							<input type="file" name="images"><br />

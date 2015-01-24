@@ -166,6 +166,14 @@ public class AccountController {
 		Boolean ticked;
 		ticked = (rental == null) ? false : true;
 		property.setRental(ticked);
+		try {
+			property.getLongitudeLatidtude(property.getAddress());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			property.setLatitude("51.451627");
+			property.setLongitude("5.481427");
+			e1.printStackTrace();
+		}
 		propertyDao.addProperty(property);
 		for (MultipartFile file : images) {
 			if (!file.isEmpty()) {

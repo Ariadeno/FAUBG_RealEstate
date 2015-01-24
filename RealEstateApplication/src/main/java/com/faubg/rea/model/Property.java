@@ -1,6 +1,9 @@
 package com.faubg.rea.model;
 
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -16,6 +19,12 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import com.google.code.geocoder.Geocoder;
+import com.google.code.geocoder.GeocoderRequestBuilder;
+import com.google.code.geocoder.model.GeocodeResponse;
+import com.google.code.geocoder.model.GeocoderRequest;
+import com.google.code.geocoder.model.GeocoderResult;
 
 @Entity
 @Table(name = "property", catalog = "aubg")
@@ -58,6 +67,14 @@ public class Property {
 		this.rental = rental;
 		this.area = area;
 		this.description = description;
+		try {
+			getLongitudeLatidtude(address);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			setLatitude("51.451627");
+			setLongitude("5.481427");
+		}
 	}
 
 	@Id
@@ -213,6 +230,17 @@ public class Property {
 				.append(price)
 				.append("' plaeholder='Price'></td></tr></table><input type='submit' name='commit' value='Update'></form>");
 		return htmlBuilder.toString();
+	}
+	
+	public void getLongitudeLatidtude(String adress) throws IOException {
+		final Geocoder geocoder = new Geocoder();
+		GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(adress).setLanguage("en").getGeocoderRequest();
+		GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);
+		BigDecimal latitude = geocoderResponse.getResults().get(0).getGeometry().getLocation().getLat();
+		BigDecimal longitude = geocoderResponse.getResults().get(0).getGeometry().getLocation().getLng();
+		
+		setLatitude(latitude.toString());
+		setLongitude(longitude.toString());
 	}
 
 }
