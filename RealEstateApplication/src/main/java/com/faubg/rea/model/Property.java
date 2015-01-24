@@ -36,6 +36,12 @@ public class Property {
 	@NotNull
 	@NotEmpty
 	private String description;
+	@NotNull
+	@NotEmpty
+	private String latitude;
+	@NotNull
+	@NotEmpty
+	private String longitude;
 	
 	private Set<Room> rooms = new HashSet<Room>(0);
 	private Set<Offer> offers = new HashSet<Offer>(0);
@@ -116,6 +122,24 @@ public class Property {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	@Column(name = "p_longitude", nullable = false, length = 1000)
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
+	@Column(name = "p_latitude", nullable = false, length = 1000)
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "property")

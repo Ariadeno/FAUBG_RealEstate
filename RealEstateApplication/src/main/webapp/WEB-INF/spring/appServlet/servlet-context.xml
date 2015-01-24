@@ -26,11 +26,6 @@
 		up static resources in the ${webappRoot}/resources directory -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
-	<!-- JDBC Data Source. It is assumed you have MySQL running on localhost 
-		port 3306 with username root and blank password. Change below if it's not 
-		the case -->
-
-
 	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
