@@ -39,6 +39,7 @@ public class LoginController {
 		User foundUser = userDao.findByUsername(username);
 		if (foundUser != null) {
 			try {
+				String s = PasswordHash.createHash(password);
 				if (PasswordHash.validatePassword(password, foundUser.getPassword())) {
 					model.addAttribute("User", foundUser);
 					request.getSession().setAttribute("LoggedIn", true);

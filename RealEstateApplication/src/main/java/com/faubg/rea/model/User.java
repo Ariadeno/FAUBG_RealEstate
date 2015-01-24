@@ -1,5 +1,7 @@
 package com.faubg.rea.model;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,10 +17,12 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.faubg.rea.security.PasswordHash;
+
 @Entity
 @Table(name = "user", catalog = "aubg")
 public class User {
-	
+
 	@NotNull
 	@NotEmpty
 	private String username;
@@ -48,15 +52,14 @@ public class User {
 	private String zip;
 	@NotNull
 	private boolean isAdmin;
-	
+
 	private Set<Offer> offers = new HashSet<Offer>(0);
-	
+
 	public User() {
 	}
 
-	public User(String username, String password, String email,
-			String firstName, String lastName, String phone, String address,
-			String city, String zip, boolean isAdmin) {
+	public User(String username, String password, String email, String firstName, String lastName, String phone, String address, String city,
+			String zip, boolean isAdmin) {
 		this.username = username;
 		this.password = password;
 		this.email = email;
@@ -85,7 +88,19 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		if (this.password == password) {
+			try {
+				this.password = PasswordHash.createHash(password);
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvalidKeySpecException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			this.password = password;
+		}
 	}
 
 	@Column(name = "u_email", nullable = false, length = 255)
@@ -150,7 +165,7 @@ public class User {
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
-	
+
 	@Column(name = "u_isAdmin", nullable = false, length = 1, columnDefinition = "TINYINT")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	public boolean getIsAdmin() {
@@ -160,7 +175,7 @@ public class User {
 	public void setIsAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
-	
+
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
 	public Set<Offer> getOffers() {
 		return offers;
@@ -171,4 +186,3 @@ public class User {
 	}
 
 }
-
