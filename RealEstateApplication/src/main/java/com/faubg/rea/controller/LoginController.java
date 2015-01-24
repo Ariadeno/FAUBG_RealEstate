@@ -38,21 +38,22 @@ public class LoginController {
 	public String loginRequest(Locale locale, Model model, @RequestParam String username, @RequestParam String password, HttpServletRequest request) {
 		User foundUser = userDao.findByUsername(username);
 		if (foundUser != null) {
-			try {
-				String s = PasswordHash.createHash(password);
-				if (PasswordHash.validatePassword(password, foundUser.getPassword())) {
-					model.addAttribute("User", foundUser);
-					request.getSession().setAttribute("LoggedIn", true);
-					request.getSession().setAttribute("username", foundUser.getUsername());
-					request.getSession().setAttribute("User", foundUser);
-					return "redirect:/";
+			if (foundUser.getIsVerified()) {
+				try {
+					if (PasswordHash.validatePassword(password, foundUser.getPassword())) {
+						model.addAttribute("User", foundUser);
+						request.getSession().setAttribute("LoggedIn", true);
+						request.getSession().setAttribute("username", foundUser.getUsername());
+						request.getSession().setAttribute("User", foundUser);
+						return "redirect:/";
+					}
+				} catch (NoSuchAlgorithmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvalidKeySpecException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-			} catch (NoSuchAlgorithmException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvalidKeySpecException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 		}
 		return "redirect:/login";

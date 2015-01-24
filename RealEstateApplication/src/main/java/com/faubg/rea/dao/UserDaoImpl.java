@@ -45,4 +45,9 @@ public class UserDaoImpl implements UserDao {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
+
+	@Override
+	public void update(User user) {
+		sessionFactory.getCurrentSession().persist(user);
+	}
 }

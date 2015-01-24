@@ -5,4 +5,5 @@ import com.faubg.rea.model.User;
 public interface UserDao {
 	User findByUsername(String username);
 	void addUser(User user);
+	void update(User user);
 }

@@ -18,6 +18,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.faubg.rea.security.PasswordHash;
+import com.faubg.rea.security.tmpData;
 
 @Entity
 @Table(name = "user", catalog = "aubg")
@@ -52,6 +53,8 @@ public class User {
 	private String zip;
 	@NotNull
 	private boolean isAdmin;
+	@NotNull
+	private boolean isVerified;
 
 	private Set<Offer> offers = new HashSet<Offer>(0);
 
@@ -91,6 +94,7 @@ public class User {
 		if (this.password == password) {
 			try {
 				this.password = PasswordHash.createHash(password);
+				tmpData.setOriginalPassword(password);
 			} catch (NoSuchAlgorithmException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -174,6 +178,16 @@ public class User {
 
 	public void setIsAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
+	}
+
+	@Column(name = "u_verified", nullable = false, length = 1, columnDefinition = "TINYINT")
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	public boolean getIsVerified() {
+		return isVerified;
+	}
+
+	public void setIsVerified(boolean isVerified) {
+		this.isVerified = isVerified;
 	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
