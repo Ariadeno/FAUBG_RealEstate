@@ -1,5 +1,7 @@
 package com.faubg.rea.controller;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.faubg.rea.dao.UserDao;
 import com.faubg.rea.model.User;
+import com.faubg.rea.security.PasswordHash;
 
 /**
  * Handles requests for the application home page.
@@ -35,12 +38,20 @@ public class LoginController {
 	public String loginRequest(Locale locale, Model model, @RequestParam String username, @RequestParam String password, HttpServletRequest request) {
 		User foundUser = userDao.findByUsername(username);
 		if (foundUser != null) {
-			if (foundUser.getPassword().equals(password)) {
-				model.addAttribute("User", foundUser);
-				request.getSession().setAttribute("LoggedIn", true);
-				request.getSession().setAttribute("username", foundUser.getUsername());
-				request.getSession().setAttribute("User", foundUser);
-				return "redirect:/";
+			try {
+				if (PasswordHash.validatePassword(password, foundUser.getPassword())) {
+					model.addAttribute("User", foundUser);
+					request.getSession().setAttribute("LoggedIn", true);
+					request.getSession().setAttribute("username", foundUser.getUsername());
+					request.getSession().setAttribute("User", foundUser);
+					return "redirect:/";
+				}
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvalidKeySpecException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		return "redirect:/login";
