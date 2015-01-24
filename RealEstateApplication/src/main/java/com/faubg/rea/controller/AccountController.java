@@ -3,7 +3,11 @@ package com.faubg.rea.controller;
 import java.awt.Desktop.Action;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -16,6 +20,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +62,7 @@ public class AccountController {
 	@Autowired
 	private ImageDao imageDao;
 	private List<Property> propertyList;
+
 	@Transactional
 	@RequestMapping(value = "/account", method = RequestMethod.GET)
 	public String login(@RequestParam(required = false, value = "occupied") boolean occupied, Locale locale, Model model, HttpServletRequest request) {
@@ -65,22 +72,22 @@ public class AccountController {
 		if (user != null) {
 			if (user.getIsAdmin()) {
 				List<Property> properties;
-				if(occupied){
+				if (occupied) {
 					test = "hello";
 					properties = propertyDao.findAllOccupiedProperties();
 				} else {
 					properties = propertyDao.findAllRentalProperties();
 					properties.addAll(propertyDao.findAllResaleProperties());
 				}
-				
+
 				model.addAttribute("test", test);
 				model.addAttribute("properties", properties);
-				//List<Offer> offers = offerDao.findAllOfers();
-				//model.addAttribute("offers", offers);
+				// List<Offer> offers = offerDao.findAllOfers();
+				// model.addAttribute("offers", offers);
 				model.addAttribute("viewProperties", true);
 			}
 		}
-		
+
 		List<Offer> offers = new LinkedList<Offer>();
 		for (Offer offer : user.getOffers()) {
 			offers.add(offer);
@@ -88,16 +95,14 @@ public class AccountController {
 		model.addAttribute("userOffers", offers);
 		return "account";
 	}
-	
+
 	@RequestMapping(value = "/account/viewOffers", method = RequestMethod.GET)
-	public String viewOffers(Model model, HttpServletRequest request)
-			{
+	public String viewOffers(Model model, HttpServletRequest request) {
 		Check.Login(model, request);
 		User user = (User) request.getSession().getAttribute("User");
 		if (user != null) {
 			if (user.getIsAdmin()) {
-				List<Property> properties = propertyDao
-						.findAllRentalProperties();
+				List<Property> properties = propertyDao.findAllRentalProperties();
 				properties.addAll(propertyDao.findAllResaleProperties());
 				model.addAttribute("properties", properties);
 				List<Offer> offers = offerDao.findAllOfers();
@@ -107,22 +112,21 @@ public class AccountController {
 		}
 		return "account";
 	}
-	
+
 	@RequestMapping(value = "/account/acceptRefuse", method = RequestMethod.POST)
 	public String acceptOrRefuse(Model model, HttpServletRequest request, @RequestParam String action,
-			 @RequestParam(required = true, value = "id") Integer id)
-	{
+			@RequestParam(required = true, value = "id") Integer id) {
 		Offer offer = offerDao.findOfferByID(id);
-		
-		if (action.equals("Accept")){
-			
+
+		if (action.equals("Accept")) {
+
 			offer.setStatus("Accepted");
 		}
-		if (action.equals("Refuse")){
-			offer.setStatus("Refused");			
+		if (action.equals("Refuse")) {
+			offer.setStatus("Refused");
 		}
 		model.addAttribute("viewProperties", false);
-		
+
 		return viewOffers(model, request);
 	}
 
@@ -139,7 +143,7 @@ public class AccountController {
 		model.addAttribute("property", property.toEditHTML());
 		return "editProperty";
 	}
-	
+
 	@RequestMapping(value = "/account/deleteProperty", method = RequestMethod.GET)
 	public String deleteProperty(Model model, HttpServletRequest request, @RequestParam(required = true, value = "id") Integer id) {
 		Check.Login(model, request);
@@ -169,16 +173,12 @@ public class AccountController {
 					byte[] bytes = file.getBytes();
 
 					// Creating the directory to store file
-					String rootPath = System.getProperty("catalina.home");
-					if (!rootPath.contains("C:")) {
-						rootPath = "/opt/bitnami/apache-tomcat/webapps/ROOT/resources/images/";
-					} else {
-						rootPath = rootPath.substring(0, rootPath.length() - 22) + "MainWithRoot\\wtpwebapps\\RealEstateApplication\\resources\\images";
+					String rootPath = "/var/www/html/images/";
+					File rootPathDir = new File(rootPath + "uploads");
+					File dir = new File(rootPath + "uploads");
+					if (!rootPathDir.exists()){
+						dir = new File(System.getProperty("catalina.home"));
 					}
-
-					File dir = new File(rootPath + File.separator + "uploads");
-					if (!dir.exists())
-						dir.mkdirs();
 					// Create the file on server
 					String uniqueIdentifier = String.valueOf(System.currentTimeMillis());
 					uniqueIdentifier = uniqueIdentifier.substring(uniqueIdentifier.length() - 5);
@@ -194,16 +194,18 @@ public class AccountController {
 					BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
 					stream.write(bytes);
 					stream.close();
-					Image image = new Image("../resources/images/uploads/" + fileName, property);
+					if (!rootPathDir.exists()){
+						uploadToFTP(serverFile.getAbsolutePath(), fileName);
+					}
+					Image image = new Image("http://aubg.moridrin.com/images/uploads/" + fileName, property);
 					imageDao.addImage(image);
 					logger.info("Server File Location=" + serverFile.getAbsolutePath());
-
 				} catch (Exception e) {
 					logger.error(e.getMessage());
 				}
 			}
 		}
-		
+
 		model.addAttribute("property", property.toEditHTML());
 		return "editProperty";
 	}
@@ -232,30 +234,28 @@ public class AccountController {
 	public String makeOffer(Model model, HttpServletRequest request, @RequestParam(value = "offerAmount") Integer offerAmount,
 			@RequestParam(required = true, value = "id") Integer id) {
 		Check.Login(model, request);
-		//get the property that is being viewed
+		// get the property that is being viewed
 		Property property = propertyDao.findPropertyByID(id);
-		//get current user
+		// get current user
 		User user = (User) request.getSession().getAttribute("User");
-		//get current time
-		java.util.Date date= new java.util.Date();
+		// get current time
+		java.util.Date date = new java.util.Date();
 		Timestamp currentTime = new Timestamp(date.getTime());
-		//add the new offer
-				Offer offer = new Offer();
-				offer.setDate(currentTime);
-				offer.setPrice(offerAmount);
-				offer.setProperty(property);
-				offer.setStatus("NotAccepted");
-				offer.setUser(user);
-				offerDao.addOffer(offer);
-		
+		// add the new offer
+		Offer offer = new Offer();
+		offer.setDate(currentTime);
+		offer.setPrice(offerAmount);
+		offer.setProperty(property);
+		offer.setStatus("NotAccepted");
+		offer.setUser(user);
+		offerDao.addOffer(offer);
+
 		model.addAttribute("user", user);
 		model.addAttribute("property", property);
 		model.addAttribute("offer", offerAmount);
 		return "confirmation";
 	}
-	
-	
-	
+
 	public List<Property> getPropertyList() {
 		return propertyList;
 	}
@@ -263,4 +263,73 @@ public class AccountController {
 	public void setPropertyList(List<Property> propertyList) {
 		this.propertyList = propertyList;
 	}
+	
+	private void uploadToFTP(String file, String filename){
+		tmp(file, filename);
+		/*
+		FTPClient client = new FTPClient();
+		FileInputStream fis = null;
+
+		try {
+		    client.connect("ftp.aubg.moridrin.com");
+		    client.login("anonymous", "");
+		    fis = new FileInputStream(file);
+		    client.storeFile("uploads/"+filename, fis);
+		    client.logout();
+		} catch (IOException e) {
+		    e.printStackTrace();
+		} finally {
+		    try {
+		        if (fis != null) {
+		            fis.close();
+		        }
+		        client.disconnect();
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		}
+		*/
+	}
+	
+	private void tmp(String file, String filename) {
+        String server = "aubg.moridrin.com";
+        int port = 21;
+        String user = "anonymous";
+        String pass = "";
+ 
+        FTPClient ftpClient = new FTPClient();
+        try {
+ 
+            ftpClient.connect(server, port);
+            ftpClient.login(user, pass);
+            ftpClient.enterLocalPassiveMode();
+ 
+            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+ 
+            // APPROACH #1: uploads first file using an InputStream
+            File firstLocalFile = new File(file);
+ 
+            String firstRemoteFile = "uploads/" + filename;
+            InputStream inputStream = new FileInputStream(firstLocalFile);
+ 
+            System.out.println("Start uploading first file");
+            boolean done = ftpClient.storeFile(firstRemoteFile, inputStream);
+            inputStream.close();
+            if (done) {
+                System.out.println("The first file is uploaded successfully.");
+            }
+        } catch (IOException ex) {
+            System.out.println("Error: " + ex.getMessage());
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (ftpClient.isConnected()) {
+                    ftpClient.logout();
+                    ftpClient.disconnect();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 }
