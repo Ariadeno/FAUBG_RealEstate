@@ -80,30 +80,35 @@
 	<h1>Welcome</h1>
 	<hr />
 	<div class="box">
-		<h3>Main Story</h3>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-			eget est turpis. Nam interdum vestibulum erat, sed aliquet tortor
-			interdum sed. Curabitur nec ante tempor.</p>
+		<h3>Main Story</h3>		
+			<p>			
+				<c:if test="${not empty text}">
+					${text[3]}
+				</c:if>
+			</p>
 	</div>
 	<div class="box">
 		<h3>Onter note</h3>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-			Quisque quis massa in urna consequat vehicula. Nullam lacinia
-			imperdiet lorem, quis egestas augue vehicula non. Donec bibendum
-			massa ligula, sit amet lacinia quam feugiat sed. Sed.</p>
+			<p>			
+				<c:if test="${not empty text}">
+					${text[4]}
+				</c:if>
+			</p>
 	</div>
 	<div class="box">
 		<h3>Lorem ipsum</h3>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-			Aliquam ut neque quis purus auctor consequat sed ac tortor. Class
-			aptent taciti sociosqu ad litora torquent per conubia nostra, per
-			inceptos himenaeos. Cras non eros ut eros congue vulputate.
-			Pellentesque habitant.</p>
+		<p>			
+				<c:if test="${not empty text}">
+					${text[5]}
+				</c:if>
+			</p>
 	</div>
 	<div class="box">
 		<h3>Master Exploder</h3>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-			vestibulum ante quis elit maximus placerat. Vestibulum ante ipsum
-			primis in.</p>
+		<p>			
+				<c:if test="${not empty text}">
+					${text[6]}
+				</c:if>
+			</p>
 	</div>
 </div>

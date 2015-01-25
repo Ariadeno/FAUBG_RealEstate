@@ -33,6 +33,13 @@
 					<li><a href="/">Home</a></li>
 					<li><a href="/buy">Buy</a></li>
 					<li><a href="/rent">Rent</a></li>
+					<form method="POST" action="/setLang">
+						<li> <Select name="selectboxValue" onchange="this.form.submit()">
+	       					<c:forEach var="langItem" items="${languages}">
+	            				<option value="${langItem}" ${langItem == selectedLang ? 'selected="selected"' : ''}>${langItem}</option>
+	       					</c:forEach> </Select> </li>
+	       			</form>
+
 				</ul>
 			</nav>
 			<div class="account-menu">
