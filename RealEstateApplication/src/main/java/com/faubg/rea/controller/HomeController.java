@@ -82,8 +82,8 @@ public class HomeController {
 		
 		Check.Login(model, request);
 		if (lang == "" || lang=="true") {
-			homeText = testLanguage("EN");
-			model.addAttribute("selectedLang","EN");
+			homeText = testLanguage(getCountry(getIP()));
+			model.addAttribute("selectedLang",getCountry(getIP()));
 		}
 		else {
 			homeText = testLanguage(lang);
