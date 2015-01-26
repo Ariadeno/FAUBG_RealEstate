@@ -53,6 +53,8 @@ import com.faubg.rea.dao.UserDao;
 @Controller
 public class HomeController {
 	
+	Manager m = new Manager();
+	
 	@Autowired
 	private PropertyDao propertyDao;
 	MailMailer mailMailer;
@@ -63,36 +65,8 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model, HttpServletRequest request) throws IOException {
-		Cookie[] cookie_jar = request.getCookies();
-		String lang = "";
-		String[] homeText = null;
-		if (cookie_jar != null)
-		{
-			try {
-				for (Cookie c: cookie_jar){
-					if(c.getName().equals("language")) {
-						lang = c.getValue();
-					}
-				}
-				
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-		}
-		System.out.println("value= " + lang);
-		
+		m.cookies(model, request);
 		Check.Login(model, request);
-		if (lang == "" || lang=="true") {
-			homeText = testLanguage(getCountry(getIP()));
-			model.addAttribute("selectedLang",getCountry(getIP()));
-		}
-		else {
-			homeText = testLanguage(lang);
-			model.addAttribute("selectedLang",lang);
-		}
-
-		model.addAttribute("text", homeText);
-		model.addAttribute("languages", Language.values());
 		return "home";
 	}
 	
@@ -106,7 +80,8 @@ public class HomeController {
 	@RequestMapping(value = "/rent{id}", method = RequestMethod.GET)
 	public String rent(@PathVariable("id") int pageNumber, @RequestParam(required = false, value = "orderBy") boolean orderBy,
 			@RequestParam(required = false, value = "from") String priceFrom, @RequestParam(required = false, value = "to") String priceTo,
-			Model model, HttpServletRequest request) {
+			Model model, HttpServletRequest request) throws IOException {
+		m.cookies(model, request);
 		Check.Login(model, request);
 		List<Property> properties = null;
 		if (orderBy) {
@@ -116,8 +91,20 @@ public class HomeController {
 		} else {
 			properties = propertyDao.findAllRentalProperties();
 		}
+		
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("pageType", "/rent");
+		List<String[]> testlist = new ArrayList<String[]>();
+
+		for (Property p: getElementsFromPage(properties, pageNumber)) {
+			String[] prop = {p.getId().toString(), p.getAddress(), p.getDescription(), p.getArea(), m.rentCheck(p.getRental()), m.priceCheck(p.getPrice(), m.getValuta(model, request))};
+			testlist.add(prop);
+		}
+		
+		
+		
+		model.addAttribute("goodlist",testlist);
+		
 		model.addAttribute("properties", getElementsFromPage(properties, pageNumber));
 		model.addAttribute("pages", pageChecker(properties));
 		return "properties";
@@ -131,7 +118,8 @@ public class HomeController {
 	@RequestMapping(value = "/buy{id}", method = RequestMethod.GET)
 	public String buy(@PathVariable("id") int pageNumber, @RequestParam(required = false, value = "orderBy") boolean orderBy,
 			@RequestParam(required = false, value = "from") String priceFrom, @RequestParam(required = false, value = "to") String priceTo,
-			Model model, HttpServletRequest request) {
+			Model model, HttpServletRequest request) throws IOException {
+		m.cookies(model, request);
 		Check.Login(model, request);
 		List<Property> properties = null;
 		if (orderBy) {
@@ -141,22 +129,11 @@ public class HomeController {
 		} else {
 			properties = propertyDao.findAllResaleProperties();
 		}
-		//if (Language.Dutch == true)
-		for (Property p: properties) {
-			p.setPrice(dollarToEuro(p.getPrice()));
-		}
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("pageType", "/buy");
 		model.addAttribute("properties", getElementsFromPage(properties, pageNumber));
 		model.addAttribute("pages", pageChecker(properties));
 		return "properties";
-	}
-
-	private Integer dollarToEuro(Integer price) {
-		// TODO Auto-generated method stub
-		Double euro = price * 0.7;
-		int euroInteger = (int) Math.round(euro); 
-		return euroInteger;
 	}
 
 	@RequestMapping(value = "/buy", method = RequestMethod.GET)
@@ -174,14 +151,16 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/contact")
-	public String contact(Model model, HttpServletRequest request) {
+	public String contact(Model model, HttpServletRequest request) throws IOException {
 		Check.Login(model, request);
+		m.cookies(model, request);
 		return "contact";
 	}
 
 	@RequestMapping(value = "/register")
-	public String registerRequest(Model model, HttpServletRequest request) {
+	public String registerRequest(Model model, HttpServletRequest request) throws IOException {
 		Check.Login(model, request);
+		m.cookies(model, request);
 		return "register";
 	}
 
@@ -221,52 +200,6 @@ public class HomeController {
 	public String confirmation(Locale locale, Model model, HttpServletRequest request) {
 		Check.Login(model, request);
 		return "confirmation";
-	}
-	
-	private String getIP() throws IOException {
-		URL whatismyip = new URL("http://checkip.amazonaws.com/");
-		BufferedReader in = new BufferedReader(new InputStreamReader(
-		                whatismyip.openStream()));
-
-		String ip = in.readLine(); //you get the IP as a String
-		return ip;
-	}
-	
-	private String getCountry(String ip) throws IOException {
-		URL whatismyip = new URL("http://ipinfo.io/" + ip + "/country");
-		BufferedReader in = new BufferedReader(new InputStreamReader(
-		                whatismyip.openStream()));
-
-		String country = in.readLine(); //you get the IP as a String
-		return country;
-	}
-	
-	private String[] testLanguage(String language) throws IOException {
-		String[] text = null;
-		 	try{
-		 		System.out.println(language);
-		 		InputStream is = getClass().getClassLoader().getResourceAsStream("../language/"+ language + "_language.txt");
-		        BufferedReader br = new BufferedReader(new InputStreamReader(is));
-		 
-		        StringBuilder sb = new StringBuilder();
-		        String line = br.readLine();
-
-		        while (line != null) {
-		            sb.append(line);
-		            sb.append(System.lineSeparator());
-		            line = br.readLine();
-		        }
-		        String everything = sb.toString();  
-		        System.out.println(everything);
-		        
-		        text = everything.split("-");
-			    for (String s: text) {
-			        System.out.println(s);
-			    }
-		 	}
-		 	finally {}
-			return text;
-	}
-		 	
+	}		 	
 }
 

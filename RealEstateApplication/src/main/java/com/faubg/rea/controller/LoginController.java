@@ -1,5 +1,6 @@
 package com.faubg.rea.controller;
 
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Locale;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.faubg.rea.dao.UserDao;
 import com.faubg.rea.model.User;
 import com.faubg.rea.security.PasswordHash;
+import com.sun.mail.handlers.message_rfc822;
 
 /**
  * Handles requests for the application home page.
@@ -25,12 +27,15 @@ import com.faubg.rea.security.PasswordHash;
 @SessionAttributes("loginSuccessAttr")
 public class LoginController {
 
+	Manager m = new Manager();
+	
 	@Autowired
 	private UserDao userDao;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Locale locale, Model model, HttpServletRequest request) {
+	public String login(Locale locale, Model model, HttpServletRequest request) throws IOException {
 		Check.Login(model, request);
+		m.cookies(model, request);
 		return "login";
 	}
 

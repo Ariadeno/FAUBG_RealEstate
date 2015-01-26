@@ -12,17 +12,34 @@
 				<input type="submit" value="Submit">
 			</p>
 		</form>
-		<c:forEach var="listValue" items="${properties}">
+		<c:forEach var="listValue" items="${goodlist}">
 			<div class="box">
-					${listValue}
+			
+				
+				  <h3>${listValue[1]}</h3>	
+						<table>
+				  <tr>
+				    <td>Area:</td>	
+				    <th>${listValue[3]}</th>		
+				  </tr>
+				  <tr>
+				    <td>Rental:</td>	
+				    <td>${listValue[4]}</td>		
+				  </tr>
+				  <tr>
+				    <td>Price:</td>	
+				    <td>${listValue[5]}</td>		
+				  </tr>
+				</table>
+	
 					<c:if test="${isAdmin eq true}">
 						<form action="/account/editProperty" method="get">
-							<input type="hidden" name="id" value="${listValue.id}">
+							<input type="hidden" name="id" value="${listValue[0]}">
 							<input type="submit" name="commit" value="Edit">
 							
 						</form>
 						<form action="/account/deleteProperty" method="get">
-							<input type="hidden" name="id" value="${listValue.id}">
+							<input type="hidden" name="id" value="${listValue[0]}">
 							<input type="submit" name="commit" value="Delete">
 						</form>
 					</c:if>
@@ -31,11 +48,11 @@
 				<c:if test="${isAdmin eq false}">
 					<c:if test="${LoginTitle == 'My Account'}">
 						<form action="/buyrent" method="get" enctype="multipart/form-data">
-							<div style="display: none;">${listValue}</div>
-							<c:if test="${fn:contains(listValue,'Rental: No')}">
+							<input type="hidden" name="id" value="${listValue[0]}">
+							<c:if test = "${listValue[4] == 'No'}">
 								<input type="submit" name="commit" value="Buy me!">
 							</c:if>
-							<c:if test="${fn:contains(listValue,'Rental: Yes')}">
+							<c:if test = "${listValue[4] == 'Yes'}">
 								<input type="submit" name="commit" value="Rent me!">
 							</c:if>
 						</form>
