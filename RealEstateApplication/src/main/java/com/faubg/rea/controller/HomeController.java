@@ -40,12 +40,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.faubg.rea.model.Country;
-import com.faubg.rea.model.IpRange;
+import com.faubg.rea.model.Language;
 import com.faubg.rea.model.Property;
 import com.faubg.rea.model.User;
 import com.faubg.rea.connections.MailMailer;
-import com.faubg.rea.dao.Language;
 import com.faubg.rea.dao.PropertyDao;
 import com.faubg.rea.dao.UserDao;
 
@@ -54,8 +52,6 @@ import com.faubg.rea.dao.UserDao;
  */
 @Controller
 public class HomeController {
-
-	private static Country country;
 	
 	@Autowired
 	private PropertyDao propertyDao;
@@ -73,7 +69,12 @@ public class HomeController {
 		if (cookie_jar != null)
 		{
 			try {
-				lang = cookie_jar[2].getValue();
+				for (Cookie c: cookie_jar){
+					if(c.getName().equals("language")) {
+						lang = c.getValue();
+					}
+				}
+				
 			} catch (Exception e) {
 				// TODO: handle exception
 			}

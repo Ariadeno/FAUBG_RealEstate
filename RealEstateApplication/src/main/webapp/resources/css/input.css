@@ -44,7 +44,10 @@ input {
 
 /*Other*/
 form {
-	margin-bottom: 20px;
+	margin: 0;
+	padding: 1em;
+	float: left;
+	text-align: center;
 }
 
 select {

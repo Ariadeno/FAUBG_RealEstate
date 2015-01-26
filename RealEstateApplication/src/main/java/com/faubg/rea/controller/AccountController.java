@@ -17,9 +17,12 @@ import java.util.Locale;
 import java.util.Set;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.commons.httpclient.cookie.CookieSpec;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.slf4j.Logger;
@@ -41,9 +44,11 @@ import com.faubg.rea.dao.PropertyDao;
 import com.faubg.rea.dao.PropertyDaoImpl;
 import com.faubg.rea.dao.UserDao;
 import com.faubg.rea.model.Image;
+import com.faubg.rea.model.Language;
 import com.faubg.rea.model.Offer;
 import com.faubg.rea.model.Property;
 import com.faubg.rea.model.User;
+import com.faubg.rea.model.Valuta;
 
 @Controller
 @Transactional
@@ -220,9 +225,13 @@ public class AccountController {
 
 	@RequestMapping(value = "/buyrent", method = RequestMethod.GET)
 	public String buyrentProperty(Model model, HttpServletRequest request, @RequestParam(required = true, value = "id") Integer id) {
+		cookies(model, request);
 		Check.Login(model, request);
 		Property property = propertyDao.findPropertyByID(id);
+		String[] prop = {property.getAddress(), property.getDescription(), property.getArea(), rentCheck(property.getRental()), priceCheck(property.getPrice(), getValue(model, request))};
+		
 		List<String> imagesSRC = new LinkedList<String>();
+		String iframe = "https://www.google.com/maps?z=17&t=m&q=loc:" + property.getLatitude() + "+" + property.getLongitude() + "&output=embed";
 		Set<Image> propertyImages = property.getImages();
 		for (Image image : propertyImages) {
 			imagesSRC.add(image.getLocation());
@@ -231,11 +240,36 @@ public class AccountController {
 		for (Offer offer : property.getOffers()) {
 			offers.add(offer);
 		}
+		model.addAttribute("iframe", iframe);
 		model.addAttribute("id", property.getId());
 		model.addAttribute("offers", offers);
 		model.addAttribute("property", property);
+		model.addAttribute("property2", prop);
 		model.addAttribute("propertyImages", imagesSRC);
 		return "buyrentPage";
+	}
+	
+	private String rentCheck(boolean huur) {
+		if (huur) {
+			return "yes";
+		}
+		else { return "no";}
+	}
+	
+	private String priceCheck(int price, String valuta){
+		if (valuta.equals("Euro")) {
+			int newprice = (int) Math.abs(price * 0.89);
+			return String.valueOf(newprice);
+		}
+		else {return String.valueOf(price);}
+	}
+
+	@RequestMapping(value = "/setVal", method = RequestMethod.POST)
+	public String setCountry(Model model, @Valid @ModelAttribute("country") String newCountry, BindingResult result, HttpServletResponse response,@RequestParam("selectboxValue2") String val ,HttpServletRequest request) {
+		 Cookie cookie = new Cookie("valuta", val);
+	     response.addCookie(cookie);	
+	     String referer = request.getHeader("Referer");
+	     return "redirect:"+ referer;
 	}
 
 	@RequestMapping(value = "/makeOffer", method = RequestMethod.GET)
@@ -340,4 +374,103 @@ public class AccountController {
             }
         }
     }
+	
+	private String getValuta(Model model, HttpServletRequest request) {
+		Cookie[] cookie_jar = request.getCookies();
+		String val = "";
+		if (cookie_jar != null)
+		{
+			try {
+				for (Cookie c: cookie_jar){
+					if(c.getName().equals("valuta")) {
+						val = c.getValue();
+					}
+				}
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		else {
+			val = "Dollar";
+		}
+		System.out.println("value= " + val);		
+		if (val == "" || val=="true") {
+			model.addAttribute("selectedLang","Dollar");
+		}
+		else {
+			model.addAttribute("selectedLang",val);
+		}
+		return val;
+	}
+	
+	
+	private void cookies(Model model, HttpServletRequest request) {
+		Cookie[] cookie_jar = request.getCookies();
+		String val = "";
+		if (cookie_jar != null)
+		{
+			try {
+				for (Cookie c: cookie_jar){
+					if(c.getName().equals("valuta")) {
+						val = c.getValue();
+					}
+					System.out.println("name= " + c.getName());
+					System.out.println("value= " + c.getValue());	
+				}
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		else {
+			val = "Dollar";
+		}
+		System.out.println("value= " + val);		
+		if (val == "" || val=="true") {
+			model.addAttribute("selectedVal","Dollar");
+		}
+		else {
+			model.addAttribute("selectedVal",val);
+		}
+
+		model.addAttribute("valuta", Valuta.values());
+	}
+	
+	private String getValue(Model model, HttpServletRequest request) {
+		Cookie[] cookie_jar = request.getCookies();
+		String val = "";
+		if (cookie_jar != null)
+		{
+			try {
+				for (Cookie c: cookie_jar){
+					if(c.getName().equals("valuta")) {
+						val = c.getValue();
+					}
+					System.out.println("name= " + c.getName());
+					System.out.println("value= " + c.getValue());	
+				}
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		else {
+			val = "Dollar";
+		}
+		System.out.println("value= " + val);		
+		if (val == "" || val=="true") {
+			model.addAttribute("selectedVal","Dollar");
+		}
+		else {
+			model.addAttribute("selectedVal",val);
+		}
+
+		model.addAttribute("valuta", Valuta.values());
+		
+		return val;
+	}
+	
+
+
 }

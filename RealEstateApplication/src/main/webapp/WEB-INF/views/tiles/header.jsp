@@ -39,6 +39,12 @@
 	            				<option value="${langItem}" ${langItem == selectedLang ? 'selected="selected"' : ''}>${langItem}</option>
 	       					</c:forEach> </Select> </li>
 	       			</form>
+	       			<form method="POST" action="/setVal">
+						<li> <Select name="selectboxValue2" onchange="this.form.submit()">
+	       					<c:forEach var="valItem" items="${valuta}">
+	            				<option value="${valItem}" ${valItem == selectedVal ? 'selected="selected"' : ''}>${valItem}</option>
+	       					</c:forEach> </Select> </li>
+	       			</form>
 
 				</ul>
 			</nav>
