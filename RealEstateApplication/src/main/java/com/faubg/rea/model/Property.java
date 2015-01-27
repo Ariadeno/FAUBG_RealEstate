@@ -54,6 +54,8 @@ public class Property {
 	
 	private Set<Room> rooms = new HashSet<Room>(0);
 	private Set<Offer> offers = new HashSet<Offer>(0);
+
+	private Set<Follower> followers = new HashSet<Follower>(0);
 	private Set<Image> images = new HashSet<Image>(0);
 
 	public Property() {
@@ -185,6 +187,15 @@ public class Property {
 
 	public void setOffers(Set<Offer> offers) {
 		this.offers = offers;
+	}
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "property")
+	public Set<Follower> getFollowers() {
+		return followers;
+	}
+
+	public void setFollowers(Set<Follower> followers) {
+		this.followers = followers;
 	}
 
 	@Override

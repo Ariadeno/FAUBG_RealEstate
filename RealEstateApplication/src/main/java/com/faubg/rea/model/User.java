@@ -57,6 +57,7 @@ public class User {
 	private boolean isVerified;
 
 	private Set<Offer> offers = new HashSet<Offer>(0);
+	private Set<Follower> followedProperties = new HashSet<Follower>(0);
 
 	public User() {
 	}
@@ -198,5 +199,15 @@ public class User {
 	public void setOffers(Set<Offer> offers) {
 		this.offers = offers;
 	}
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+	public Set<Follower> getFollowedProperties() {
+		return followedProperties;
+	}
+
+	public void setFollowedProperties(Set<Follower> Followers) {
+		this.followedProperties = Followers;
+	}
+
 
 }
