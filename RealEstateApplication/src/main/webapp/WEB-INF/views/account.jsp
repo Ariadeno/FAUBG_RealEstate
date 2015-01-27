@@ -37,6 +37,7 @@
 				<div style="text-align: left;">
 					<h1>New Property</h1>
 					<hr />
+					
 					<form method="POST" action="/account/addProperty"
 						enctype="multipart/form-data">
 						<input type="text" name="address" value="" placeholder="Address"><br />

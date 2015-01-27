@@ -1,5 +1,6 @@
 package com.faubg.rea.model;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -12,6 +13,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.joda.money.Money;
+
+import com.coinbase.api.Coinbase;
+import com.coinbase.api.CoinbaseBuilder;
+import com.coinbase.api.entity.Button;
+import com.coinbase.api.entity.Order;
+import com.coinbase.api.exception.CoinbaseException;
 
 @Entity
 @Table(name = "offer", catalog = "aubg")
@@ -108,5 +116,27 @@ public class Offer {
 				.append(price).append("<br />");
 		htmlBuilder.append("Status: ").append(status).append("<br />");
 		return htmlBuilder.toString();
+	}
+	
+	public String bitCoinPaymentButton() throws CoinbaseException, IOException{
+		
+		Coinbase cb = new CoinbaseBuilder()
+        .withApiKey(System.getenv("irbVf5kzgOpTxK5W"), System.getenv("nnO0M8V6UGSP9TK5J8bk9CrJrs2gmThU"))
+        .build();
+	
+		Button buttonParams = new Button();
+		buttonParams.setText("Pay with Bitcoin"); 
+		buttonParams.setDescription("You are about to buy or rent the property on " + property.getAddress());
+		buttonParams.setPrice(Money.parse("USD 1.23"));
+		buttonParams.setName(property.getAddress());
+		buttonParams.setSuccessUrl("localhost:8080/");
+		
+		Button button = cb.createButton(buttonParams);
+		Order order = cb.createOrder(button);
+		
+		return button.getCode();
+		
+		
+		
 	}
 }
